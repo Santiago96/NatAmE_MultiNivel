@@ -19,9 +19,7 @@
         <class>edu.finalbases.entities.Persona</class>
         <class>edu.finalbases.entities.Categoria</class>
         <class>edu.finalbases.entities.SubCategoria</class>
-        
-    
-        
+        <class>edu.finalbases.entities.Contacto</class>
         
         <properties>
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />

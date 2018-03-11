@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import static javax.persistence.TemporalType.DATE;
 
 /**
  *
@@ -58,6 +60,8 @@ public class Persona implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idcargo")
     private Cargo cargo;
+    
+    @Temporal(DATE)
     @Column(name = "ultimaconexion")
     private Date ultimaConexion;
     
@@ -86,7 +90,9 @@ public class Persona implements Serializable {
         this.region = region;
         this.id_rep_ventas = id_rep_ventas;
     }
-    
+
+    public Persona() {
+    }
     
 
     public Long getIdPersona() {

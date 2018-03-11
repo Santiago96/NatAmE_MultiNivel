@@ -26,17 +26,17 @@ public class TipoContacto implements Serializable{
     @Column(name="idtipocontacto")
     @SequenceGenerator(name = "seq_tipo_contacto",sequenceName = "SEQ_TIPOCTO_IDTIPOCTO",allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_tipo_contacto")
-    private Long idTipoRepresentante;
+    private Long idTipoContacto;
     
     @Column(name="nombretipocontacto")
     private String nombreTipoContacto;
 
     public Long getIdTipoRepresentante() {
-        return idTipoRepresentante;
+        return idTipoContacto;
     }
 
     public void setIdTipoRepresentante(Long idTipoRepresentante) {
-        this.idTipoRepresentante = idTipoRepresentante;
+        this.idTipoContacto = idTipoRepresentante;
     }
 
     public String getNombreTipoContacto() {

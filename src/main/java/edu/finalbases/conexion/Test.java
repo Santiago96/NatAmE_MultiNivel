@@ -29,10 +29,7 @@ public class Test {
        
        System.out.println("Hay "+paises.size()+" paises");
        
-       crearRepresentante(paises.get(0),regiones.get(0),ciudades.get(0),tipoRepVentas.get(0));
-       
-       
-      
+       //crearRepresentante(paises.get(0),regiones.get(0),ciudades.get(0),tipoRepVentas.get(0));
        
    }
    

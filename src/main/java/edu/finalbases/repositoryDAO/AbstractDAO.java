@@ -20,6 +20,7 @@ public abstract class AbstractDAO {
     protected EntityTransaction eT;
 
     public AbstractDAO() {
+        manager = new Manager();
         em = manager.getEntityManager();
         eT = manager.getTransaction();
     }
