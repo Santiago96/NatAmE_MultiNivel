@@ -1,0 +1,6 @@
+edu\finalbases\conexion\Conexion.class
+edu\finalbases\webservices\ServiceRepVentas.class
+edu\finalbases\conexion\Manager.class
+edu\finalbases\entities\Pais.class
+edu\finalbases\webservices\Configuracion.class
+edu\finalbases\conexion\Test.class
