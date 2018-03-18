@@ -1,0 +1,9 @@
+start C:\Users\Santiago\Desktop\Bases\Llenado\PAIS.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\REGION.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\CIUDAD.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\BANCO.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\ESTADOVENTA.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\CARGO.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\TIPOCONTACTO.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\TIPOPAGO.sql;
+start C:\Users\Santiago\Desktop\Bases\Llenado\TIPOREPRESENTANTE.sql;
