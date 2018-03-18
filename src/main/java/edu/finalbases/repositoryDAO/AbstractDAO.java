@@ -5,9 +5,14 @@
  */
 package edu.finalbases.repositoryDAO;
 
-import edu.finalbases.conexion.Manager;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import edu.finalbases.conexion.Conexion;
+import java.sql.PreparedStatement;
+
+
 
 /**
  *
@@ -15,18 +20,19 @@ import javax.persistence.EntityTransaction;
  */
 public abstract class AbstractDAO {
     
-    protected Manager manager;
-    protected EntityManager em;
-    protected EntityTransaction eT;
+    protected Statement statement;
+    protected ResultSet resultSet;
+    protected Connection connection;
+    protected PreparedStatement prepStmt;
 
     public AbstractDAO() {
-        manager = new Manager();
-        em = manager.getEntityManager();
-        eT = manager.getTransaction();
+        
     }
     
     abstract public Object actualizar(Object object);
     abstract public void crear(Object object);
     abstract public boolean borrar(Object object);
+    
+    abstract public Object getEntityByResultSet(ResultSet resultSet) throws SQLException;
     
 }

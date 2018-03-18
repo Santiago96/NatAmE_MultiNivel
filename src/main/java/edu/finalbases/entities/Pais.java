@@ -5,40 +5,23 @@
  */
 package edu.finalbases.entities;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-
 /**
  *
  * @author Santiago
  */
-
-
-@Entity
-@Table(name="PAIS")
-public class Pais implements Serializable{
+public class Pais {
     
-    @Id
-    @Column(name="idpais")
-    @SequenceGenerator(name = "seq_pais",sequenceName = "SEQ_PAIS_IDPAIS",allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_pais")
-    private Long idPais;
-    
-    @Column(name="nombrepais")
+    private int idPais;
     private String nombrePais;
 
-    public Long getIdPais() {
+    public Pais() {
+    }
+
+    public int getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(Long idPais) {
+    public void setIdPais(int idPais) {
         this.idPais = idPais;
     }
 
@@ -49,4 +32,9 @@ public class Pais implements Serializable{
     public void setNombrePais(String nombrePais) {
         this.nombrePais = nombrePais;
     }
+    
+    
+    
+    
+    
 }

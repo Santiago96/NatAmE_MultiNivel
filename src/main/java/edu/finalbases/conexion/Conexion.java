@@ -10,27 +10,40 @@ import java.sql.DriverManager;
 
 /**
  *
- * @author Diego Castro
+ * @author Santiago Collazos
  */
 public class Conexion {
 
-    private static Connection connetion = null;
+    private static Conexion instance;
+    private Connection connetion = null;
     private static final String rulbd = "jdbc:oracle:thin:@localhost:1521:XE";
-    private static final String user = "basesfinal";
-    private static final String password = "123";
+    private boolean conexionLibre = true;
 
-    public static Connection getConexion(){
-        if (connetion == null) {
-            conectar();
+    private Conexion() {
+
+    }
+
+    public static Conexion getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Conexion();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        return instance;
+    }
+
+    public synchronized Connection getConexionBD() {
         return connetion;
     }
 
-    public static void desconectar() {
+    public void desconectar() {
         connetion = null;
     }
 
-    private static void conectar() {
+    public void conectar(String user, String password) {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             connetion = DriverManager.getConnection(rulbd, user, password);
@@ -44,4 +57,36 @@ public class Conexion {
             System.out.println(e.getMessage());
         }
     }
+
+    public synchronized Connection tomarConexion() {
+        while (!conexionLibre) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        conexionLibre = false;
+        notify();
+        return connetion;
+    }
+
+    /**
+     * Libera la conexion de la bases de datos para que ningun otro proceso la
+     * pueda utilizar
+     */
+    public synchronized void liberarConexion() {
+        while (conexionLibre) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        conexionLibre = true;
+        notify();
+    }
+
 }

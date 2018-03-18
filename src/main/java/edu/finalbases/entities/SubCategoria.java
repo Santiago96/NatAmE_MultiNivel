@@ -4,41 +4,24 @@
  * and open the template in the editor.
  */
 package edu.finalbases.entities;
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
 
 /**
  *
  * @author Santiago
  */
-
-
-@Entity
-@Table(name="SUBCATEGORIA")
-public class SubCategoria implements Serializable{
+public class SubCategoria {
     
-    
-    @Id
-    @Column(name="idsubcategoria")
-    @SequenceGenerator(name = "seq_sub_categoria",sequenceName = "SEQ_SUBCRIA_IDSUBCRIA",allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_sub_categoria")
-    private Long idSubCategoria;
-    
-    @Column(name="nombresubcategoria")
+    private int idSubCategoria;
     private String nombreSubCategoria;
 
-    public Long getIdSubCategoria() {
+    public SubCategoria() {
+    }
+
+    public int getIdSubCategoria() {
         return idSubCategoria;
     }
 
-    public void setIdSubCategoria(Long idSubCategoria) {
+    public void setIdSubCategoria(int idSubCategoria) {
         this.idSubCategoria = idSubCategoria;
     }
 
@@ -49,6 +32,7 @@ public class SubCategoria implements Serializable{
     public void setNombreSubCategoria(String nombreSubCategoria) {
         this.nombreSubCategoria = nombreSubCategoria;
     }
+    
     
     
     

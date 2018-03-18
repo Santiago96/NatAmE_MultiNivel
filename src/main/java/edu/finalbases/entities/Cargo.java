@@ -5,29 +5,18 @@
  */
 package edu.finalbases.entities;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 /**
  *
  * @author Santiago
  */
-@Entity
-@Table(name="CARGO")
-public class Cargo implements Serializable{
-    @Id
-    @Column(name="idcargo")
-    @SequenceGenerator(name = "seq_cargo",sequenceName = "SEQ_CARGO_IDCARGO",allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_cargo")
-    private Long idCargo;
+public class Cargo {
     
-    @Column(name="detallecargo")
+    
+    private Long idCargo;
     private String detalleCargo;
+
+    public Cargo() {
+    }
 
     public Long getIdCargo() {
         return idCargo;
@@ -43,5 +32,8 @@ public class Cargo implements Serializable{
 
     public void setDetalleCargo(String detalleCargo) {
         this.detalleCargo = detalleCargo;
-    }    
+    }
+    
+    
+    
 }

@@ -5,36 +5,25 @@
  */
 package edu.finalbases.entities;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 /**
  *
  * @author Santiago
  */
-@Entity
-@Table(name="BANCO")
-public class Banco implements Serializable {
+public class Banco {
     
-    @Id
-    @Column(name="idbanco")
-    @SequenceGenerator(name = "seq_banco",sequenceName = "SEQ_BANCO_IDBANCO",allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_banco")
-    private Long idBanco;
-    
-    @Column(name="nombrebanco")
+    private int idBanco;   
     private String nombreBanco;
 
-    public Long getIdBanco() {
+    public Banco() {
+    }
+    
+    
+
+    public int getIdBanco() {
         return idBanco;
     }
 
-    public void setIdBanco(Long idBanco) {
+    public void setIdBanco(int idBanco) {
         this.idBanco = idBanco;
     }
 
@@ -45,8 +34,4 @@ public class Banco implements Serializable {
     public void setNombreBanco(String nombreBanco) {
         this.nombreBanco = nombreBanco;
     }
-    
-    
-    
-    
 }

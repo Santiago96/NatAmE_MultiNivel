@@ -5,20 +5,25 @@
  */
 package edu.finalbases.repositoryDAO;
 
+
+import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Region;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Santiago
  */
-public class RegionDAO extends AbstractDAO{
+public class RegionDAO extends AbstractDAO {
 
     public RegionDAO() {
     }
 
-    
-    
     @Override
     public Object actualizar(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -33,10 +38,39 @@ public class RegionDAO extends AbstractDAO{
     public boolean borrar(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public List getRegiones(){
-        List<Region> regiones = (List<Region>)em.createQuery("SELECT R FROM "+ Region.class.getName()+" R").getResultList();
+
+    public List getRegiones() {
+
+        List<Region> regiones = new ArrayList();
+
+        try {
+            String strSQL = "SELECT * FROM REGION";
+            Connection conexion = Conexion.getInstance().getConexionBD();
+            prepStmt = conexion.prepareStatement(strSQL);
+            resultSet= prepStmt.executeQuery();
+
+            while (resultSet.next()) {
+                regiones.add((Region) getEntityByResultSet(resultSet));
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+
+            System.out.println("Error: " + ex.getMessage());
+
+        } finally {
+            
+        }
         return regiones;
     }
-    
+
+    @Override
+    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
+
+        Region region = new Region();
+        region.setIdRegion(resultSet.getInt("IDREGION"));
+        region.setNombreRegion(resultSet.getString("NOMBREREGION"));      
+                
+        return region;
+    }
+
 }

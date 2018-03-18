@@ -5,66 +5,28 @@
  */
 package edu.finalbases.entities;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import static javax.persistence.TemporalType.DATE;
 
 /**
  *
  * @author Santiago
  */
-@Entity
-@Table(name = "PERSONA")
-public class Persona implements Serializable {
-
-    @Id
-    @Column(name = "idpersona")
-    private Long idPersona;
-    @Column(name = "nombre")
-    private String nombre;
-    @Column(name = "apellido")
-    private String apellido;
-    @Column(name = "genero")
-    private char[] genero;
-    @ManyToOne
-    @JoinColumn(name = "idciudad")
-    private Ciudad ciudad;
-    @ManyToOne
-    @JoinColumn(name = "idpais")
-    private Pais pais;
-    @ManyToOne
-    @JoinColumn(name = "idregion")
-    private Region region;
-    @ManyToOne
-    @JoinColumn(name = "idtiporepresentante")
+public class Persona {
+    
+    private Long idPersona;    
+    private String nombre;    
+    private String apellido;    
+    private char[] genero;    
+    private Ciudad ciudad;    
+    private Pais pais;    
+    private Region region;        
     private TipoRepresentanteVentas tipoRepVentas;
-    
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name = "idrepresentantecliente")
     private Persona id_rep_ventas;
-    
-    @OneToMany(mappedBy="id_rep_ventas")
-    private Set<Persona> clientes = new HashSet<Persona>();
-    
-    @ManyToOne
-    @JoinColumn(name = "idcargo")
     private Cargo cargo;
-    
-    @Temporal(DATE)
-    @Column(name = "ultimaconexion")
     private Date ultimaConexion;
     
+    
+
     //Constructor para RepresentanteVentas
     public Persona(Long idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region, TipoRepresentanteVentas tipoRepVentas, Cargo cargo, Date ultimaConexion) {
         this.idPersona = idPersona;
@@ -90,10 +52,6 @@ public class Persona implements Serializable {
         this.region = region;
         this.id_rep_ventas = id_rep_ventas;
     }
-
-    public Persona() {
-    }
-    
 
     public Long getIdPersona() {
         return idPersona;
@@ -182,18 +140,7 @@ public class Persona implements Serializable {
     public void setUltimaConexion(Date ultimaConexion) {
         this.ultimaConexion = ultimaConexion;
     }
-
-    public Set<Persona> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(Set<Persona> clientes) {
-        this.clientes = clientes;
-    }
     
     
     
-    
-    
-
 }

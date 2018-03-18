@@ -5,25 +5,25 @@
  */
 package edu.finalbases.webservices;
 
+import edu.finalbases.business.FuncionesRepVentas;
+import edu.finalbases.conexion.Conexion;
+import edu.finalbases.repositoryDAO.PersonaDAO;
+import edu.finalbases.entities.Region;
 import edu.finalbases.entities.Ciudad;
 import edu.finalbases.entities.Pais;
 import edu.finalbases.entities.Persona;
-import edu.finalbases.entities.Region;
-import edu.finalbases.repositoryDAO.PersonaDAO;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import javax.jws.WebParam;
-import javax.persistence.EntityManager;
+import java.sql.Connection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.JSONObject;
+
+
+
 
 /**
  *
@@ -31,6 +31,9 @@ import org.json.JSONObject;
  */
 @Path("repVentas")
 public class ServiceRepVentas {
+    private Conexion conexion;
+    
+    private Connection cnx;
 
     @GET
     @Path("iniciar/{numDocumento}/{password}")
@@ -42,55 +45,37 @@ public class ServiceRepVentas {
 
         System.out.println("Numero Documento: " + numDocumento + " Password: " + password);
 
-        return Response.status(Response.Status.BAD_REQUEST).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
+        
+        Conexion.getInstance().conectar("finalbases", password);
+                
+        cnx = Conexion.getInstance().getConexionBD();
+
+        if (cnx!= null) {            
+            return Response.status(Response.Status.ACCEPTED).header("Solicitud aceptada", "El recurso fue reservado").build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
+        }
 
     }
 
     @POST
     @Path("crearCliente")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crearActivo(String data) {
+    public Response crearCliente(String data) {
         JSONObject informacion = new JSONObject(data);
+
         
-        PersonaDAO personaDAO = new PersonaDAO();
-        Persona p = crearPersona(informacion);
-        personaDAO.crear(p);
-        
-        return Response.status(Response.Status.BAD_REQUEST).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
+        FuncionesRepVentas.getFunciones().insertarPersona(informacion);        
 
-    }
-
-    private Persona crearPersona(JSONObject informacion) {
-                
-        Long cedula = informacion.getLong("cedula");
-        String nombre = informacion.getString("nombre");
-        String apellido = informacion.getString("apellido");
-        String genero = informacion.getString("genero");
-        Region region = getRegion(informacion.getInt("idRegion"));
-        Pais pais = getPais(informacion.getInt("idPais"));
-        Ciudad ciudad = getCiudad(informacion.getInt("idCiudad"));
-        Persona id_rep_ventas = getRepVentas(informacion.getLong("id_rep_ventas"));        
-
-        Persona p = new Persona(cedula,nombre,apellido,genero.toCharArray(), ciudad, pais, region, id_rep_ventas);
-
-        return p;
+        return Response.status(Response.Status.ACCEPTED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
 
     }
     
-    private Region getRegion(int idRegion){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
-    private Ciudad getCiudad(int idCiudad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private Pais getPais(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private Persona getRepVentas(long aLong) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
+    
+    
 
 }

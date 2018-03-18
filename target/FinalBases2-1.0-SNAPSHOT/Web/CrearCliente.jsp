@@ -10,7 +10,6 @@
 <%@page import="edu.finalbases.repositoryDAO.CiudadDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="edu.finalbases.entities.Pais"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="edu.finalbases.repositoryDAO.PaisDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,10 +18,10 @@
 <%
     PaisDAO paisDAO = new PaisDAO();
     List<Pais> paises = paisDAO.getPaises();
-    
+
     RegionDAO regionDAO = new RegionDAO();
     List<Region> regiones = regionDAO.getRegiones();
-    
+
     CiudadDAO ciudadDAO = new CiudadDAO();
     List<Ciudad> ciudades = ciudadDAO.getCiudades();
 
@@ -65,7 +64,7 @@
             <label for="region">Region:</label>
             <select name="region" class="form-control" id="region">
                 <%                    for (Region region : regiones) {
-                        out.print("<option value='" + region.getIdRegion()+ "'>" + region.getNombreRegion()+ "</option>");
+                        out.print("<option value='" + region.getIdRegion() + "'>" + region.getNombreRegion() + "</option>");
                     }
                 %>
             </select>
@@ -75,7 +74,7 @@
             <label for="ciudad">Ciudad:</label>
             <select name="ciudad" class="form-control" id="ciudad">
                 <%                    for (Ciudad ciudad : ciudades) {
-                        out.print("<option value='" + ciudad.getIdCiudad()+ "'>" + ciudad.getNombreCiudad()+ "</option>");
+                        out.print("<option value='" + ciudad.getIdCiudad() + "'>" + ciudad.getNombreCiudad() + "</option>");
                     }
                 %>
             </select>
@@ -104,19 +103,72 @@
 
 
 <script>
-    function limpiarCampos(){
+    function limpiarCampos() {
         console.log("Limpiando Campos");
-        
+        $('#cedula').val("");
+        $('#nombre').val("");
+        $('#apellido').val("");
+        $('#genero').val("");
+        $('#pais').val("");
+        $('#region').val("");
+        $('#ciudad').val("");
+
     }
-    
-    function capturarCampos(){
+
+    function capturarCampos() {
         console.log("Capturando Campos");
-        
+        var datos = {
+            cedula: $('#cedula').val(),
+            nombre: $('#nombre').val(),
+            apellido: $('#apellido').val(),
+            genero: $('#genero').val(),
+            pais: $('#pais').val(),
+            region: $('#region').val(),
+            ciudad: $('#ciudad').val()
+        };
+
+        return datos();
+
     }
-    function crearCliente(){
+    function crearCliente() {
         console.log("Creando Cliente");
+        var datos = capturarCampos();
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/api/repVentas/crearCliente',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(datos),
+            success: function (response) {
+                console.log(response);
+                if (response.textStatus == "Accepted") {
+                    console.log("Datos Correctos");
+                    ocultarModal();
+                    alert("Bienvenido");
+                } else {
+                    console.log("Datos incorrectos");
+                    alert("Datos incorrectos");
+                }
+            },
+            error: function (textStatus) {
+                console.log(textStatus);
+                if (textStatus.statusText == "Accepted") {
+                    console.log("Datos Correctos");
+                    ocultarModal();
+                    alert("Bienvenido");
+                } else {
+                    console.log("Datos incorrectos");
+                    alert("Datos incorrectos");
+                }
+
+            }
+        });
         
+        limpiarCampos();
+
     }
-    
-    
+
+
 </script>
