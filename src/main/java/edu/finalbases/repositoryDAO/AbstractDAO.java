@@ -30,8 +30,10 @@ public abstract class AbstractDAO {
     }
     
     abstract public Object actualizar(Object object);
-    abstract public void crear(Object object);
+    abstract public int crear(Object object);
     abstract public boolean borrar(Object object);
+    
+    abstract public Object getObjectById(int id);
     
     abstract public Object getEntityByResultSet(ResultSet resultSet) throws SQLException;
     

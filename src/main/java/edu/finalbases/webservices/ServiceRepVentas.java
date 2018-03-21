@@ -7,11 +7,6 @@ package edu.finalbases.webservices;
 
 import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.conexion.Conexion;
-import edu.finalbases.repositoryDAO.PersonaDAO;
-import edu.finalbases.entities.Region;
-import edu.finalbases.entities.Ciudad;
-import edu.finalbases.entities.Pais;
-import edu.finalbases.entities.Persona;
 import java.sql.Connection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -63,11 +58,13 @@ public class ServiceRepVentas {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crearCliente(String data) {
         JSONObject informacion = new JSONObject(data);
+        if(FuncionesRepVentas.getFunciones().insertarPersona(informacion)==1) {
+            return Response.status(Response.Status.CREATED).header("Solicitud correcta", "Cliente creado").build();
+        }else{
+            return Response.status(Response.Status.CONFLICT).header("Solicitud incorrecta", "No se pudo crear el cliente").build();
+        }
 
         
-        FuncionesRepVentas.getFunciones().insertarPersona(informacion);        
-
-        return Response.status(Response.Status.ACCEPTED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
 
     }
     

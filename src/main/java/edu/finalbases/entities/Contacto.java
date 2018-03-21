@@ -12,11 +12,17 @@ package edu.finalbases.entities;
 public class Contacto {
     
     private int idContacto;    
-    private Persona idPersona;    
+    private Persona persona;    
     private TipoContacto tipoContacto;
     private String detalleContacto;
 
     public Contacto() {
+    }
+
+    public Contacto(Persona persona, String detalleC, TipoContacto tipoC) {
+        this.persona = persona;
+        this.detalleContacto = detalleC;
+        this.tipoContacto = tipoC;
     }
 
     public int getIdContacto() {
@@ -28,11 +34,11 @@ public class Contacto {
     }
 
     public Persona getIdPersona() {
-        return idPersona;
+        return persona;
     }
 
     public void setIdPersona(Persona idPersona) {
-        this.idPersona = idPersona;
+        this.persona = idPersona;
     }
 
     public TipoContacto getTipoContacto() {

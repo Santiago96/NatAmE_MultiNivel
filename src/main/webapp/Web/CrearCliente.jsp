@@ -4,6 +4,8 @@
     Author     : Santiago
 --%>
 
+<%@page import="edu.finalbases.entities.TipoContacto"%>
+<%@page import="edu.finalbases.repositoryDAO.TipoContactoDAO"%>
 <%@page import="edu.finalbases.entities.Region"%>
 <%@page import="edu.finalbases.repositoryDAO.RegionDAO"%>
 <%@page import="edu.finalbases.entities.Ciudad"%>
@@ -25,6 +27,9 @@
     CiudadDAO ciudadDAO = new CiudadDAO();
     List<Ciudad> ciudades = ciudadDAO.getCiudades();
 
+    TipoContactoDAO tipoContactoDAO = new TipoContactoDAO();
+    List<TipoContacto> tiposContacto = tipoContactoDAO.getTiposContacto();
+
 %>
 
 <div class="container">
@@ -33,21 +38,21 @@
         <div id="ok"></div>
         <div class="form-group">
             <label for="cedula">Cédula:</label>
-            <input type="number" name="cedula" min="1" class="form-control" id="cedula">
+            <input type="number" name="cedula" min="1" class="form-control" id="cedula" placeholder="Cédula">
         </div>
         <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" class="form-control" id="nombre">
+            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
         </div>
 
         <div class="form-group">
             <label for="apellido">Apellido:</label>
-            <input type="text" name="apellido" class="form-control" id="apellido">
+            <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Apellido">
         </div>
 
         <div class="form-group">
             <label for="genero">Genero:</label>
-            <input type="text" name="genero" class="form-control" id="genero">
+            <input type="text" name="genero" class="form-control" id="genero" placeholder="Género">
         </div>
 
         <div class="form-group">
@@ -80,27 +85,53 @@
             </select>
         </div>
 
+        <div class="form-group">
+
+            <div class="col-xs-12">
+                <div class="col-md-3" >
+                    
+                    <label for="detalleC">Detalle Contacto: </label>
+                    <input type="text" name="detalleC" class="form-control" id="detalleC" placeholder="Detalle Contacto">
+
+                    <label for="tipoC">Tipo Contacto: </label>
+                    <select name="tipoC" class="form-control" id="tipoC">
+                        <%                    for (TipoContacto tipoContacto : tiposContacto) {
+                                out.print("<option value='" + tipoContacto.getIdTipoContacto()+ "'>" + tipoContacto.getNombreTipoContacto()+ "</option>");
+                            }
+                        %>
+                    </select>
+                    <br><br>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
         <!--<div class="form-group">
             <label for="date">Fecha de Compra:</label>
             <input size="16" type="date" name="date" id="date" class="form-control">
         </div>-->
-
-
-
+        <br><br><br>
         <hr>
-
-
-
-
 
         <input class="btn btn-success" type="button" onclick="crearCliente()" value = "Crear Cliente" />   
     </form>
+
+
+
 </div>
+
+
+
+
 
 
 <jsp:include page="secciones/Footer.jsp" />
 
-
+<br>
+<br>
 
 <script>
     function limpiarCampos() {
@@ -112,6 +143,7 @@
         $('#pais').val("");
         $('#region').val("");
         $('#ciudad').val("");
+        $('#detalleC').val("");
 
     }
 
@@ -124,15 +156,19 @@
             genero: $('#genero').val(),
             pais: $('#pais').val(),
             region: $('#region').val(),
-            ciudad: $('#ciudad').val()
+            ciudad: $('#ciudad').val(),
+            detalleC: $('#detalleC').val(),
+            tipoC: $('#tipoC').val(),
+            id_rep_ventas: '101'
         };
 
-        return datos();
+        return datos;
 
     }
     function crearCliente() {
         console.log("Creando Cliente");
         var datos = capturarCampos();
+        console.log(datos);
         $.ajax({
             type: 'POST',
             url: '${pageContext.request.contextPath}/api/repVentas/crearCliente',
@@ -143,29 +179,15 @@
             data: JSON.stringify(datos),
             success: function (response) {
                 console.log(response);
-                if (response.textStatus == "Accepted") {
-                    console.log("Datos Correctos");
-                    ocultarModal();
-                    alert("Bienvenido");
-                } else {
-                    console.log("Datos incorrectos");
-                    alert("Datos incorrectos");
-                }
+
             },
             error: function (textStatus) {
                 console.log(textStatus);
-                if (textStatus.statusText == "Accepted") {
-                    console.log("Datos Correctos");
-                    ocultarModal();
-                    alert("Bienvenido");
-                } else {
-                    console.log("Datos incorrectos");
-                    alert("Datos incorrectos");
-                }
+
 
             }
         });
-        
+
         limpiarCampos();
 
     }

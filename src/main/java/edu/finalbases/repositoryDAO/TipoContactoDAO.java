@@ -5,11 +5,9 @@
  */
 package edu.finalbases.repositoryDAO;
 
-
 import edu.finalbases.conexion.Conexion;
-import edu.finalbases.entities.Region;
+import edu.finalbases.entities.TipoContacto;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,10 +17,7 @@ import java.util.List;
  *
  * @author Santiago
  */
-public class RegionDAO extends AbstractDAO {
-
-    public RegionDAO() {
-    }
+public class TipoContactoDAO extends AbstractDAO{
 
     @Override
     public Object actualizar(Object object) {
@@ -39,52 +34,18 @@ public class RegionDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List getRegiones() {
-
-        List<Region> regiones = new ArrayList();
-
-        try {
-            String strSQL = "SELECT * FROM REGION";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
-            resultSet= prepStmt.executeQuery();
-
-            while (resultSet.next()) {
-                regiones.add((Region) getEntityByResultSet(resultSet));
-            }
-            prepStmt.close();
-        } catch (SQLException ex) {
-
-            System.out.println("Error: " + ex.getMessage());
-
-        } finally {
-            
-        }
-        return regiones;
-    }
-
     @Override
-    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-
-        Region region = new Region();
-        region.setIdRegion(resultSet.getInt("IDREGION"));
-        region.setNombreRegion(resultSet.getString("NOMBREREGION"));      
-                
-        return region;
-    }
-    
-     @Override
     public Object getObjectById(int id) {
-        Region region = null;
+        TipoContacto tipoContacto = null;
         try {
-            String strSQL = "SELECT * FROM REGION WHERE IDREGION = ?";
+            String strSQL = "SELECT * FROM TIPOCONTACTO WHERE IDTIPOCONTACTO = ?";
             Connection conexion = Conexion.getInstance().getConexionBD();
             prepStmt = conexion.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
             resultSet = prepStmt.executeQuery();            
 
             if(resultSet.next()) {
-                region = (Region) getEntityByResultSet(resultSet);
+                tipoContacto = (TipoContacto) getEntityByResultSet(resultSet);
             }
             prepStmt.close();
         } catch (SQLException ex) {
@@ -93,7 +54,45 @@ public class RegionDAO extends AbstractDAO {
 
         } finally {            
         }
-        return region;
+        return tipoContacto;
     }
 
+    @Override
+    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
+        TipoContacto tipoContacto = new TipoContacto();
+        
+        tipoContacto.setIdTipoContacto(resultSet.getInt("IDTIPOCONTACTO"));
+        tipoContacto.setNombreTipoContacto(resultSet.getString("NOMBRETIPOCONTACTO"));
+        
+        return tipoContacto;
+    }
+    
+    
+    public List getTiposContacto(){
+        List<TipoContacto> tipoContactos = new ArrayList();
+
+        try {
+            String strSQL = "SELECT * FROM TIPOCONTACTO";
+            Connection conexion = Conexion.getInstance().getConexionBD();
+            prepStmt = conexion.prepareStatement(strSQL);
+            resultSet = prepStmt.executeQuery();            
+
+            while(resultSet.next()) {
+                tipoContactos.add((TipoContacto) getEntityByResultSet(resultSet));
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+
+        } finally {
+            
+        }
+
+        return tipoContactos;
+    
+    }
+    
+    
+          
+    
 }

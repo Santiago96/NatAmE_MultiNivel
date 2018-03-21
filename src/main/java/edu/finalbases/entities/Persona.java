@@ -25,6 +25,13 @@ public class Persona {
     private Cargo cargo;
     private Date ultimaConexion;
     
+    private Contacto contacto;
+
+    public Persona() {
+    }
+    
+    
+    
     
 
     //Constructor para RepresentanteVentas
@@ -140,6 +147,16 @@ public class Persona {
     public void setUltimaConexion(Date ultimaConexion) {
         this.ultimaConexion = ultimaConexion;
     }
+
+    public Contacto getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(Contacto contacto) {
+        this.contacto = contacto;
+    }
+    
+    
     
     
     

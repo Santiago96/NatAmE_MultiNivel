@@ -10,10 +10,17 @@
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Web/css/estilos.css">
+        
 
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/jquery.validate.min.js"></script>
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/addContact.js"></script>
+        
+        
+        
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>NatAmE - Pagina Inicio</title>
     </head>

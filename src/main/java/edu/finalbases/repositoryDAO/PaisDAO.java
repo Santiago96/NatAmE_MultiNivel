@@ -7,9 +7,7 @@ package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Pais;
-import edu.finalbases.entities.Region;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class PaisDAO extends AbstractDAO {
     }
 
     @Override
-    public void crear(Object object) {
+    public int crear(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -63,12 +61,38 @@ public class PaisDAO extends AbstractDAO {
         return paises;
 
     }
+    
+    
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
         Pais pais = new Pais();        
         pais.setIdPais(resultSet.getInt("IDPAIS"));
         pais.setNombrePais(resultSet.getString("NOMBREPAIS"));
+        return pais;
+    }
+
+    @Override
+    public Object getObjectById(int id) {
+        
+        Pais pais = null;
+        try {
+            String strSQL = "SELECT * FROM PAIS WHERE IDPAIS = ?";
+            Connection conexion = Conexion.getInstance().getConexionBD();
+            prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.setInt(1,id);
+            resultSet = prepStmt.executeQuery();            
+
+            if(resultSet.next()) {
+                pais = (Pais) getEntityByResultSet(resultSet);
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+
+        } finally {            
+        }
         return pais;
     }
 

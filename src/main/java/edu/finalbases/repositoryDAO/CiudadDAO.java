@@ -30,7 +30,7 @@ public class CiudadDAO extends AbstractDAO{
     }
 
     @Override
-    public void crear(Object object) {
+    public int crear(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -69,6 +69,28 @@ public class CiudadDAO extends AbstractDAO{
         ciudad.setIdCiudad(resultSet.getInt("IDCIUDAD"));
         ciudad.setNombreCiudad(resultSet.getString("NOMBRECIUDAD"));       
         
+        return ciudad;
+    }
+     @Override
+    public Object getObjectById(int id) {
+        Ciudad ciudad = null;
+        try {
+            String strSQL = "SELECT * FROM CIUDAD WHERE IDCIUDAD = ?";
+            Connection conexion = Conexion.getInstance().getConexionBD();
+            prepStmt = conexion.prepareStatement(strSQL);
+            prepStmt.setInt(1,id);
+            resultSet = prepStmt.executeQuery();            
+
+            if(resultSet.next()) {
+                ciudad = (Ciudad) getEntityByResultSet(resultSet);
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+
+        } finally {            
+        }
         return ciudad;
     }
     
