@@ -4,7 +4,20 @@ Proyecto desarrollado bajo la tecnologia Java EE, empleando el IDE Netbeans.
 
 
 
-Se empleo la herramienta ORM Hibernate junto al estandar JPA.
-Se utiliza el motor de bases de datos Oracle.
+Se empleo arquitectura 3 capas, patron DAO y seguridad en la base de datos Oracle.
 
 
+
+
+Autores:
+
+Pablo Andrés Cubillos Arias
+Alvaro Abril Olis
+Santiago Collazos Barrera
+Sebastian Bonilla
+Juan Andrés Rojas Álvarez
+
+
+
+
+Universidad Distrital Francisco Jose de Caldas - 2018
