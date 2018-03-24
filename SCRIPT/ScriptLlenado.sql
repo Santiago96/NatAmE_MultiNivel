@@ -7,7 +7,6 @@ start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\CA
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TIPOCONTACTO.sql;
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TIPOPAGO.sql;
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TIPOREPRESENTANTE.sql;
-start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\PERSONA.sql;
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\CATEGORIA.sql;
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\SUBCATEGORIA.sql;
-
+start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\PERSONA.sql;
