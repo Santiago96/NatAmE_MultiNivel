@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 /**
  *
  * @author Santiago
@@ -96,23 +97,58 @@ public class PersonaDAO extends AbstractDAO {
 
         return representante;
     }
+    
+    public int updateConexion(Persona p) throws SQLException{
+        int resultado;       
+             
+        try {
+            
+            String strSQL = "UPDATE PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            prepStmt.setInt(2, p.getIdPersona());
+            
+
+            resultado = prepStmt.executeUpdate();
+            prepStmt.close();
+
+            
+
+        } catch (SQLException e) {
+            System.out.println("No pudo crear el cliente" + e.getMessage());
+            return 0;
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+        
+        return resultado;
+    
+    }
 
     public boolean crearUser(Persona p) throws SQLException {
-        
-        boolean resultado=false;
+        final String tableDefault = "";
+        final String tableTemporary = "";
+
+        boolean resultado = false;
         String user = subUser(p.getNombre(), p.getIdPersona());
         String pass = subPass(p.getIdPersona());
 
         try {
-            String ddlQuery = "CREATE USER " + user + " IDENTIFIED BY " + pass + "";
+            String ddlQuery = "CREATE USER " + user + " IDENTIFIED BY " + pass
+                    + "DEFAULT TABLESPACE "+tableDefault+" "
+                    + "TEMPORARY TABLESPACE "+tableTemporary+" "
+                    + "QUOTA 2M ON "+tableDefault+" "
+                    + "PASSWORD EXPIRE";
+                    
             System.out.println("Query DDL: " + ddlQuery);
-            connection = Conexion.getInstance().getConexionBD();            
+            connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(ddlQuery);
-            
-            resultado = prepStmt.execute();            
+
+            resultado = prepStmt.execute();
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error al crear user en DB: " + ex.getMessage());
             return false;
 
         } finally {

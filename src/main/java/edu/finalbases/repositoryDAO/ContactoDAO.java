@@ -30,12 +30,12 @@ public class ContactoDAO extends AbstractDAO{
         try {
 
             String strSQL = "INSERT INTO CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,'"+contacto.getDetalleContacto()+"')";
+            System.out.println(strSQL);
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, contacto.getTipoContacto().getIdTipoContacto());
             prepStmt.setInt(2, contacto.getIdPersona().getIdPersona());
-            //System.out.println("Tamaño: "+contacto.getDetalleContacto().length());
-            //prepStmt.setString(3, contacto.getDetalleContacto().toString());
+            prepStmt.setString(3, contacto.getDetalleContacto());
             
             
             int resultado = prepStmt.executeUpdate();

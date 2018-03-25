@@ -10,3 +10,6 @@ start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TI
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\CATEGORIA.sql;
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\SUBCATEGORIA.sql;
 start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\PERSONA.sql;
+start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\STOCK.sql;
+start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\PRODUCTO.sql;
+start C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\ITEM.sql;

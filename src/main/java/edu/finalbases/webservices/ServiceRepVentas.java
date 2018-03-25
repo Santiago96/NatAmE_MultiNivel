@@ -30,7 +30,7 @@ public class ServiceRepVentas {
     @GET
     @Path("iniciar/{usuario}/{password}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response iniciarSesion(@PathParam("usuario") String usuario, @PathParam("password") String passwordP) {
+    public Response iniciarSesion(@PathParam("usuario") String usuario, @PathParam("password") String passwordP) throws SQLException {
 
         String user = usuario;
         String password = passwordP;
@@ -38,6 +38,7 @@ public class ServiceRepVentas {
         Conexion.getInstance().conectar("finalbases", password);
         cnx = Conexion.getInstance().getConexionBD();
         if (cnx != null) {
+            FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));
             return Response.status(Response.Status.ACCEPTED).header("Solicitud aceptada", "El recurso fue reservado").build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();

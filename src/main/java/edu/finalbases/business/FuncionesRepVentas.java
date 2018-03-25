@@ -108,7 +108,16 @@ public class FuncionesRepVentas {
     private Contacto getContacto(Persona p,JSONObject informacion)throws SQLException {
         
         TipoContacto tipoC = (TipoContacto)tipoContactoDAO.getObjectById(informacion.getInt("tipoC"));        
-        return new Contacto(p, (String) informacion.get("detalleC"),tipoC);
+        return new Contacto(p, String.valueOf(informacion.get("detalleC")),tipoC);
+    }
+
+    public void updateConexion(String idPersona) throws SQLException {
+        Persona p = (Persona) personaDAO.getObjectById(101);
+        if(personaDAO.updateConexion(p)==1){
+            System.out.println("Se actualizo campo ultimaconexion");
+        }else{
+            System.out.println("No se actualizo campo ultimaconexion");
+        }
     }
     
 }

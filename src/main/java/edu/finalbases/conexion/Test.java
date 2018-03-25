@@ -22,7 +22,12 @@ public class Test {
         PersonaDAO pDAO = new PersonaDAO();
         Persona p = new Persona(1016065926, "Julian", "David", "M".toCharArray(), new Ciudad(), new Pais(), new Region(), null);
         
-        pDAO.crearUser(p);
+        boolean r =  pDAO.crearUser(p);
+        
+        System.out.println("Resultado create user: "+r);
+        
+        
+        
     }
     
 }
