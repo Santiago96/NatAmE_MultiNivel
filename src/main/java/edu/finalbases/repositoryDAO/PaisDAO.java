@@ -28,7 +28,7 @@ public class PaisDAO extends AbstractDAO {
     }
 
     @Override
-    public int crear(Object object) {
+    public int crear(Object object)throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -37,14 +37,14 @@ public class PaisDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List getPaises() {
+    public List getPaises() throws SQLException{
 
         List<Pais> paises = new ArrayList();
 
         try {
             String strSQL = "SELECT * FROM PAIS";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            
 
             while(resultSet.next()) {
@@ -55,7 +55,7 @@ public class PaisDAO extends AbstractDAO {
             System.out.println("Error: " + ex.getMessage());
 
         } finally {
-            
+            Conexion.getInstance().cerrarConexion();
         }
 
         return paises;
@@ -73,13 +73,13 @@ public class PaisDAO extends AbstractDAO {
     }
 
     @Override
-    public Object getObjectById(int id) {
+    public Object getObjectById(int id) throws SQLException{
         
         Pais pais = null;
         try {
             String strSQL = "SELECT * FROM PAIS WHERE IDPAIS = ?";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
             resultSet = prepStmt.executeQuery();            
 
@@ -91,7 +91,8 @@ public class PaisDAO extends AbstractDAO {
             System.out.println("Error: " + ex.getMessage());
             return null;
 
-        } finally {            
+        } finally {  
+            Conexion.getInstance().cerrarConexion();
         }
         return pais;
     }

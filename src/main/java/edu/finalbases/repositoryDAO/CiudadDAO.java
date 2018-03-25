@@ -30,7 +30,7 @@ public class CiudadDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object) {
+    public int crear(Object object)throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,13 +39,13 @@ public class CiudadDAO extends AbstractDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public List getCiudades(){
+    public List getCiudades() throws SQLException{
         List<Ciudad> ciudades = new ArrayList();
 
         try {
             String strSQL = "SELECT * FROM CIUDAD";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();
 
             while (resultSet.next()) {
@@ -57,7 +57,7 @@ public class CiudadDAO extends AbstractDAO{
             System.out.println("Error: " + ex.getMessage());
 
         } finally {
-            
+            Conexion.getInstance().cerrarConexion();
         }
 
         return ciudades;
@@ -72,12 +72,12 @@ public class CiudadDAO extends AbstractDAO{
         return ciudad;
     }
      @Override
-    public Object getObjectById(int id) {
+    public Object getObjectById(int id) throws SQLException{
         Ciudad ciudad = null;
         try {
             String strSQL = "SELECT * FROM CIUDAD WHERE IDCIUDAD = ?";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
             resultSet = prepStmt.executeQuery();            
 
@@ -89,7 +89,8 @@ public class CiudadDAO extends AbstractDAO{
             System.out.println("Error: " + ex.getMessage());
             return null;
 
-        } finally {            
+        } finally {   
+            Conexion.getInstance().cerrarConexion();
         }
         return ciudad;
     }
