@@ -7,6 +7,7 @@ package edu.finalbases.webservices;
 
 import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.Persona;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.ws.rs.Consumes;
@@ -14,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.JSONObject;
@@ -30,6 +32,7 @@ public class ServiceRepVentas {
     @GET
     @Path("iniciar/{usuario}/{password}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response iniciarSesion(@PathParam("usuario") String usuario, @PathParam("password") String passwordP) throws SQLException {
 
         String user = usuario;
@@ -39,7 +42,9 @@ public class ServiceRepVentas {
         cnx = Conexion.getInstance().getConexionBD();
         if (cnx != null) {
             FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));
-            return Response.status(Response.Status.ACCEPTED).header("Solicitud aceptada", "El recurso fue reservado").build();
+            Persona p =  FuncionesRepVentas.getFunciones().getUser(user.substring(1));
+            FuncionesRepVentas.getFunciones().setUserSession(p);
+            return Response.ok(p).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
         }

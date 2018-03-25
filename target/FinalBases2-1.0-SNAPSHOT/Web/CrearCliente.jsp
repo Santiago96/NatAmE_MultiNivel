@@ -4,6 +4,8 @@
     Author     : Santiago
 --%>
 
+<%@page import="edu.finalbases.business.FuncionesRepVentas"%>
+<%@page import="edu.finalbases.entities.Persona"%>
 <%@page import="edu.finalbases.entities.TipoContacto"%>
 <%@page import="edu.finalbases.repositoryDAO.TipoContactoDAO"%>
 <%@page import="edu.finalbases.entities.Region"%>
@@ -29,6 +31,8 @@
 
     TipoContactoDAO tipoContactoDAO = new TipoContactoDAO();
     List<TipoContacto> tiposContacto = tipoContactoDAO.getTiposContacto();
+    
+    Persona p = FuncionesRepVentas.getFunciones().getUserSession();
 
 %>
 
@@ -161,7 +165,7 @@
             ciudad: $('#ciudad').val(),
             detalleC: $('#detalleC').val(),
             tipoC: $('#tipoC').val(),
-            id_rep_ventas: '101'
+            id_rep_ventas: <% out.print(p.getIdPersona()); %>
         };
 
         return datos;
@@ -180,12 +184,23 @@
             },
             data: JSON.stringify(datos),
             success: function (response) {
+                console.log("success ");
                 console.log(response);
-                
+                if(response.textStatus = "Conflict"){
+                    alert("Cliente creado");
+                }else{
+                    alert("Error al crear el cliente");
+                }
 
             },
             error: function (textStatus) {
+                console.log("error ");
                 console.log(textStatus);
+                if(textStatus.textStatus = "Conflict"){
+                    alert("Cliente creado");
+                }else{
+                    alert("Error al crear el cliente");
+                }
 
 
             }

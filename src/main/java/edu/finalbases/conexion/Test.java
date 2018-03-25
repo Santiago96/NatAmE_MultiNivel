@@ -21,7 +21,7 @@ public class Test {
     public static void main(String[] args) throws SQLException{
         PersonaDAO pDAO = new PersonaDAO();
         Persona p = new Persona(1016065926, "Julian", "David", "M".toCharArray(), new Ciudad(), new Pais(), new Region(), null);
-        
+        Conexion.getInstance().conectar("multinivel", "finalbases");
         boolean r =  pDAO.crearUser(p);
         
         System.out.println("Resultado create user: "+r);

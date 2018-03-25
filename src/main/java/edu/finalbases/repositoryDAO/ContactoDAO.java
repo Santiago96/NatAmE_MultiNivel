@@ -29,7 +29,7 @@ public class ContactoDAO extends AbstractDAO{
         Contacto contacto = (Contacto)object;
         try {
 
-            String strSQL = "INSERT INTO CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,'"+contacto.getDetalleContacto()+"')";
+            String strSQL = "INSERT INTO CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,?)";
             System.out.println(strSQL);
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
@@ -44,7 +44,7 @@ public class ContactoDAO extends AbstractDAO{
             return resultado;
             
         } catch (SQLException e) {
-            System.out.println("No pudo crear el contacto" + e.getMessage());
+            System.out.println("No pudo crear el contacto; " + e.getMessage());
             return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();

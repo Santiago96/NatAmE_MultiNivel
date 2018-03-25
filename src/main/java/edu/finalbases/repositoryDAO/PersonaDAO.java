@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author Santiago
@@ -97,23 +96,20 @@ public class PersonaDAO extends AbstractDAO {
 
         return representante;
     }
-    
-    public int updateConexion(Persona p) throws SQLException{
-        int resultado;       
-             
+
+    public int updateConexion(Persona p) throws SQLException {
+        int resultado;
+
         try {
-            
+
             String strSQL = "UPDATE PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
             prepStmt.setInt(2, p.getIdPersona());
-            
 
             resultado = prepStmt.executeUpdate();
             prepStmt.close();
-
-            
 
         } catch (SQLException e) {
             System.out.println("No pudo crear el cliente" + e.getMessage());
@@ -121,31 +117,39 @@ public class PersonaDAO extends AbstractDAO {
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-        
+
         return resultado;
-    
+
     }
 
     public boolean crearUser(Persona p) throws SQLException {
-        final String tableDefault = "";
-        final String tableTemporary = "";
+        final String tableDefault = "DEFRMUNDO";
+        final String tableTemporary = "TEMRMULTINIVEL";
 
-        boolean resultado = false;
+        boolean resultado = true;
         String user = subUser(p.getNombre(), p.getIdPersona());
         String pass = subPass(p.getIdPersona());
 
         try {
             String ddlQuery = "CREATE USER " + user + " IDENTIFIED BY " + pass
-                    + "DEFAULT TABLESPACE "+tableDefault+" "
-                    + "TEMPORARY TABLESPACE "+tableTemporary+" "
-                    + "QUOTA 2M ON "+tableDefault+" "
-                    + "PASSWORD EXPIRE";
-                    
+                    + " DEFAULT TABLESPACE " + tableDefault + " "
+                    + "TEMPORARY TABLESPACE " + tableTemporary;
+
             System.out.println("Query DDL: " + ddlQuery);
-            connection = Conexion.getInstance().getConexionBD();
+            /*connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(ddlQuery);
 
-            resultado = prepStmt.execute();
+            resultado = prepStmt.execute();*/
+            
+            /*if (!resultado) {
+                String ddlPrivileges = "";
+
+                System.out.println("Query DDL Privileges: " + ddlPrivileges);
+                connection = Conexion.getInstance().getConexionBD();
+                prepStmt = connection.prepareStatement(ddlPrivileges);
+
+                resultado = prepStmt.execute();
+            }*/
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());

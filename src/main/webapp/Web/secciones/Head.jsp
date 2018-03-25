@@ -104,6 +104,9 @@
             </div>
 
             <script>
+                
+                var idRepresentante;
+                
                 function iniciarSesion() {
                     console.log("Iniciar Sesión");
 
@@ -118,10 +121,12 @@
                         dataType: "json",
                         success: function (response) {
                             console.log(response);
-                            if (response.textStatus == "Accepted") {
+                            if (response.idPersona!=null) {
                                 console.log("Datos Correctos");
+                                idRepresentante = response.idPersona;
                                 ocultarModal();
-                                alert("Bienvenido");
+                                console.log("ID rep :"+idRepresentante);
+                                alert("Bienvenido "+response.nombre+" "+response.apellido);
                             } else {
                                 console.log("Datos incorrectos");
                                 alert("Datos incorrectos");
