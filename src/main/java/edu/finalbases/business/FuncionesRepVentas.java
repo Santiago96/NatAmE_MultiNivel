@@ -17,6 +17,7 @@ import edu.finalbases.repositoryDAO.PaisDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.RegionDAO;
 import edu.finalbases.repositoryDAO.TipoContactoDAO;
+import java.sql.SQLException;
 import org.json.JSONObject;
 
 /**
@@ -52,24 +53,29 @@ public class FuncionesRepVentas {
         return funciones;
     }
     
-    public int insertarPersona(JSONObject informacion){        
+    public int insertarPersona(JSONObject informacion)throws SQLException{        
         int r;
         Persona p = crearPersona(informacion);
-        r = personaDAO.crear(p);        
+        r = personaDAO.crear(p); 
+        System.out.println("Registrando cliente: "+r);
         if(r==1){//creación exitosa  -> se crean contactos
             Contacto c = getContacto(p,informacion);
             if(c!=null){
                 r = contactoDAO.crear(c);
+                if(r==1){//Crear usuario en la BD DDL
+                    personaDAO.crearUser(p);
+                }//Devolver lo guardado;
+                return 0;
+                
             }                
             return r;
         }else{//fallo
-        
-            return 0;
         }
+        return 0;
     }
     
-    private Persona crearPersona(JSONObject informacion) {
-        Long cedula = informacion.getLong("cedula");
+    private Persona crearPersona(JSONObject informacion) throws SQLException{
+        int cedula = informacion.getInt("cedula");
         String nombre = informacion.getString("nombre");
         String apellido = informacion.getString("apellido");
         String genero = informacion.getString("genero");
@@ -84,27 +90,26 @@ public class FuncionesRepVentas {
     
     
 
-    private Region getRegion(int idRegion) {
+    private Region getRegion(int idRegion) throws SQLException{
         return (Region) regionDAO.getObjectById(idRegion);
     }
 
-    private Ciudad getCiudad(int idCiudad) {
+    private Ciudad getCiudad(int idCiudad)throws SQLException {
         return (Ciudad) ciudadDAO.getObjectById(idCiudad);
     }
 
-    private Pais getPais(int idPais) {
+    private Pais getPais(int idPais) throws SQLException{
         return (Pais) paisDAO.getObjectById(idPais);
     }
 
-    private Persona getRepVentas(long idRepVentas) {
+    private Persona getRepVentas(long idRepVentas)throws SQLException{
         return (Persona) personaDAO.getObjectById((int)idRepVentas);
     }
 
-    private Contacto getContacto(Persona p,JSONObject informacion) {
+    private Contacto getContacto(Persona p,JSONObject informacion)throws SQLException {
         
-        TipoContacto tipoC = (TipoContacto)tipoContactoDAO.getObjectById(informacion.getInt("tipoC"));
-        
-        return new Contacto(p,informacion.getString("detalleC"),tipoC);
+        TipoContacto tipoC = (TipoContacto)tipoContactoDAO.getObjectById(informacion.getInt("tipoC"));        
+        return new Contacto(p, (String) informacion.get("detalleC"),tipoC);
     }
     
 }

@@ -25,7 +25,7 @@ public class TipoContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object) {
+    public int crear(Object object)throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -35,12 +35,12 @@ public class TipoContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) {
+    public Object getObjectById(int id) throws SQLException{
         TipoContacto tipoContacto = null;
         try {
             String strSQL = "SELECT * FROM TIPOCONTACTO WHERE IDTIPOCONTACTO = ?";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
             resultSet = prepStmt.executeQuery();            
 
@@ -53,6 +53,7 @@ public class TipoContactoDAO extends AbstractDAO{
             return null;
 
         } finally {            
+            Conexion.getInstance().cerrarConexion();
         }
         return tipoContacto;
     }
@@ -68,13 +69,13 @@ public class TipoContactoDAO extends AbstractDAO{
     }
     
     
-    public List getTiposContacto(){
+    public List getTiposContacto() throws SQLException{
         List<TipoContacto> tipoContactos = new ArrayList();
 
         try {
             String strSQL = "SELECT * FROM TIPOCONTACTO";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            
 
             while(resultSet.next()) {
@@ -85,7 +86,7 @@ public class TipoContactoDAO extends AbstractDAO{
             System.out.println("Error: " + ex.getMessage());
 
         } finally {
-            
+            Conexion.getInstance().cerrarConexion();
         }
 
         return tipoContactos;

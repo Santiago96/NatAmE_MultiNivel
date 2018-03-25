@@ -7,6 +7,7 @@ package edu.finalbases.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -87,6 +88,12 @@ public class Conexion {
 
         conexionLibre = true;
         notify();
+    }
+    
+    public void cerrarConexion() throws SQLException{
+        if(connetion!=null){
+            //connetion.close();
+        }
     }
 
 }

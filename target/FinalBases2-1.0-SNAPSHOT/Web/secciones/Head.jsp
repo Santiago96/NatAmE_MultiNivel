@@ -78,9 +78,9 @@
 
                                     <!-- Text input-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="usuario">Número de Documento</label>  
+                                        <label class="col-md-4 control-label" for="numDocumento">Usuario</label>  
                                         <div class="col-md-5">
-                                            <input type="number" name="numDocumento" id="numDocumento" min="1" placeholder="Número de Documento" class="form-control input-md" required="">
+                                            <input type="text" name="numDocumento" id="numDocumento" min="1" placeholder="Usuario" class="form-control input-md" required="">
                                         </div>
                                     </div>
 

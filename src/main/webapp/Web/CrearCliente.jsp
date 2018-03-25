@@ -90,9 +90,6 @@
             <div class="col-xs-12">
                 <div class="col-md-3" >
                     
-                    <label for="detalleC">Detalle Contacto: </label>
-                    <input type="text" name="detalleC" class="form-control" id="detalleC" placeholder="Detalle Contacto">
-
                     <label for="tipoC">Tipo Contacto: </label>
                     <select name="tipoC" class="form-control" id="tipoC">
                         <%                    for (TipoContacto tipoContacto : tiposContacto) {
@@ -100,6 +97,11 @@
                             }
                         %>
                     </select>
+                    
+                    <label for="detalleC">Detalle Contacto: </label>
+                    <input type="text" name="detalleC" class="form-control" id="detalleC" placeholder="Detalle Contacto">
+
+                    
                     <br><br>
 
                 </div>
@@ -179,6 +181,7 @@
             data: JSON.stringify(datos),
             success: function (response) {
                 console.log(response);
+                
 
             },
             error: function (textStatus) {
