@@ -69,7 +69,6 @@ public class FuncionesRepVentas {
                 
             }                
             return r;
-        }else{//fallo
         }
         return 0;
     }
