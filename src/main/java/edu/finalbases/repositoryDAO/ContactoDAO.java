@@ -10,6 +10,8 @@ import edu.finalbases.entities.Contacto;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,16 +25,17 @@ public class ContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object) {
+    public int crear(Object object)throws SQLException {
         Contacto contacto = (Contacto)object;
         try {
 
-            String strSQL = "INSERT INTO CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,?)";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            String strSQL = "INSERT INTO CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,'"+contacto.getDetalleContacto()+"')";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, contacto.getTipoContacto().getIdTipoContacto());
-            prepStmt.setLong(2, contacto.getIdPersona().getIdPersona());
-            prepStmt.setString(3, contacto.getDetalleContacto());
+            prepStmt.setInt(2, contacto.getIdPersona().getIdPersona());
+            //System.out.println("Tamaño: "+contacto.getDetalleContacto().length());
+            //prepStmt.setString(3, contacto.getDetalleContacto().toString());
             
             
             int resultado = prepStmt.executeUpdate();
@@ -44,6 +47,7 @@ public class ContactoDAO extends AbstractDAO{
             System.out.println("No pudo crear el contacto" + e.getMessage());
             return 0;
         } finally {
+            Conexion.getInstance().cerrarConexion();
             
         }
     }
@@ -54,7 +58,7 @@ public class ContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) {
+    public Object getObjectById(int id) throws SQLException{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +32,7 @@ public class RegionDAO extends AbstractDAO {
     }
 
     @Override
-    public int crear(Object object) {
+    public int crear(Object object)throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,14 +41,14 @@ public class RegionDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List getRegiones() {
+    public List getRegiones() throws SQLException{
 
         List<Region> regiones = new ArrayList();
 
         try {
             String strSQL = "SELECT * FROM REGION";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             resultSet= prepStmt.executeQuery();
 
             while (resultSet.next()) {
@@ -58,7 +60,7 @@ public class RegionDAO extends AbstractDAO {
             System.out.println("Error: " + ex.getMessage());
 
         } finally {
-            
+           Conexion.getInstance().cerrarConexion();
         }
         return regiones;
     }
@@ -74,12 +76,12 @@ public class RegionDAO extends AbstractDAO {
     }
     
      @Override
-    public Object getObjectById(int id) {
+    public Object getObjectById(int id) throws SQLException{
         Region region = null;
         try {
             String strSQL = "SELECT * FROM REGION WHERE IDREGION = ?";
-            Connection conexion = Conexion.getInstance().getConexionBD();
-            prepStmt = conexion.prepareStatement(strSQL);
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
             resultSet = prepStmt.executeQuery();            
 
@@ -91,7 +93,9 @@ public class RegionDAO extends AbstractDAO {
             System.out.println("Error: " + ex.getMessage());
             return null;
 
-        } finally {            
+        } finally {    
+            Conexion.getInstance().cerrarConexion();
+            
         }
         return region;
     }

@@ -20,7 +20,7 @@ public class SubCategoriaDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object) {
+    public int crear(Object object)throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

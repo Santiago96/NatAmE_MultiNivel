@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import edu.finalbases.conexion.Conexion;
 import java.sql.PreparedStatement;
 
 
@@ -30,10 +29,10 @@ public abstract class AbstractDAO {
     }
     
     abstract public Object actualizar(Object object);
-    abstract public int crear(Object object);
+    abstract public int crear(Object object)throws SQLException;
     abstract public boolean borrar(Object object);
     
-    abstract public Object getObjectById(int id);
+    abstract public Object getObjectById(int id) throws SQLException;
     
     abstract public Object getEntityByResultSet(ResultSet resultSet) throws SQLException;
     

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Persona {
     
-    private Long idPersona;    
+    private int idPersona;    
     private String nombre;    
     private String apellido;    
     private char[] genero;    
@@ -35,7 +35,7 @@ public class Persona {
     
 
     //Constructor para RepresentanteVentas
-    public Persona(Long idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region, TipoRepresentanteVentas tipoRepVentas, Cargo cargo, Date ultimaConexion) {
+    public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region, TipoRepresentanteVentas tipoRepVentas, Cargo cargo, Date ultimaConexion) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -49,7 +49,7 @@ public class Persona {
     }
     
     //Constructor para clientes
-    public Persona(Long idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region,Persona id_rep_ventas) {
+    public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region,Persona id_rep_ventas) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -60,11 +60,11 @@ public class Persona {
         this.id_rep_ventas = id_rep_ventas;
     }
 
-    public Long getIdPersona() {
+    public int getIdPersona() {
         return idPersona;
     }
 
-    public void setIdPersona(Long idPersona) {
+    public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
 
