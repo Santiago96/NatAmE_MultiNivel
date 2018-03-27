@@ -29,7 +29,7 @@ public class ContactoDAO extends AbstractDAO{
         Contacto contacto = (Contacto)object;
         try {
 
-            String strSQL = "INSERT INTO CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,?)";
+            String strSQL = "INSERT INTO MULTINIVEL.CONTACTO(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (MULTINIVEL.SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,?)";
             System.out.println(strSQL);
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);

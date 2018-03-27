@@ -42,7 +42,7 @@ public class PaisDAO extends AbstractDAO {
         List<Pais> paises = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM PAIS";
+            String strSQL = "SELECT * FROM MULTINIVEL.PAIS";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            
@@ -77,7 +77,7 @@ public class PaisDAO extends AbstractDAO {
         
         Pais pais = null;
         try {
-            String strSQL = "SELECT * FROM PAIS WHERE IDPAIS = ?";
+            String strSQL = "SELECT * FROM MULTINIVEL.PAIS WHERE IDPAIS = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -88,7 +88,7 @@ public class PaisDAO extends AbstractDAO {
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error obteniendo pais: " + ex.getMessage());
             return null;
 
         } finally {  

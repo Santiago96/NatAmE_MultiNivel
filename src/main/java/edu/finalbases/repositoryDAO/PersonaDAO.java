@@ -28,7 +28,7 @@ public class PersonaDAO extends AbstractDAO {
         Persona persona = (Persona) object;
         try {
 
-            String strSQL = "INSERT INTO PERSONA(IDPERSONA,NOMBRE,APELLIDO,GENERO,IDCIUDAD,IDPAIS,IDREGION,IDREPRESENTANTECLIENTE) VALUES (?,?,?,?,?,?,?,?)";
+            String strSQL = "INSERT INTO MULTINIVEL.PERSONA(IDPERSONA,NOMBRE,APELLIDO,GENERO,IDCIUDAD,IDPAIS,IDREGION,IDREPRESENTANTECLIENTE) VALUES (?,?,?,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setLong(1, persona.getIdPersona());
@@ -75,25 +75,26 @@ public class PersonaDAO extends AbstractDAO {
     @Override
     public Object getObjectById(int id) throws SQLException {
         Persona representante = null;
+ 
         try {
-            String strSQL = "SELECT * FROM PERSONA WHERE IDPERSONA = ?";
+            String strSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
-            if (resultSet.next()) {
+            if (resultSet.next()) {                
                 representante = (Persona) getEntityByResultSet(resultSet);
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error buscando persona by id: " + ex.getMessage());
             return null;
 
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-
+        
         return representante;
     }
 
@@ -102,7 +103,7 @@ public class PersonaDAO extends AbstractDAO {
 
         try {
 
-            String strSQL = "UPDATE PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
+            String strSQL = "UPDATE MULTINIVEL.PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
@@ -112,7 +113,7 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.close();
 
         } catch (SQLException e) {
-            System.out.println("No pudo crear el cliente" + e.getMessage());
+            System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
             return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();

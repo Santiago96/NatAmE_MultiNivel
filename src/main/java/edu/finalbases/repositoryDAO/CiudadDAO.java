@@ -43,7 +43,7 @@ public class CiudadDAO extends AbstractDAO{
         List<Ciudad> ciudades = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM CIUDAD";
+            String strSQL = "SELECT * FROM MULTINIVEL.CIUDAD";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();
@@ -54,7 +54,7 @@ public class CiudadDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
 
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error obteniendo ciudad " + ex.getMessage());
 
         } finally {
             Conexion.getInstance().cerrarConexion();
@@ -75,7 +75,7 @@ public class CiudadDAO extends AbstractDAO{
     public Object getObjectById(int id) throws SQLException{
         Ciudad ciudad = null;
         try {
-            String strSQL = "SELECT * FROM CIUDAD WHERE IDCIUDAD = ?";
+            String strSQL = "SELECT * FROM MULTINIVEL.CIUDAD WHERE IDCIUDAD = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -86,7 +86,7 @@ public class CiudadDAO extends AbstractDAO{
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error obteniendo ciudad: " + ex.getMessage());
             return null;
 
         } finally {   

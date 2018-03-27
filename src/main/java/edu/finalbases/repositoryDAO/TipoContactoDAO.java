@@ -38,7 +38,7 @@ public class TipoContactoDAO extends AbstractDAO{
     public Object getObjectById(int id) throws SQLException{
         TipoContacto tipoContacto = null;
         try {
-            String strSQL = "SELECT * FROM TIPOCONTACTO WHERE IDTIPOCONTACTO = ?";
+            String strSQL = "SELECT * FROM MULTINIVEL.TIPOCONTACTO WHERE IDTIPOCONTACTO = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -73,7 +73,7 @@ public class TipoContactoDAO extends AbstractDAO{
         List<TipoContacto> tipoContactos = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM TIPOCONTACTO";
+            String strSQL = "SELECT * FROM MULTINIVEL.TIPOCONTACTO";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            

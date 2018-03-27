@@ -46,7 +46,7 @@ public class RegionDAO extends AbstractDAO {
         List<Region> regiones = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM REGION";
+            String strSQL = "SELECT * FROM MULTINIVEL.REGION";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet= prepStmt.executeQuery();
@@ -57,7 +57,7 @@ public class RegionDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
 
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error: obteniendo region " + ex.getMessage());
 
         } finally {
            Conexion.getInstance().cerrarConexion();
@@ -79,7 +79,7 @@ public class RegionDAO extends AbstractDAO {
     public Object getObjectById(int id) throws SQLException{
         Region region = null;
         try {
-            String strSQL = "SELECT * FROM REGION WHERE IDREGION = ?";
+            String strSQL = "SELECT * FROM MULTINIVEL.REGION WHERE IDREGION = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -90,7 +90,7 @@ public class RegionDAO extends AbstractDAO {
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Error obteniendo region " + ex.getMessage());
             return null;
 
         } finally {    

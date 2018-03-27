@@ -64,7 +64,7 @@ public class FuncionesRepVentas {
             if (informacion.has("detalleC")) {
                 Contacto c = getContacto(p, informacion);
                 if (c != null) {
-                    r = contactoDAO.crear(c);                    
+                    r = contactoDAO.crear(c);
                 }
             }
             return personaDAO.crearUser(p) ? 1 : 0;
@@ -109,17 +109,22 @@ public class FuncionesRepVentas {
     }
 
     public void updateConexion(String idPersona) throws SQLException {
-        System.out.println("Id Perssona: " + idPersona);
-        Persona p = (Persona) personaDAO.getObjectById(1018492522);
-        if (personaDAO.updateConexion(p) == 1) {
-            System.out.println("Se actualizo campo ultimaconexion");
-        } else {
-            System.out.println("No se actualizo campo ultimaconexion");
+        System.out.println("Id Persona: " + idPersona);
+        Persona p = (Persona) personaDAO.getObjectById(Integer.parseInt(idPersona));
+        if (p != null) {
+            if (personaDAO.updateConexion(p) == 1) {
+                System.out.println("Se actualizo campo ultimaconexion");
+            } else {
+                System.out.println("No se actualizo campo ultimaconexion");
+            }
+        }else{
+            System.out.println("Persona no encontrada");
         }
+
     }
 
     public Persona getUser(String substring) throws SQLException {
-        return (Persona) personaDAO.getObjectById(1018485092/*Integer.parseInt(substring)*/);
+        return (Persona) personaDAO.getObjectById(Integer.parseInt(substring));
     }
 
     public void setUserSession(Persona p) {

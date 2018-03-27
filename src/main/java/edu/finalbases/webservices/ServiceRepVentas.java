@@ -38,7 +38,7 @@ public class ServiceRepVentas {
         String user = usuario;
         String password = passwordP;
         System.out.println("Usuario: " + user + " Password: " + password);
-        Conexion.getInstance().conectar("finalbases", password);
+        Conexion.getInstance().conectar(user, password);
         cnx = Conexion.getInstance().getConexionBD();
         if (cnx != null) {
             FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));

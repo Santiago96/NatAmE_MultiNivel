@@ -145,12 +145,8 @@
         $('#cedula').val("");
         $('#nombre').val("");
         $('#apellido').val("");
-        $('#genero').val("");
-        $('#pais').val("");
-        $('#region').val("");
-        $('#ciudad').val("");
+        $('#genero').val("");       
         $('#detalleC').val("");
-
     }
 
     function capturarCampos() {
