@@ -137,20 +137,20 @@ public class PersonaDAO extends AbstractDAO {
                     + "TEMPORARY TABLESPACE " + tableTemporary;
 
             System.out.println("Query DDL: " + ddlQuery);
-            /*connection = Conexion.getInstance().getConexionBD();
+            connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(ddlQuery);
 
-            resultado = prepStmt.execute();*/
+            resultado = prepStmt.execute();
             
-            /*if (!resultado) {
-                String ddlPrivileges = "";
+            if (!resultado) {
+                String ddlPrivileges = "GRANT R_CLIENTE TO "+user;
 
                 System.out.println("Query DDL Privileges: " + ddlPrivileges);
                 connection = Conexion.getInstance().getConexionBD();
                 prepStmt = connection.prepareStatement(ddlPrivileges);
 
                 resultado = prepStmt.execute();
-            }*/
+            }
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());
@@ -160,7 +160,7 @@ public class PersonaDAO extends AbstractDAO {
             Conexion.getInstance().cerrarConexion();
         }
 
-        return resultado;
+        return !resultado;
     }
 
     private String subUser(String nombre, int idPersona) {

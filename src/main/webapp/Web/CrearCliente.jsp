@@ -4,6 +4,7 @@
     Author     : Santiago
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="edu.finalbases.business.FuncionesRepVentas"%>
 <%@page import="edu.finalbases.entities.Persona"%>
 <%@page import="edu.finalbases.entities.TipoContacto"%>

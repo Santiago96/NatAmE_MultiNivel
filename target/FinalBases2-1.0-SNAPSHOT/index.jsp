@@ -8,8 +8,16 @@
 <!DOCTYPE html>
 <jsp:include page="Web/secciones/Head.jsp" />
 
-<a href="Web/Login.jsp">Iniciar Sesión</a>
+<h2>Multinivel - "NatAmE"</h2>
 
-        <h2>Introducción de la empresa</h2>
+<hr>
+<div>
+    <p>
+        Empresa especializada en productos naturales y amigables con el medio ambiente, 
+        con presencia en diferentes paises, y un amplio catálogo de productos.
+
+    </p>
+
+</div>
 
 <jsp:include page="Web/secciones/Footer.jsp" />
