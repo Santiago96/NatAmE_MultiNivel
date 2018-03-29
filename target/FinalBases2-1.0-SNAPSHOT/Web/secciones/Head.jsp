@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Web/css/estilos.css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
-
+        
+        
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/jquery.validate.min.js"></script>
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/bootstrap.min.js"></script>

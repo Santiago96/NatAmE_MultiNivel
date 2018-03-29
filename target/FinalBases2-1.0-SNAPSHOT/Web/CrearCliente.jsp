@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <jsp:include page="secciones/Head.jsp" />
 
+
 <%
     PaisDAO paisDAO = new PaisDAO();
     List<Pais> paises = paisDAO.getPaises();

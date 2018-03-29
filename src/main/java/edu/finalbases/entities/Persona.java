@@ -29,11 +29,6 @@ public class Persona {
 
     public Persona() {
     }
-    
-    
-    
-    
-
     //Constructor para RepresentanteVentas
     public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region, TipoRepresentanteVentas tipoRepVentas, Cargo cargo, Date ultimaConexion) {
         this.idPersona = idPersona;

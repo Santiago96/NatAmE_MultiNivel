@@ -6,12 +6,6 @@
 package edu.finalbases.business;
 
 import edu.finalbases.repositoryDAO.CategoriaDAO;
-import edu.finalbases.repositoryDAO.CiudadDAO;
-import edu.finalbases.repositoryDAO.ContactoDAO;
-import edu.finalbases.repositoryDAO.PaisDAO;
-import edu.finalbases.repositoryDAO.PersonaDAO;
-import edu.finalbases.repositoryDAO.RegionDAO;
-import edu.finalbases.repositoryDAO.TipoContactoDAO;
 
 /**
  *
