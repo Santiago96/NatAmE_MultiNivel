@@ -1,0 +1,11 @@
+1. Vista Productos y dinamismo, Logo y presentacion general, modulo hacer compra - Sebas, Pablo - > Compra
+
+2. Validaciones Paises-Regiones-Ciudades - Juan -> Validacion
+3. Validaciones campos crear Cliente - Juan -> Validacion
+
+4. Manejo de Excepciones desde la BD. - Alvaro, Santiago ->Excepciones
+5. Terminar Documento y revisar documento- Santiago ->Excepciones
+
+
+Reunion Sabado 9 am.
+
