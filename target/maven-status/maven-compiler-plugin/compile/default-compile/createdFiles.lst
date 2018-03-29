@@ -16,6 +16,7 @@ edu\finalbases\entities\Producto.class
 edu\finalbases\repositoryDAO\VentaDAO.class
 edu\finalbases\entities\Contacto.class
 edu\finalbases\entities\Ciudad.class
+edu\finalbases\business\FuncionesCliente.class
 edu\finalbases\repositoryDAO\ContactoDAO.class
 edu\finalbases\repositoryDAO\TipoRepresentanteVentasDAO.class
 edu\finalbases\entities\Banco.class
@@ -39,3 +40,4 @@ edu\finalbases\entities\TipoContacto.class
 edu\finalbases\repositoryDAO\ProductoDAO.class
 edu\finalbases\repositoryDAO\SubCategoriaDAO.class
 edu\finalbases\webservices\Configuracion.class
+edu\finalbases\webservices\ServiceCliente.class

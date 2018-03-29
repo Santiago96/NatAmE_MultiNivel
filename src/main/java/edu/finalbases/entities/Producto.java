@@ -14,6 +14,8 @@ public class Producto {
     private int idProducto;
     private String nombreProducto;
     private Categoria categoria;
+    private SubCategoria subCategoria;
+    private String path;
 
     public Producto() {
     }
@@ -43,6 +45,24 @@ public class Producto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    public SubCategoria getSubCategoria() {
+        return subCategoria;
+    }
+
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
+    
     
     
     

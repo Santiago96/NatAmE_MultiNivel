@@ -13,7 +13,7 @@ public class Categoria {
     
     private int idCategoria;
     private String nombreCategoria;
-    private SubCategoria subCategoria;
+    
 
     public Categoria() {
     }
@@ -34,14 +34,6 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public SubCategoria getSubCategoria() {
-        return subCategoria;
-    }
-
-    public void setSubCategoria(SubCategoria subCategoria) {
-        this.subCategoria = subCategoria;
-    }
-    
     
     
 }

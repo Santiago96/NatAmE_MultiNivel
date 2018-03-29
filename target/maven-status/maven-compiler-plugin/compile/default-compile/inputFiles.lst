@@ -6,6 +6,7 @@ C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\final
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\BancoDAO.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\TipoContactoDAO.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\AbstractDAO.java
+C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\business\FuncionesCliente.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\entities\Item.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\entities\EstadoVenta.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\entities\Producto.java
@@ -36,6 +37,7 @@ C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\final
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\entities\Persona.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\ItemDAO.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\PersonaDAO.java
+C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\webservices\ServiceCliente.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\RegionDAO.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\entities\Region.java
 C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\src\main\java\edu\finalbases\repositoryDAO\VentaDAO.java

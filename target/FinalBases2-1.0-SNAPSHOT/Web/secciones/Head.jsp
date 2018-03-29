@@ -11,16 +11,13 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Web/css/estilos.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/jquery.validate.min.js"></script>
         <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/bootstrap.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/Web/js/addContact.js"></script>
-
-
-
-
+ 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>NatAmE - Pagina Inicio</title>
     </head>
@@ -194,7 +191,7 @@
                             if (response.idPersona != null) {
                                 console.log("Datos Correctos");
                                 idRepresentante = response.idPersona;
-                                ocultarModal();
+                                ocultarModalCliente();
                                 console.log("ID rep :" + idRepresentante);
                                 alert("Bienvenido Cliente " + response.nombre + " " + response.apellido);
                             } else {
@@ -206,7 +203,7 @@
                             console.log(textStatus);
                             if (textStatus.statusText == "Accepted") {
                                 console.log("Datos Correctos");
-                                ocultarModal();
+                                ocultarModalCliente();
                                 alert("Bienvenido");
                             } else {
                                 console.log("Datos incorrectos");
