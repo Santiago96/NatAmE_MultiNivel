@@ -3,98 +3,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.finalbases.repositoryDAO;
-
-import edu.finalbases.conexion.Conexion;
-import edu.finalbases.entities.Pais;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+package edu.finalbases.entities;
 
 /**
  *
  * @author Santiago
  */
-public class PaisDAO extends AbstractDAO {
+public class Region {
 
-    public PaisDAO() {
-    }
-
-    @Override
-    public Object actualizar(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int crear(Object object)throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean borrar(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public List getPaises() throws SQLException{
-
-        List<Pais> paises = new ArrayList();
-
-        try {
-            String strSQL = "SELECT * FROM MULTINIVEL.PAIS";
-            connection = Conexion.getInstance().getConexionBD();
-            prepStmt = connection.prepareStatement(strSQL);
-            resultSet = prepStmt.executeQuery();            
-
-            while(resultSet.next()) {
-                paises.add((Pais) getEntityByResultSet(resultSet));
-            }
-            prepStmt.close();
-        } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
-
-        } finally {
-            Conexion.getInstance().cerrarConexion();
-        }
-
-        return paises;
-
-    }
+    private int idRegion;
+    private String nombreRegion;
+    private Pais pais;
     
     
-
-    @Override
-    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-        Pais pais = new Pais();        
-        pais.setIdPais(resultSet.getInt("IDPAIS"));
-        pais.setNombrePais(resultSet.getString("NOMBREPAIS"));
-        return pais;
-    }
-
-    @Override
-    public Object getObjectById(int id) throws SQLException{
+    public Region() {
         
-        Pais pais = null;
-        try {
-            String strSQL = "SELECT * FROM MULTINIVEL.PAIS WHERE IDPAIS = ?";
-            connection = Conexion.getInstance().getConexionBD();
-            prepStmt = connection.prepareStatement(strSQL);
-            prepStmt.setInt(1,id);
-            resultSet = prepStmt.executeQuery();            
+    }
 
-            if(resultSet.next()) {
-                pais = (Pais) getEntityByResultSet(resultSet);
-            }
-            prepStmt.close();
-        } catch (SQLException ex) {
-            System.out.println("Error obteniendo pais: " + ex.getMessage());
-            return null;
+    public int getIdRegion() {
+        return idRegion;
+    }
 
-        } finally {  
-            Conexion.getInstance().cerrarConexion();
-        }
+    public void setIdRegion(int idRegion) {
+        this.idRegion = idRegion;
+    }
+
+    public String getNombreRegion() {
+        return nombreRegion;
+    }
+
+    public void setNombreRegion(String nombreRegion) {
+        this.nombreRegion = nombreRegion;
+    }
+
+    public Pais getPais() {
         return pais;
     }
 
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+    
+    
 }
