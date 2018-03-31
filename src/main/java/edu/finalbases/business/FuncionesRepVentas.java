@@ -135,4 +135,18 @@ public class FuncionesRepVentas {
         return userSession;
     }
 
+    public PaisDAO getPaisDAO() {
+        return paisDAO;
+    }
+
+    public RegionDAO getRegionDAO() {
+        return regionDAO;
+    }
+
+    public CiudadDAO getCiudadDAO() {
+        return ciudadDAO;
+    }
+    
+    
+
 }

@@ -42,7 +42,7 @@ public class PaisDAO extends AbstractDAO {
         List<Pais> paises = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.PAIS";
+            String strSQL = "SELECT * FROM MULTINIVEL.PAIS ORDER BY NOMBREPAIS";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            

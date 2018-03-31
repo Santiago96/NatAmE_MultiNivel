@@ -6,7 +6,9 @@
 package edu.finalbases.repositoryDAO;
 
 
+import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.Pais;
 import edu.finalbases.entities.Region;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +48,7 @@ public class RegionDAO extends AbstractDAO {
         List<Region> regiones = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.REGION";
+            String strSQL = "SELECT * FROM MULTINIVEL.REGION ORDER BY NOMBREREGION";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet= prepStmt.executeQuery();
@@ -70,7 +72,10 @@ public class RegionDAO extends AbstractDAO {
 
         Region region = new Region();
         region.setIdRegion(resultSet.getInt("IDREGION"));
-        region.setNombreRegion(resultSet.getString("NOMBREREGION"));      
+        region.setNombreRegion(resultSet.getString("NOMBREREGION"));  
+        //entonces aqui ya armamos el objeto pais, apartir del id que nos trae la consulta y ya todo lo manejamos por objeto
+        //en vista pues hariamos algo como region.getPais().getId(); y ahi iriamos validando.
+        region.setPais((Pais) FuncionesRepVentas.getFunciones().getPaisDAO().getObjectById(resultSet.getInt("IDPAIS"))); 
                 
         return region;
     }
