@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Web/css/estilos.css">

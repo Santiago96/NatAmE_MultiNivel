@@ -1,74 +1,4 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery Cesta-Feira: Cart Page</title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
-
-    <style type="text/css">
-
-        /*!
-         * Start Bootstrap - Heroic Features (https://startbootstrap.com/template-overviews/heroic-features)
-         * Copyright 2013-2017 Start Bootstrap
-         * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
-         */
-
-        body {
-            padding-top: 54px;
-        }
-
-        @media (min-width: 992px) {
-            body {
-                padding-top: 56px;
-            }
-        }
-
-        .cart-item-count {
-            position: relative;
-        }
-
-        .cesta-feira__num-items {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: #fff;
-            color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            top: -2px;
-            right: -12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="javascript:;">Cesta-Feira</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.jsp">Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link cart-item-count" href="cart.jsp" data-cesta-feira-items-count><span
-                            class="fa fa-shopping-cart"></span> Shopping Cart</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="secciones/cabeza.jsp" />
 
 <!-- Page Content -->
 <div class="container">
@@ -78,9 +8,9 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th class="text-center">Price</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th class="text-center">Precio</th>
                     <th class="text-center">Total</th>
                     <th> </th>
                 </tr>
@@ -102,16 +32,6 @@
 </div>
 <!-- /.container -->
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Cesta-Feira</p>
-    </div>
-    <!-- /.container -->
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jStorage/0.4.12/jstorage.min.js"></script>
-<script src="js/cesta-feira.js"></script>
 <script type="application/javascript">
 
   function initListaOrcamento() {
@@ -205,5 +125,6 @@
   })();
 
 </script>
-</body>
-</html>
+
+
+<jsp:include page="secciones/pies.jsp" />

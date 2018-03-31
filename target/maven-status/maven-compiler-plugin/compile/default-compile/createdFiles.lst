@@ -5,7 +5,6 @@ edu\finalbases\entities\SubCategoria.class
 edu\finalbases\entities\Item.class
 edu\finalbases\entities\Pais.class
 edu\finalbases\repositoryDAO\PaisDAO.class
-edu\finalbases\conexion\Test.class
 edu\finalbases\entities\Categoria.class
 edu\finalbases\repositoryDAO\StockDAO.class
 edu\finalbases\repositoryDAO\ItemDAO.class
@@ -17,7 +16,6 @@ edu\finalbases\repositoryDAO\VentaDAO.class
 edu\finalbases\entities\Contacto.class
 edu\finalbases\entities\Ciudad.class
 edu\finalbases\business\FuncionesCliente.class
-edu\finalbases\repositoryDAO\ContactoDAO.class
 edu\finalbases\repositoryDAO\TipoRepresentanteVentasDAO.class
 edu\finalbases\entities\Banco.class
 edu\finalbases\entities\Cargo.class

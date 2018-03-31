@@ -7,12 +7,14 @@ C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases d
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\Contacto.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\Item.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\repositoryDAO\CiudadDAO.java
+C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\Articulo.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\business\FuncionesCliente.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\business\FuncionesRepVentas.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\TipoPago.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\Producto.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\Region.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\entities\Pais.java
+C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\repositoryDAO\ArticuloDAO.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\repositoryDAO\ContactoDAO.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\conexion\Test.java
 C:\Users\jsbon\Dropbox\Universidad Distrital\Academia\9. Noveno Semestre\Bases de Datos II\Multinivel\NatAmE_MultiNivel\src\main\java\edu\finalbases\repositoryDAO\BancoDAO.java
