@@ -9,7 +9,7 @@ package edu.finalbases.entities;
  *
  * @author Santiago
  */
-public class Producto {
+public class Articulo {
     
     private int idProducto;
     private String nombreProducto;
@@ -17,8 +17,13 @@ public class Producto {
     private Categoria categoria;
     private SubCategoria subCategoria;
     private String path;
+    private Stock stock;
+    private Pais pais;
+    private Region region;
+    private int cantidad;
+    private float precioventa;
 
-    public Producto() {
+    public Articulo() {
     }
     
     
@@ -71,6 +76,44 @@ public class Producto {
         this.path = path;
     }
     
+     public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+    
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+     public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+    
+      public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    public float getPrecioVenta() {
+        return precioventa;
+    }
+
+    public void setPrecioVenta(float precioventa) {
+        this.precioventa = precioventa;
+    }
     
     
     

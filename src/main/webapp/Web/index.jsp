@@ -6,7 +6,13 @@
 
 <%@page import="edu.finalbases.entities.SubCategoria"%>
 <%@page import="edu.finalbases.repositoryDAO.SubCategoriaDAO"%>
+<%@page import="edu.finalbases.repositoryDAO.ProductoDAO"%>
+<%@page import="edu.finalbases.repositoryDAO.ItemDAO"%>
+<%@page import="edu.finalbases.repositoryDAO.ArticuloDAO"%>
 <%@page import="edu.finalbases.entities.Categoria"%>
+<%@page import="edu.finalbases.entities.Producto"%>
+<%@page import="edu.finalbases.entities.Item"%>
+<%@page import="edu.finalbases.entities.Articulo"%>
 <%@page import="java.util.List"%>
 <%@page import="edu.finalbases.repositoryDAO.CategoriaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,8 +22,51 @@
     List<Categoria> categorias = categoriaDAO.getCategorias();
     
     SubCategoriaDAO subCategoriaDAO = new SubCategoriaDAO();
-    List<SubCategoria> subCategorias = subCategoriaDAO.getSubCategorias();    
+    List<SubCategoria> subCategorias = subCategoriaDAO.getSubCategorias();  
+    
+    ProductoDAO productoDAO = new ProductoDAO();
+    List<Producto> productos = productoDAO.getProductos(); 
+    
+    ItemDAO itemDAO = new ItemDAO();
+    List<Item> items = itemDAO.getItems(1); 
+    
+    ArticuloDAO articuloDAO = new ArticuloDAO();
+    List<Articulo> articulos = articuloDAO.getProductos(1);
+    
+    
 
+%>
+
+<%!
+   public String tarjeta(int id, String nombre, float precio, String imagen, int cantidad){
+       String html = "";
+       
+       
+       html = html + "<div class=\"col-lg-3 col-md-6 mb-4\">";
+       html = html + "     <div class=\"card\">";
+       html = html + "         <img class=\"card-img-top\" src=\"" + imagen + "\" alt=\"\">";
+       html = html + "         <div class=\"card-body\">";
+       html = html + "             <h4 class=\"card-title\">" + nombre + "</h4>";
+       html = html + "             <p class=\"card-text\">Price: $" + String.valueOf(precio) +"</p>";
+       html = html + "         </div>";
+       html = html + "         <div class=\"card-footer\">";
+       html = html + "             <form action=\"\" class=\"form\" data-cesta-feira-form>";
+       html = html + "                 <div class=\"form-group\">";
+       html = html + "                     <input type=\"number\" min=\"1\" max=\""+ String.valueOf(cantidad) +"\" value=\"1\" class=\"form-control\" name=\"quantity\" data-cesta-feira-attribute placeholder=\"Quantity\">";
+       html = html + "                 </div>                     ";
+       html = html + "                 <input type=\"hidden\" value=\"" + nombre + "\" name=\"product_name\" data-cesta-feira-attribute=\"\">";
+       html = html + "                 <input type=\"hidden\" value=\"" + String.valueOf(precio) +"\" name=\"unity_price\" data-cesta-feira-attribute>";
+       html = html + "                 <input type=\"hidden\" value=\"" + id + "\" data-cesta-feira-item-id />";
+       html = html + "                 <input type=\"hidden\" value=\"shoe\" name=\"item_type\" data-cesta-feira-attribute>";
+       html = html + "                 <input type=\"submit\" class=\"btn btn-primary\" value=\"Add to Cart\"/>";
+       html = html + "             </form>";
+       html = html + "         </div>";
+       html = html + "     </div>";
+       html = html + " </div>";
+       
+       
+      return html;
+   }
 %>
 
 <!doctype html>
@@ -76,12 +125,6 @@
 
 </head>
 <body>
-    <% 
-    
-    out.print("Hola");
-    out.print(categorias.get(0).getNombreCategoria());
-    
-    %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="javascript:;">Cesta-Feira</a>
@@ -112,93 +155,13 @@
     <!-- Page Features -->
     <div class="row text-center">
 
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325?text=Product 1" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product 1</h4>
-                    <p class="card-text">Price: $23,02</p>
-                </div>
-                <div class="card-footer">
-                    <form action="" class="form" data-cesta-feira-form>
-                        <div class="form-group">
-                            <input type="number" min="1" value="1" class="form-control" name="quantity" data-cesta-feira-attribute placeholder="Quantity">
-                        </div>                     
-                        <input type="hidden" value="Product 1" name="product_name" data-cesta-feira-attribute="">
-                        <input type="hidden" value="23.02" name="unity_price" data-cesta-feira-attribute>
-                        <input type="hidden" value="1" data-cesta-feira-item-id />
-                        <input type="hidden" value="shoe" name="item_type" data-cesta-feira-attribute>
-                        <input type="submit" class="btn btn-primary" value="Add to Cart"/>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <% 
+    for(Articulo articulo : articulos ){
+        String[] imagenes = articulo.getPath().split(";");
         
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325?text=Product 1" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product 1</h4>
-                    <p class="card-text">Price: $23,02</p>
-                </div>
-                <div class="card-footer">
-                    <form action="" class="form" data-cesta-feira-form>
-                        <div class="form-group">
-                            <input type="number" min="1" value="1" class="form-control" name="quantity" data-cesta-feira-attribute placeholder="Quantity">
-                        </div>                     
-                        <input type="hidden" value="Product 1" name="product_name" data-cesta-feira-attribute="">
-                        <input type="hidden" value="23.02" name="unity_price" data-cesta-feira-attribute>
-                        <input type="hidden" value="2" data-cesta-feira-item-id />
-                        <input type="hidden" value="shoe" name="item_type" data-cesta-feira-attribute>
-                        <input type="submit" class="btn btn-primary" value="Add to Cart"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325?text=Product 1" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product 1</h4>
-                    <p class="card-text">Price: $23,02</p>
-                </div>
-                <div class="card-footer">
-                    <form action="" class="form" data-cesta-feira-form>
-                        <div class="form-group">
-                            <input type="number" min="1" value="1" class="form-control" name="quantity" data-cesta-feira-attribute placeholder="Quantity">
-                        </div>                     
-                        <input type="hidden" value="Product 1" name="product_name" data-cesta-feira-attribute="">
-                        <input type="hidden" value="23.02" name="unity_price" data-cesta-feira-attribute>
-                        <input type="hidden" value="3" data-cesta-feira-item-id />
-                        <input type="hidden" value="shoe" name="item_type" data-cesta-feira-attribute>
-                        <input type="submit" class="btn btn-primary" value="Add to Cart"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325?text=Product 1" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Product 1</h4>
-                    <p class="card-text">Price: $23,02</p>
-                </div>
-                <div class="card-footer">
-                    <form action="" class="form" data-cesta-feira-form>
-                        <div class="form-group">
-                            <input type="number" min="1" value="1" class="form-control" name="quantity" data-cesta-feira-attribute placeholder="Quantity">
-                        </div>                     
-                        <input type="hidden" value="Product 1" name="product_name" data-cesta-feira-attribute="">
-                        <input type="hidden" value="23.02" name="unity_price" data-cesta-feira-attribute>
-                        <input type="hidden" value="4" data-cesta-feira-item-id />
-                        <input type="hidden" value="shoe" name="item_type" data-cesta-feira-attribute>
-                        <input type="submit" class="btn btn-primary" value="Add to Cart"/>
-                    </form>
-                </div>
-            </div>
-        </div>
+        out.print(tarjeta(articulo.getIdProducto(),articulo.getNombreProducto(),articulo.getPrecioVenta(),imagenes[0],articulo.getCantidad()));
+    }
+    %>
 
     </div>
     <!-- /.row -->
