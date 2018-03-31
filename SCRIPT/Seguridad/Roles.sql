@@ -1,10 +1,5 @@
 /*Todo se ejecuta desde system*/
-/* Role para Multinivel */
-/*Se debe primero crear el user multinivel, para poder asignarle el rol*/
-CREATE ROLE R_MULTINIVEL;
 
-GRANT CONNECT,RESOURCE TO R_MULTINIVEL;
-GRANT R_MULTINIVEL TO MULTINIVEL;
 
 /* Role para Cliente */
 

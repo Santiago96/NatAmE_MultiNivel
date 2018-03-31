@@ -1,0 +1,10 @@
+
+/*Creació schema Multinivel */
+CREATE USER MULTINIVEL identified by finalbases DEFAULT TABLESPACE DEFMULTINIVEL TEMPORARY TABLESPACE TEMRMULTINIVEL QUOTA 10M ON DEFMULTINIVEL;
+
+/* Role para Multinivel */
+/*Se debe primero crear el user multinivel, para poder asignarle el rol*/
+CREATE ROLE R_MULTINIVEL;
+
+GRANT CONNECT,RESOURCE TO R_MULTINIVEL;
+GRANT R_MULTINIVEL TO MULTINIVEL;
