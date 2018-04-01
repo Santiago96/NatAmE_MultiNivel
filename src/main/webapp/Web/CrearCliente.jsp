@@ -55,7 +55,11 @@
         </div>
         <div class="form-group">
             <label for="genero">Genero:</label>
-            <input type="text" name="genero" class="form-control" id="genero" placeholder="Género" oninvalid="this.setCustomValidity('ingrese el Género del Cliente')" oninput="setCustomValidity('')" required>
+            <!--<input type="text" name="genero" class="form-control" id="genero" placeholder="Género" oninvalid="this.setCustomValidity('ingrese el Género del Cliente')" oninput="setCustomValidity('')" required>-->
+            <select name="genero" class="form-control" id="genero" oninvalid="this.setCustomValidity('Seleccione un Genero')" oninput="setCustomValidity('')" required>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="pais">Pais:</label>
@@ -116,7 +120,6 @@
                 out.print("{idpais:'" + pais.getIdPais() + "',nombre:'" + pais.getNombrePais() + "'},");
             }
         }%>;
-
     var regiones = <% out.print("[");
         Region region;
         for (int i = 0; i < regiones.size(); i++) {
@@ -127,7 +130,6 @@
                 out.print("{idregion:'" + region.getIdRegion() + "',nombre:'" + region.getNombreRegion() + "',idpais:'" + region.getPais().getIdPais() + "'},");
             }
         }%>;
-
     var ciudades = <% out.print("[");
         Ciudad ciudad;
         for (int i = 0; i < ciudades.size(); i++) {
@@ -138,10 +140,8 @@
                 out.print("{idciudad:'" + ciudad.getIdCiudad() + "',nombre:'" + ciudad.getNombreCiudad() + "',idregion:'" + ciudad.getRegion().getIdRegion() + "'},");
             }
         }%>;
-
     cargarRegiones();
     cargarCiudades();
-
     function cargarRegiones() {
         var pais = document.getElementById('pais');
         var region = document.getElementById('region');
@@ -201,6 +201,16 @@
         };
         return datos;
     }
+
+    /*function validarGenero() {
+     var genero = document.getElementById("genero").val();
+     if (genero === "F" || genero === "M") {
+     return true;
+     } else {
+     alert("Ingrese un Genero Valido (M o F)");
+     return false;
+     }
+     }*/
 
     function crearCliente() {
         console.log("Creando Cliente");
