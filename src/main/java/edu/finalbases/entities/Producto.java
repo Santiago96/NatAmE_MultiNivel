@@ -13,6 +13,7 @@ public class Producto {
     
     private int idProducto;
     private String nombreProducto;
+    private String descripcion;
     private Categoria categoria;
     private SubCategoria subCategoria;
     private String path;
@@ -36,6 +37,14 @@ public class Producto {
 
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripciion) {
+        this.descripcion = descripcion;
     }
 
     public Categoria getCategoria() {

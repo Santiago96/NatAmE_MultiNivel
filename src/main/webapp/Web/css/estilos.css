@@ -25,7 +25,6 @@ and open the template in the editor.
   font-size: 12px;
   font-weight: 200;
   background-color: #2e353d;
-  position: fixed;
   top: 0px;
   width: 300px;
   height: 100%;
@@ -164,3 +163,33 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+@media (min-width: 992px) {
+            body {
+                padding-top: 56px;
+            }
+        }
+
+        .card {
+            height: 100%;
+        }
+
+        .cart-item-count {
+            position: relative;
+        }
+
+        .cesta-feira__num-items{
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: -2px;
+            right: -12px;
+            font-size: 12px;
+            font-weight: bold;
+        }

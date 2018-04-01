@@ -16,6 +16,10 @@ public class Pais {
 
     public Pais() {
     }
+    
+    public Pais(int pais) {
+        this.idPais = pais;
+    }
 
     public int getIdPais() {
         return idPais;

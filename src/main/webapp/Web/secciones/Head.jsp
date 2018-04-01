@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Web/css/estilos.css">
@@ -43,6 +44,7 @@
                             <li><a href="${pageContext.request.contextPath}/Web/Productos.jsp">Catalogo de Productos</a></li>   
                             <li><a onclick="modalCliente();">Iniciar Sesión Cliente</a></li>                     
                             <li><a onclick="modal();">Iniciar Sesión Representante</a></li>                     
+                            <li class="nav-item"><a class="nav-link cart-item-count" href="Carrito.jsp" data-cesta-feira-items-count><span class="fa fa-shopping-cart"></span> Shopping Cart</a></li>
 
                             <!-- <li><a>Cerrar Sesión</a></li>  -->
 

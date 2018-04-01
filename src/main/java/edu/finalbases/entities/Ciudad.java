@@ -23,6 +23,9 @@ public class Ciudad {
     //si miremos
     public Ciudad() {
     }
+    public Ciudad(int ciudad) {
+        this.idCiudad = ciudad;
+    }
 
     public int getIdCiudad() {
         return idCiudad;

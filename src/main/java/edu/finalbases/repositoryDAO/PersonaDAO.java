@@ -6,7 +6,10 @@
 package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.Ciudad;
+import edu.finalbases.entities.Pais;
 import edu.finalbases.entities.Persona;
+import edu.finalbases.entities.Region;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +70,10 @@ public class PersonaDAO extends AbstractDAO {
         p.setNombre(resultSet.getString("NOMBRE"));
         p.setApellido(resultSet.getString("APELLIDO"));
         p.setGenero(resultSet.getString("GENERO").toCharArray());
-
+        p.setPais(new Pais(resultSet.getInt("IDPAIS")));
+        p.setRegion(new Region(resultSet.getInt("IDREGION")));
+        p.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));
+        
         return p;
 
     }

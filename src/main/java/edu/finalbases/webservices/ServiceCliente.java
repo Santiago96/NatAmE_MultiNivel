@@ -6,12 +6,14 @@
 package edu.finalbases.webservices;
 
 import edu.finalbases.business.FuncionesRepVentas;
+import edu.finalbases.business.FuncionesCliente;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Persona;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -41,7 +43,8 @@ public class ServiceCliente {
         
         if(cnx!=null){
             //FuncionesRepVentas.getFunciones().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
-            Persona pC =  FuncionesRepVentas.getFunciones().getUser(user.substring(1));
+            Persona pC =  FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
+            FuncionesCliente.getFuncionesCliente().setCliente(pC);
             
             return Response.ok(pC).build();
         
@@ -50,5 +53,22 @@ public class ServiceCliente {
         }
 
     }
+    
+    @POST
+    @Path("salirCliente")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response cerrarSesionCliente() throws SQLException {
+        System.out.println("Saliendo cliente");
+        FuncionesCliente.getFuncionesCliente().setCliente(null);
+        Conexion.getInstance().desconectar();
+        cnx = Conexion.getInstance().getConexionBD();
+        if (cnx == null) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no se pudo cerrar").build();
+        }
+
+    }
+    
     
 }
