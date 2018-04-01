@@ -5,7 +5,11 @@
  */
 package edu.finalbases.business;
 
+import edu.finalbases.entities.Persona;
 import edu.finalbases.repositoryDAO.CategoriaDAO;
+import edu.finalbases.repositoryDAO.PersonaDAO;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -13,13 +17,16 @@ import edu.finalbases.repositoryDAO.CategoriaDAO;
  */
 public class FuncionesCliente {
     
+    
     private static FuncionesCliente funcionesCliente;
     private CategoriaDAO categoriaDAO;
-
+    private Persona cliente;
+    private PersonaDAO personaDAO;
     
 
     private FuncionesCliente() {
-        categoriaDAO = new CategoriaDAO();  
+        categoriaDAO = new CategoriaDAO(); 
+        personaDAO = new PersonaDAO();
     }
     
     public static FuncionesCliente getFuncionesCliente() {
@@ -36,6 +43,19 @@ public class FuncionesCliente {
     public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
         this.categoriaDAO = categoriaDAO;
     }
+
+    public Persona getCliente(String substring) throws SQLException {
+        return (Persona) personaDAO.getObjectById(Integer.parseInt(substring));
+    }
+
+    public void setCliente(Persona cliente) {
+        this.cliente = cliente;
+    }
+    
+    public Persona getSessionCliente(){
+        return cliente;
+    }
+    
     
     
     
@@ -45,3 +65,4 @@ public class FuncionesCliente {
     
     
 }
+

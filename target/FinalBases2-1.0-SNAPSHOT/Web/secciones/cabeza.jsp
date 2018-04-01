@@ -3,13 +3,23 @@
     Created on : Mar 31, 2018, 10:52:30 AM
     Author     : jsbon
 --%>
+<%@page import="edu.finalbases.conexion.Conexion"%>
 <%@page import="edu.finalbases.business.FuncionesRepVentas"%>
 <%@page import="edu.finalbases.business.FuncionesCliente"%>
 <%@page import="edu.finalbases.entities.Persona"%>
 
-<%
+<%    
+                
     Persona p = FuncionesRepVentas.getFunciones().getUserSession();
-
+    Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
+    Persona persona;
+    
+    
+    if(p!=null){
+        persona=p;
+    }else{
+        persona=cliente;
+    }
 %>
 <!doctype html>
 <html>
@@ -95,23 +105,32 @@
             <ul id="menu" class="navbar-nav ml-auto">
                 
                 <%
-                if(p!=null){
+                if(persona!=null){
                     out.print("<li class=\"nav-item\"> ");
-                    out.print("<a class=\"nav-link\" href=\"index.jsp\">" + p.getNombre() + "</a> ");
+                    out.print("<a class=\"nav-link\" href=\"index.jsp\">" + persona.getNombre() + "</a> ");
                     out.print("</li>  ");
                     
-                    out.print("<li class=\"nav-item active\">");
+                    if(p!=null){
+                    out.print("<li class=\"nav-item\">");
                     out.print("    <a class=\"nav-link\" href=\"cliente.jsp\">Crear Cliente </a> ");
                     out.print("</li>");
+                    }
                     
-                    out.print("<li class=\"nav-item active\">");
-                    out.print("    <a class=\"nav-link\" href=\"catalogo.jsp\">Catalogo</a>");
+                    out.print("<li class=\"nav-item\">");
+                    out.print("    <a class=\"nav-link\" href=\"catalogo.jsp\">Catálogo</a>");
                     out.print("</li>");                    
                     out.print("<li class=\"nav-item\">");
                     out.print("<a class=\"nav-link cart-item-count\" href=\"cart.jsp\" data-cesta-feira-items-count><span class=\"fa fa-shopping-cart\"></span> Shopping Cart</a>");
                     out.print("</li>");
                     out.print("<li class=\"nav-item\">");
-                    out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\"#\">Salir </a> ");
+                    
+                    if(p!=null){
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\"#\">Salir </a> ");
+                    }else{
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=\"#\">Salir </a> ");
+                    }
+                    
+                    
                     out.print("</li>");
                     
                 }else{
@@ -303,7 +322,8 @@
                                 idRepresentante = response.idPersona;
                                 ocultarModalCliente();
                                 console.log("ID rep :" + idRepresentante);
-                                alert("Bienvenido Cliente " + response.nombre + " " + response.apellido);
+                                //alert("Bienvenido Cliente " + response.nombre + " " + response.apellido);
+                                location.reload();
                             } else {
                                 console.log("Datos incorrectos");
                                 alert("Datos incorrectos");
@@ -319,6 +339,28 @@
                                 console.log("Datos incorrectos");
                                 alert("Datos incorrectos");
                             }
+
+                        }
+                    });
+                }
+                
+                function cerrarSesionCliente() {
+                    console.log("Cerrar Sesion Cliente");
+
+
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '${pageContext.request.contextPath}/api/cliente/salirCliente/',
+                        dataType: "json",
+                        success: function (response) {
+                            
+                            console.log(response);
+                            window.location.replace("index.jsp");
+                        },
+                        error: function (textStatus) {
+                            console.log(textStatus); 
+                            window.location.replace("index.jsp");
 
                         }
                     });
@@ -352,7 +394,7 @@
    
    actual = function(id){     
        menu = document.getElementById("menu").childNodes;
-      
+       console.log(menu);
        for(i=0;i<menu.length;i++){
            menu[i].className = "nav-item";
        }

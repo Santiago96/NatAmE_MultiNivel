@@ -4,6 +4,10 @@
     Author     : Santiago
 --%>
 
+<%@page import="edu.finalbases.conexion.Conexion"%>
+<%@page import="edu.finalbases.business.FuncionesRepVentas"%>
+<%@page import="edu.finalbases.entities.Persona"%>
+<%@page import="edu.finalbases.business.FuncionesCliente"%>
 <%@page import="edu.finalbases.entities.SubCategoria"%>
 <%@page import="edu.finalbases.repositoryDAO.SubCategoriaDAO"%>
 <%@page import="edu.finalbases.repositoryDAO.ProductoDAO"%>
@@ -18,14 +22,30 @@
  
 
 <%
+         
+    
     CategoriaDAO categoriaDAO = new CategoriaDAO();
     List<Categoria> categorias = categoriaDAO.getCategorias();
     
     SubCategoriaDAO subCategoriaDAO = new SubCategoriaDAO();
-    List<SubCategoria> subCategorias = subCategoriaDAO.getSubCategorias();   
+    List<SubCategoria> subCategorias = subCategoriaDAO.getSubCategorias();  
     
-    ArticuloDAO articuloDAO = new ArticuloDAO();
-    List<Articulo> articulos = articuloDAO.getProductos(1);
+    Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
+    Persona rv = FuncionesRepVentas.getFunciones().getUserSession();
+        
+    
+     ArticuloDAO articuloDAO = new ArticuloDAO();
+     List<Articulo> articulos;
+    if(cliente==null){
+        articulos = articuloDAO.getProductos(rv.getRegion().getIdRegion());
+    }else{
+        articulos = articuloDAO.getProductos(cliente.getRegion().getIdRegion());
+    }
+    
+    
+     
+   
+    
     
     
 
@@ -172,7 +192,14 @@
         }
     };
     
-    actual(4);
+    <%
+    if(cliente==null){
+        out.print("actual(4);");
+    }else{
+        out.print("actual(3);");
+    }
+    %>
+    
     
 </script>
 

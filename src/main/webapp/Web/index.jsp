@@ -18,8 +18,24 @@
       <br>
       <%
           Persona p = FuncionesRepVentas.getFunciones().getUserSession();
-          if (p!=null)
-          out.print("<h4 class=\"mt-0\">Bienvenido de nuevo "+ p.getNombre() +"</h4>");            
+          Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
+            Persona persona;
+  
+          if(p!=null){
+                persona=p;
+          }else{
+                persona=cliente;
+          }
+          
+          if (persona!=null)
+          out.print("<h4 class=\"mt-0\">Bienvenido de nuevo "+ persona.getNombre() +"</h4>"); 
+          
+          if(p!=null){
+                out.print("<h5 class=\"mt-0\">Eres Representante de Ventas </h5>"); 
+          }
+          if(cliente!=null){
+                out.print("<h5 class=\"mt-0\">Eres Cliente</h5>"); 
+          }
       %>
       
       

@@ -1,3 +1,6 @@
+<%@page import="edu.finalbases.business.FuncionesRepVentas"%>
+<%@page import="edu.finalbases.business.FuncionesCliente"%>
+<%@page import="edu.finalbases.entities.Persona"%>
 <jsp:include page="secciones/cabeza.jsp" />
 
 <%@page import="edu.finalbases.entities.Articulo"%>
@@ -23,7 +26,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td><a href="javascript:;" class="btn btn-danger" data-cesta-feira-clear-basket>Clear Cart</a></td>
+                    <td><a href="javascript:;" class="btn btn-danger" data-cesta-feira-clear-basket>Limpiar</a></td>
                     <td>  </td>
                     <td>Total</td>
                     <td class="text-right" id="total-value"><strong>$0</strong></td>
@@ -47,6 +50,10 @@
           out.print(articulo.getIdProducto() + ":\"" + articulo.getPath().split(";")[0] + "\",");
       }
       out.print("};");
+      
+      Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
+      Persona rv = FuncionesRepVentas.getFunciones().getUserSession();
+    
   
   %>
   function initListaOrcamento() {
@@ -139,7 +146,13 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
   
- actual(5);
+ <%
+    if(cliente==null){
+        out.print("actual(5);");
+    }else{
+        out.print("actual(4);");
+    }
+    %>
 </script>
 
 
