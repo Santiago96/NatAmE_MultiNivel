@@ -67,6 +67,15 @@
 
 <jsp:include page="secciones/cabeza.jsp" />
  
+<style type="text/css">
+    .categoriaIcono{
+        float:right;
+        height:80px;
+        width: 80px;
+        position:relative;
+    }
+    
+</style>
 
 <!-- Page Content -->
 <div class="container">
@@ -74,7 +83,7 @@
     <!-- Nav Header -->
     <div class="navhe">
      
-            
+        <img src="img/1.png" class="categoriaIcono">
     
         <ul class="nav nav-tabs">
             
@@ -90,7 +99,7 @@
                     out.print("<div class=\"dropdown-menu\"> ");
                         for (SubCategoria subcategoria : subCategorias) {
                             if(categoria.getIdCategoria()==subcategoria.getCategoria().getIdCategoria())
-                            out.print("<a class=\"dropdown-item\" href=\"#\" onclick=\"mostrar("+String.valueOf(subcategoria.getIdSubCategoria())+",this);\">"+subcategoria.getNombreSubCategoria()+"</a> ");
+                            out.print("<a class=\"dropdown-item\" href=\"#\" onclick=\"mostrar("+String.valueOf(subcategoria.getIdSubCategoria())+",this);imagen("+ String.valueOf(categoria.getIdCategoria()) +");\">"+subcategoria.getNombreSubCategoria()+"</a> ");
                         }
                     
                     out.print("</div>");
@@ -116,6 +125,7 @@
     %>
 
     </div>
+    <br><br>
     <!-- /.row -->
 
 </div>
@@ -137,7 +147,13 @@
             document.getElementsByClassName('sub' + sub)[i].style.display = 'block';
         }
         
+        imagen = function(idcategoria){
+            document.getElementsByClassName("categoriaIcono")[0].setAttribute("src","img/"+idcategoria+".png");
+        
+            
+        };
     mostrar = function(sub,objeto){
+        
         var slides = document.getElementsByClassName("nav-link dropdown-toggle active");
         for(var i = 0; i < slides.length; i++){
             document.getElementsByClassName('nav-link dropdown-toggle active')[i].className = 'nav-link dropdown-toggle';
