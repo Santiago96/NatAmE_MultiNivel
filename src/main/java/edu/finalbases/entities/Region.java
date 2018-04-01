@@ -13,7 +13,7 @@ public class Region {
 
     private int idRegion;
     private String nombreRegion;
-    
+    private Pais pais;
     
     
     public Region() {
@@ -39,9 +39,12 @@ public class Region {
     public void setNombreRegion(String nombreRegion) {
         this.nombreRegion = nombreRegion;
     }
-    
-    
-    
-    
-    
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
 }

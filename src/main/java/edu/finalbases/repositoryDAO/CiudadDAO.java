@@ -5,8 +5,11 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Ciudad;
+import edu.finalbases.entities.Pais;
+import edu.finalbases.entities.Region;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,7 +46,7 @@ public class CiudadDAO extends AbstractDAO{
         List<Ciudad> ciudades = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.CIUDAD";
+            String strSQL = "SELECT * FROM MULTINIVEL.CIUDAD ORDER BY NOMBRECIUDAD";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();
@@ -63,11 +66,15 @@ public class CiudadDAO extends AbstractDAO{
         return ciudades;
     }
 
+    
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
         Ciudad ciudad = new Ciudad();
         ciudad.setIdCiudad(resultSet.getInt("IDCIUDAD"));
-        ciudad.setNombreCiudad(resultSet.getString("NOMBRECIUDAD"));       
+        ciudad.setNombreCiudad(resultSet.getString("NOMBRECIUDAD"));        
+        ciudad.setRegion((Region) FuncionesRepVentas.getFunciones().getRegionDAO().getObjectById(resultSet.getInt("IDREGION")));        
+        //ciudad.setPais((Pais) FuncionesRepVentas.getFunciones().getPaisDAO().getObjectById(resultSet.getInt("IDPAIS")));        
+        ciudad.setPais(ciudad.getRegion().getPais());
         
         return ciudad;
     }
