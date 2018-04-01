@@ -112,22 +112,22 @@
                     
                     if(p!=null){
                     out.print("<li class=\"nav-item\">");
-                    out.print("    <a class=\"nav-link\" href=\"cliente.jsp\">Crear Cliente </a> ");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/cliente.jsp\">Crear Cliente </a> ");
                     out.print("</li>");
                     }
                     
                     out.print("<li class=\"nav-item\">");
-                    out.print("    <a class=\"nav-link\" href=\"catalogo.jsp\">Catálogo</a>");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/catalogo.jsp\">Catálogo</a>");
                     out.print("</li>");                    
                     out.print("<li class=\"nav-item\">");
-                    out.print("<a class=\"nav-link cart-item-count\" href=\"cart.jsp\" data-cesta-feira-items-count><span class=\"fa fa-shopping-cart\"></span> Shopping Cart</a>");
+                    out.print("<a class=\"nav-link cart-item-count\" href=\""+request.getContextPath()+"/Web/cart.jsp\" data-cesta-feira-items-count><span class=\"fa fa-shopping-cart\"></span> Shopping Cart</a>");
                     out.print("</li>");
                     out.print("<li class=\"nav-item\">");
                     
                     if(p!=null){
-                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\"#\">Salir </a> ");
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\""+request.getContextPath()+"/\">Salir </a> ");
                     }else{
-                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=\"#\">Salir </a> ");
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=\""+request.getContextPath()+"/\">Salir </a> ");
                     }
                     
                     
@@ -135,7 +135,7 @@
                     
                 }else{
                     out.print("<li class=\"nav-item\"> ");
-                    out.print("<a class=\"nav-link\" href=\"index.jsp\"> Inicio </a> ");
+                    out.print("<a class=\"nav-link\" href=\""+request.getContextPath()+"\"> Inicio </a> ");
                     out.print("</li>  ");
                     
                     out.print("<li class=\"nav-item\"> ");

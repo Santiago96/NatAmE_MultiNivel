@@ -1,23 +1,56 @@
 <%-- 
     Document   : index
-    Created on : 25/02/2018, 07:14:41 PM
-    Author     : Santiago
+    Created on : Mar 31, 2018, 1:02:43 PM
+    Author     : jsbon
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<jsp:include page="Web/secciones/Head.jsp" />
 
-<h2>Multinivel - "NatAmE"</h2>
+<jsp:include page="Web/secciones/cabeza.jsp" />
+<%@page import="edu.finalbases.business.FuncionesRepVentas"%>
+<%@page import="edu.finalbases.business.FuncionesCliente"%>
+<%@page import="edu.finalbases.entities.Persona"%>
 
-<hr>
-<div>
-    <p>
+<br><br>
+<div class="container">
+<div class="media">
+  <div class="media-body">
+      <h3 class="mt-0">Multinivel - "NatAmE"</h3>
+      <br>
+      <%
+          Persona p = FuncionesRepVentas.getFunciones().getUserSession();
+          Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
+            Persona persona;
+  
+          if(p!=null){
+                persona=p;
+          }else{
+                persona=cliente;
+          }
+          
+          if (persona!=null)
+          out.print("<h4 class=\"mt-0\">Bienvenido de nuevo "+ persona.getNombre() +"</h4>"); 
+          
+          if(p!=null){
+                out.print("<h5 class=\"mt-0\">Eres Representante de Ventas </h5>"); 
+          }
+          if(cliente!=null){
+                out.print("<h5 class=\"mt-0\">Eres Cliente</h5>"); 
+          }
+      %>
+      
+      
+    
         Empresa especializada en productos naturales y amigables con el medio ambiente, 
-        con presencia en diferentes paises, y un amplio cat√°logo de productos.
-
-    </p>
-
+        con presencia en diferentes paises, y un amplio cat·logo de productos.
+  </div>
 </div>
+</div>
+<br><br>
 
-<jsp:include page="Web/secciones/Footer.jsp" />
+
+
+<script>    
+   actual(1);
+</script>
+<jsp:include page="Web/secciones/pies.jsp" />
+

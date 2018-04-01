@@ -81,6 +81,7 @@ public class ArticuloDAO extends AbstractDAO{
 
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.ARTICULO WHERE IDREGION = ?";
+            System.out.println(strSQL);
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,region);
