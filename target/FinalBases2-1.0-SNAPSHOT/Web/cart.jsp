@@ -1,5 +1,9 @@
 <jsp:include page="secciones/cabeza.jsp" />
 
+<%@page import="edu.finalbases.entities.Articulo"%>
+<%@page import="edu.finalbases.repositoryDAO.ArticuloDAO"%>
+<%@page import="java.util.List"%>
+
 <!-- Page Content -->
 <div class="container">
 
@@ -34,6 +38,17 @@
 
 <script type="application/javascript">
 
+  <%
+      ArticuloDAO articuloDAO = new ArticuloDAO();
+      List<Articulo> articulos = articuloDAO.getProductos(1);
+      
+      out.print("var obj = {");
+      for(Articulo articulo:articulos){
+          out.print(articulo.getIdProducto() + ":\"" + articulo.getPath().split(";")[0] + "\",");
+      }
+      out.print("};");
+  
+  %>
   function initListaOrcamento() {
     var products = $.CestaFeira({
         debug: true
@@ -61,7 +76,7 @@
       var totalValueTemp = parseFloat(data.unity_price) * parseInt(data.quantity);
 
       var $layout = "<tr id='product-"+ index +"'><td class='col-sm-8 col-md-6'><div class='media'>" +
-        "<img class='d-flex align-self-center mr-3' src='http://placehold.it/72x72?text="+index+"' alt=''>" +
+        "<img class='d-flex align-self-center mr-3' width=60px height=60px src='"+obj[index]+"' alt=''>" +
         "<div class='media-body'>" +
         "<h5 class='mt-0'>"+ data.product_name +"</h5>" +
         "</div></div></td><td class='col-sm-1 col-md-1' style='text-align: center'>" + data.quantity +
@@ -123,7 +138,8 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-
+  
+ actual(5);
 </script>
 
 

@@ -52,6 +52,23 @@ public class ServiceRepVentas {
     }
 
     @POST
+    @Path("salir")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response cerrarSesion() throws SQLException {
+
+        FuncionesRepVentas.getFunciones().setUserSession(null);
+        Conexion.getInstance().desconectar();
+        cnx = Conexion.getInstance().getConexionBD();
+        if (cnx == null) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no se pudo cerrar").build();
+        }
+
+    }
+
+    
+    @POST
     @Path("crearCliente")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crearCliente(String data) throws SQLException{

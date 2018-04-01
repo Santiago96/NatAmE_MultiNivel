@@ -206,7 +206,7 @@
 
     }
 
-
+    actual(3);
 </script>
 
 <jsp:include page="secciones/pies.jsp" />

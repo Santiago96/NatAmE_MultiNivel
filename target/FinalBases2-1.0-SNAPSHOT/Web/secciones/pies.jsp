@@ -34,7 +34,9 @@
 
 </script>
 
-<footer class="py-5 bg-dark">
+
+
+<footer class="foot py-2 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white">Bases de datos II - <a href="http://www.udistrital.edu.co">Universidad Distrital Francisco José de Caldas</a> - 2018</p>
     </div>
