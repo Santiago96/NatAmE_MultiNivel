@@ -5,8 +5,13 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.Banco;
+import edu.finalbases.entities.Categoria;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -36,7 +41,37 @@ public class BancoDAO extends AbstractDAO{
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Banco banco = new Banco();
+        banco.setIdBanco(resultSet.getInt("IDBANCO"));
+        banco.setNombreBanco(resultSet.getString("NOMBREBANCO"));
+        
+        return banco;
+    }
+    
+    public List getBancos() throws SQLException{
+        
+         List<Banco> bancos = new ArrayList();
+
+        try {
+            String strSQL = "SELECT * FROM MULTINIVEL.BANCO";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            resultSet = prepStmt.executeQuery();            
+
+            while(resultSet.next()) {
+                bancos.add((Banco) getEntityByResultSet(resultSet));
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo categorias: " + ex.getMessage());
+
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+
+        return bancos;
+    
+    
     }
     
 }
