@@ -121,7 +121,7 @@
             <br>
             
             
-            <button type="button" class="btn btn-success" onclick="pagar();">Pagar</button>
+            <button type="button" href="javascript:;" class="btn btn-success" data-cesta-feira-clear-basket onclick="pagar();">Pagar</button>
             <br><br><br>
           </div>
             <br><br><br>        
@@ -228,6 +228,7 @@
 
     });
 </script>
+
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -277,17 +278,14 @@
            tipo = 1;
        
        
-       $('#cart-items tr').each(function (index, value) {
-            $(value).fadeOut(500, function() {
-            $(this).remove();
-            updateTotalValue();
-            });
-       });
+       
        
         enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>,idtipopago:tipo,idbanco:strUser};
         
+        if(Object.keys(todosP).length>0)
         hacerCompra(enviar);
-        
+        else        
+        alert("NIngun producto seleccionado")
     }
     
     function hacerCompra(compra) {
