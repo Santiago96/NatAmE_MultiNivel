@@ -37,9 +37,8 @@ public class ServiceCompra {
     @Path("pagar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response crearActivo(String data) {
-        JSONObject informacion = new JSONObject(data);
-        System.out.println("Data: "+data);
+    public Response crearActivo(String data) throws SQLException {
+        JSONObject informacion = new JSONObject(data);        
         System.out.println("Informacion: "+informacion);
         
         if(FuncionesCompra.getFuncionesCompra().generarPago(informacion) == 1){
