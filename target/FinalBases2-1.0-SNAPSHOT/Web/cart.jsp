@@ -39,19 +39,16 @@
                         <td>Total</td>
                         <td class="text-right" id="total-value"><strong>$0</strong></td>
                         <td>  </td>
-                    </tr>
-                    <tr>
-                        <td><button type="button" class="btn btn-success" data-toggle="collapse" data-target="#bancos" onclick="pagar();">Pagar Tarjeta Crédito</button></td>
-                    </tr>
-                    <tr>
-                        <td><button type="button" class="btn btn-success" data-toggle="collapse" >Pagar Tarjeta Débito</button></td>
-                    </tr>
+                    </tr>                    
                 </tfoot>
             </table>
         </div>
     </div>
+    
+    
+    <div class="container">  
     <div class="row">
-        <div id="bancos" class="collapse">
+        <div id="bancos">
             <div class="form-group">
                 <label for="bancoS">Seleccione un Banco:</label>
                 <select name="bancoS" class="form-control" id="bancoSelect" required>
@@ -110,6 +107,21 @@
             <br><br>
         </div>
     </div>
+</div>                    
+                    
+                    
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" type="button">Tarjeta Credito</button>
+              <button class="btn btn-outline-secondary" type="button">Tarjeta Debito</button>
+            </div>            
+          </div>
+                    
+                    
+                    
+                    <button type="button" class="btn btn-success" onclick="pagar();">Pagar</button>
+                    <br><br><br>
+                    
 </div>
 </div>
 <!-- /.container -->
@@ -130,6 +142,8 @@
 
 
     %>
+    var totalValue = 0;
+    var productos;
     function initListaOrcamento() {
     var products = $.CestaFeira({
     debug: true
@@ -141,10 +155,11 @@
     console.log("No items in cart!");
     return;
     }
-
+    
+    
     function updateTotalValue() {
 
-    var totalValue = 0;
+    
 
     $.each($('[data-item-total-value]'), function (index, item) {
     totalValue += $(item).data('item-total-value');
@@ -170,7 +185,10 @@
     $cartItems.append($layout);
     }
 
-
+    
+    productos = products;
+    //console.log(productos);
+    
     $.each(products, function (index, value) {
     mountLayout(index, value);
     });
@@ -233,9 +251,22 @@
 
 <script>
     function pagar() {
-        var total = $('#total-value').val();
-        console.log("Total a pagar: " + total);
-
+        
+        var todosP = {};
+        var enviar = {};        
+        var contador = 0;
+        
+        for(pro in productos){
+            var produc = {id:pro,cantidad:productos[pro].quantity, preciototal:productos[pro].unity_price*productos[pro].quantity};            
+            todosP[contador] = produc;
+            contador++;
+        }
+        
+        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>};
+        
+        console.log(enviar);
+        
+        
     }
 
 </script>

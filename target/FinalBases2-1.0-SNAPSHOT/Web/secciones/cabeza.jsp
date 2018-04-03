@@ -394,7 +394,6 @@
    
    actual = function(id){     
        menu = document.getElementById("menu").childNodes;
-       console.log(menu);
        for(i=0;i<menu.length;i++){
            menu[i].className = "nav-item";
        }

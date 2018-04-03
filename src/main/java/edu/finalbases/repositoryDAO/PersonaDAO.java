@@ -74,6 +74,9 @@ public class PersonaDAO extends AbstractDAO {
         p.setRegion(new Region(resultSet.getInt("IDREGION")));
         p.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));
         
+        if(resultSet.getInt("IDREPRESENTANTECLIENTE")!=0)
+        p.setId_rep_ventas((Persona)getObjectById(resultSet.getInt("IDREPRESENTANTECLIENTE")));
+        
         return p;
 
     }
