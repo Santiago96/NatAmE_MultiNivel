@@ -280,7 +280,7 @@
        
        
        
-        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>,idtipopago:tipo,idbanco:strUser};
+        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); else out.print(rv.getIdPersona()); %>,idtipopago:tipo,idbanco:strUser};
         
         if(Object.keys(todosP).length>0)
         hacerCompra(enviar);

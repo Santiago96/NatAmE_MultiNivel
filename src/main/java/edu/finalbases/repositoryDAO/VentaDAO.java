@@ -68,7 +68,7 @@ public class VentaDAO extends AbstractDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public int getSequence() throws SQLException {
+    public int getSequenceIdVenta() throws SQLException {
         try {
 
             String strSQL = "SELECT MULTINIVEL.SEQ_VENTA_IDVENTA.CURRVAL AS IDVENTA FROM DUAL";

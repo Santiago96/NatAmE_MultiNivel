@@ -105,7 +105,7 @@ public class FuncionesCompra {
 
     private DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException {
         DetalleVenta detalleVenta = new DetalleVenta();
-        detalleVenta.setVenta(new Venta(ventaDAO.getSequence()));
+        detalleVenta.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
         detalleVenta.setProducto(new Producto(infoP.getInt("id")));
         detalleVenta.setCantidad(infoP.getInt("cantidad"));
         detalleVenta.setPrecioTotal(infoP.getDouble("preciototal"));
