@@ -59,16 +59,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="nameTitular">Nombre titular de la tarjeta</label>
                 <input type="text" name="nameTitular" class="form-control" id="nameTitular" placeholder="Nombre Titular" oninvalid="this.setCustomValidity('Ingrese un Nombre de titular Válido')" oninput="setCustomValidity('')" required>
             </div>
             <div class="form-group">
-                <label for="numTarjeta">Número de la tarjeta</label>
                 <input type="number" name="numTarjeta" class="form-control" id="numTarjeta" placeholder="Número Tarjeta" oninvalid="this.setCustomValidity('Ingrese un Número de tarjeta Válido')" oninput="setCustomValidity('')" required>
             </div>
 
             <div class="form-group">
-                <label for="cvv">CVV</label>
                 <input type="text" name="cvv" class="form-control" id="cvv" placeholder="CVV" oninvalid="this.setCustomValidity('Ingrese un CVV Válido')" oninput="setCustomValidity('')" required>
             </div>
             <div class="row">
@@ -115,7 +112,7 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                <input type="radio" id="tipo1" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo1">Tarjeta de Credito</label>
+                    <input type="radio" id="tipo1" name="tipoPago" checked aria-label="Radio button for following text input"><label for="tipo1">Tarjeta de Credito</label><br>
                 <input type="radio" id="tipo2" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo2">Tarjeta de Debito</label>
                 </div>
               </div>
@@ -268,9 +265,19 @@
             contador++;
         }
         
-        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>,idtipopago:1,idbanco:1};
+        var e = document.getElementById("bancoSelect");
+        var strUser = e.options[e.selectedIndex].value;
         
-        console.log(enviar);
+        var x=$("#tipo1").is(":checked");
+        console.log(x);
+        var tipo = 0;
+        if(x)
+           tipo = 2;
+        else
+           tipo = 1;
+       
+        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>,idtipopago:tipo,idbanco:strUser};
+        
         hacerCompra(enviar);
         
     }
