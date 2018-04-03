@@ -5,6 +5,9 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.EstadoVenta;
+import edu.finalbases.entities.Pais;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -30,13 +33,37 @@ public class EstadoVentaDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getObjectById(int id) throws SQLException {
+        EstadoVenta estadoVenta = null;
+        try {
+            String strSQL = "SELECT * FROM MULTINIVEL.ESTADOVENTA WHERE IDESTADOVENTA = ?";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setInt(1,id);
+            resultSet = prepStmt.executeQuery();            
+
+            if(resultSet.next()) {
+                estadoVenta = (EstadoVenta) getEntityByResultSet(resultSet);
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo pais: " + ex.getMessage());
+            return null;
+
+        } finally {  
+            Conexion.getInstance().cerrarConexion();
+        }
+        return estadoVenta;
     }
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EstadoVenta estadoVenta = new EstadoVenta();
+        estadoVenta.setIdEstadoVenta(resultSet.getInt("IDESTADOVENTA"));
+        estadoVenta.setNombreEstadoVenta(resultSet.getString("NOMBREESTADOVENTA"));
+        
+        return estadoVenta;
+        
     }
     
 }

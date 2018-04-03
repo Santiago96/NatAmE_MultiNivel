@@ -5,6 +5,9 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.DetalleVenta;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,7 +24,29 @@ public class DetalleVentaDAO extends AbstractDAO{
 
     @Override
     public int crear(Object object)throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DetalleVenta detalleVenta = (DetalleVenta) object;
+        try {
+
+            String strSQL = "INSERT INTO MULTINIVEL.DETALLEVENTA(IDDETALLEVENTA,IDPRODUCTO,IDVENTA,CANTIDAD,PRECIOTOTAL) VALUES (MULTINIVEL.SEQ_DETALLEVENTA_ID.NEXTVAL,?,?,?,?)";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setLong(1, detalleVenta.getProducto().getIdProducto());
+            prepStmt.setInt(2, detalleVenta.getVenta().getIdVenta());
+            prepStmt.setInt(3, detalleVenta.getCantidad());
+            prepStmt.setDouble(4, detalleVenta.getPrecioTotal());
+            
+
+            int resultado = prepStmt.executeUpdate();
+            prepStmt.close();
+
+            return resultado;
+
+        } catch (SQLException e) {
+            System.out.println("No pudo crear el cliente" + e.getMessage());
+            return 0;
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
     }
 
     @Override
