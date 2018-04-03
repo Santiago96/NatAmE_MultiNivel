@@ -108,11 +108,11 @@
                     
           
           
-          <div style="float:right; margin-right:175px">
+          <div style="float:right; margin-right:180px">
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                    <input type="radio" id="tipo1" name="tipoPago" checked aria-label="Radio button for following text input"><label for="tipo1">Tarjeta de Credito</label><br>
+                    <input type="radio" id="tipo1" name="tipoPago" checked aria-label="Radio button for following text input"><label for="tipo1">Tarjeta de Credito&nbsp;</label>
                 <input type="radio" id="tipo2" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo2">Tarjeta de Debito</label>
                 </div>
               </div>
@@ -275,6 +275,14 @@
            tipo = 2;
         else
            tipo = 1;
+       
+       
+       $('#cart-items tr').each(function (index, value) {
+            $(value).fadeOut(500, function() {
+            $(this).remove();
+            updateTotalValue();
+            });
+       });
        
         enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>,idtipopago:tipo,idbanco:strUser};
         
