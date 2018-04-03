@@ -39,10 +39,8 @@ public class ServiceCompra {
     @Produces(MediaType.APPLICATION_JSON)
     public Response crearActivo(String data) throws SQLException {
         JSONObject informacion = new JSONObject(data);        
-        System.out.println("Informacion: "+informacion);
-        
-        if(FuncionesCompra.getFuncionesCompra().generarPago(informacion) == 1){
-        
+        System.out.println("Informacion: "+informacion);        
+        if(FuncionesCompra.getFuncionesCompra().generarPago(informacion) == 1){        
             return Response.status(Response.Status.CREATED).header("Creado", "El recurso ha sido creado").build();
         }
         return Response.status(Response.Status.BAD_REQUEST).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();

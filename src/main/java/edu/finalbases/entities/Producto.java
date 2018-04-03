@@ -20,6 +20,10 @@ public class Producto {
 
     public Producto() {
     }
+
+    public Producto(int idP) {
+        this.idProducto = idP;
+    }
     
     
 

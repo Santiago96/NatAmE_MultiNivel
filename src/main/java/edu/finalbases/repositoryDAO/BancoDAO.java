@@ -7,7 +7,8 @@ package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Banco;
-import edu.finalbases.entities.Categoria;
+
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author Santiago
  */
-public class BancoDAO extends AbstractDAO{
+public class BancoDAO extends AbstractDAO {
 
     @Override
     public Object actualizar(Object object) {
@@ -25,7 +26,7 @@ public class BancoDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws SQLException {
+    public int crear(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -35,8 +36,27 @@ public class BancoDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getObjectById(int id) throws SQLException {
+        Banco banco = null;
+        try {
+            String strSQL = "SELECT * FROM MULTINIVEL.BANCO WHERE IDBANCO = ?";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setInt(1, id);
+            resultSet = prepStmt.executeQuery();
+
+            if (resultSet.next()) {
+                banco = (Banco) getEntityByResultSet(resultSet);
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo banco: " + ex.getMessage());
+            return null;
+
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+        return banco;
     }
 
     @Override
@@ -44,34 +64,33 @@ public class BancoDAO extends AbstractDAO{
         Banco banco = new Banco();
         banco.setIdBanco(resultSet.getInt("IDBANCO"));
         banco.setNombreBanco(resultSet.getString("NOMBREBANCO"));
-        
+
         return banco;
     }
-    
-    public List getBancos() throws SQLException{
-        
-         List<Banco> bancos = new ArrayList();
+
+    public List getBancos() throws SQLException {
+
+        List<Banco> bancos = new ArrayList();
 
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.BANCO";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
-            resultSet = prepStmt.executeQuery();            
+            resultSet = prepStmt.executeQuery();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 bancos.add((Banco) getEntityByResultSet(resultSet));
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error obteniendo categorias: " + ex.getMessage());
+            System.out.println("Error obteniendo banco: " + ex.getMessage());
 
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
 
         return bancos;
-    
-    
+
     }
-    
+
 }

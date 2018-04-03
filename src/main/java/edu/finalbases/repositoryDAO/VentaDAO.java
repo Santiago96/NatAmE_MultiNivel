@@ -6,6 +6,7 @@
 package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.TipoPago;
 import edu.finalbases.entities.Venta;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class VentaDAO extends AbstractDAO{
             String strSQL = "INSERT INTO MULTINIVEL.VENTA(IDVENTA,FECHAVENTA,TOTAL,IDREPRESENTANTE,IDCLIENTE,IDTIPOPAGO,IDBANCO,IDESTADOVENTA) VALUES (MULTINIVEL.SEQ_VENTA_IDVENTA.NEXTVAL,?,?,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
+            //prepStmt.setInt(1, venta.getIdVenta());
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
             prepStmt.setDouble(2, venta.getTotal());
             prepStmt.setInt(3, venta.getRepresentante().getIdPersona());
@@ -44,7 +46,7 @@ public class VentaDAO extends AbstractDAO{
             return resultado;
 
         } catch (SQLException e) {
-            System.out.println("No pudo crear el cliente" + e.getMessage());
+            System.out.println("No pudo crear insertar la venta: " + e.getMessage());
             return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
@@ -64,6 +66,33 @@ public class VentaDAO extends AbstractDAO{
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getSequence() throws SQLException {
+        try {
+
+            String strSQL = "SELECT MULTINIVEL.SEQ_VENTA_IDVENTA.CURRVAL AS IDVENTA FROM DUAL";
+            
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            
+            resultSet = prepStmt.executeQuery();
+            
+            if (resultSet.next()) {
+                return resultSet.getInt("IDVENTA");
+            }
+            
+            prepStmt.close();
+
+            
+
+        } catch (SQLException e) {
+            System.out.println("No pudo obtener la secuencia" + e.getMessage());
+            return 0;
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+        return 0;
     }
     
 }

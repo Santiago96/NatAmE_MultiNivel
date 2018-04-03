@@ -25,8 +25,21 @@ public class Venta {
     public Venta() {
     
     }
+    public Venta(int idVenta){
+        this.idVenta = idVenta;
+    }
 
+    public Venta(int idVenta,double total, Persona representante, Persona cliente, TipoPago tipoPago, Banco banco, EstadoVenta estadoVenta) {
+        this.idVenta = idVenta;
+        this.total = total;
+        this.representante = representante;
+        this.cliente = cliente;
+        this.tipoPago = tipoPago;
+        this.banco = banco;
+        this.estadoVenta = estadoVenta;
+    }
     public Venta(double total, Persona representante, Persona cliente, TipoPago tipoPago, Banco banco, EstadoVenta estadoVenta) {
+        
         this.total = total;
         this.representante = representante;
         this.cliente = cliente;

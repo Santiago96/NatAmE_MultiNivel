@@ -42,7 +42,7 @@ public class DetalleVentaDAO extends AbstractDAO{
             return resultado;
 
         } catch (SQLException e) {
-            System.out.println("No pudo crear el cliente" + e.getMessage());
+            System.out.println("No pudo crear insertar el detalle venta" + e.getMessage());
             return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();

@@ -47,7 +47,7 @@ public class EstadoVentaDAO extends AbstractDAO{
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error obteniendo pais: " + ex.getMessage());
+            System.out.println("Error obteniendo estado venta: " + ex.getMessage());
             return null;
 
         } finally {  
