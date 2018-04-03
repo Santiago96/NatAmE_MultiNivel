@@ -23,10 +23,17 @@ public class Venta {
     private EstadoVenta estadoVenta;
 
     public Venta() {
+    
     }
-    
-    
 
+    public Venta(double total, Persona representante, Persona cliente, TipoPago tipoPago, Banco banco, EstadoVenta estadoVenta) {
+        this.total = total;
+        this.representante = representante;
+        this.cliente = cliente;
+        this.tipoPago = tipoPago;
+        this.banco = banco;
+        this.estadoVenta = estadoVenta;
+    }
     public int getIdVenta() {
         return idVenta;
     }
