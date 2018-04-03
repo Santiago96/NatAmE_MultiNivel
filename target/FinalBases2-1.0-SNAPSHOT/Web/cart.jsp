@@ -44,10 +44,10 @@
             </table>
         </div>
     </div>
-    
+    <br>
     
     <div class="container">  
-    <div class="row">
+    <div class="row" style="display: flex; justify-content: flex-end; margin-right:175px">
         <div id="bancos">
             <div class="form-group">
                 <label for="bancoS">Seleccione un Banco:</label>
@@ -109,19 +109,25 @@
     </div>
 </div>                    
                     
-                    
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <button class="btn btn-outline-secondary" type="button">Tarjeta Credito</button>
-              <button class="btn btn-outline-secondary" type="button">Tarjeta Debito</button>
-            </div>            
+          
+          
+          <div style="float:right; margin-right:175px">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                <input type="radio" id="tipo1" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo1">Tarjeta de Credito</label>
+                <input type="radio" id="tipo2" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo2">Tarjeta de Debito</label>
+                </div>
+              </div>
+            </div>
+                  
+            <br>
+            
+            
+            <button type="button" class="btn btn-success" onclick="pagar();">Pagar</button>
+            <br><br><br>
           </div>
-                    
-                    
-                    
-                    <button type="button" class="btn btn-success" onclick="pagar();">Pagar</button>
-                    <br><br><br>
-                    
+            <br><br><br>        
 </div>
 </div>
 <!-- /.container -->
@@ -262,11 +268,44 @@
             contador++;
         }
         
-        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>};
+        enviar = {productos:todosP,totalTodo:parseFloat(totalValue).toFixed(2),idcliente:<% if(rv!=null) out.print(rv.getIdPersona()); if(cliente!=null) out.print(cliente.getIdPersona());%>,idrv:<% if(cliente!=null) out.print(cliente.getId_rep_ventas().getIdPersona()); %>,idtipopago:1,idbanco:1};
         
         console.log(enviar);
+        hacerCompra(enviar);
         
-        
+    }
+    
+    function hacerCompra(compra) {
+        console.log("Haciendo Compra");
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/api/compra/pagar',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(compra),
+            success: function (response) {
+                console.log(response);
+                if (response.textStatus = "Conflict") {
+                    alert("Compra realizada");
+                } else {
+                    alert("Error al realizar compra");
+                }
+
+            },
+            error: function (textStatus) {
+                console.log("error ");
+                console.log(textStatus);
+                if (textStatus.textStatus = "Conflict") {
+                    alert("Compra realizada");
+                } else {
+                    alert("Error al realizar compra");
+                }
+
+
+            }
+        });
     }
 
 </script>
