@@ -111,7 +111,7 @@
                 <%
                 if(persona!=null){
                     out.print("<li class=\"nav-item\"> ");
-                    out.print("<a class=\"nav-link\" href=\"index.jsp\">" + persona.getNombre() + "</a> ");
+                    out.print("<a class=\"nav-link\" href=\""+request.getContextPath()+"\">" + persona.getNombre() + "</a> ");
                     out.print("</li>  ");
                     
                     if(cliente!=null){
