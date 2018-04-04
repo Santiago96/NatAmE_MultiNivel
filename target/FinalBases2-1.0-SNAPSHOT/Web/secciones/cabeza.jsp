@@ -114,11 +114,10 @@
                     out.print("<a class=\"nav-link\" href=\"index.jsp\">" + persona.getNombre() + "</a> ");
                     out.print("</li>  ");
                     
-                    if(p!=null){
+                    if(cliente!=null){
                     out.print("<li class=\"nav-item\">");
-                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/cliente.jsp\">Crear Cliente </a> ");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/comprasAsociadas.jsp\">Ver Historico Compras </a> ");
                     out.print("</li>");
-                    }
                     
                     out.print("<li class=\"nav-item\">");
                     out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/catalogo.jsp\">Catálogo</a>");
@@ -127,14 +126,24 @@
                     out.print("<a class=\"nav-link cart-item-count\" href=\""+request.getContextPath()+"/Web/cart.jsp\" data-cesta-feira-items-count><span class=\"fa fa-shopping-cart\"></span> Shopping Cart</a>");
                     out.print("</li>");
                     out.print("<li class=\"nav-item\">");
+                    }
                     
                     if(p!=null){
-                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\""+request.getContextPath()+"/\">Salir </a> ");
-                    }else{
-                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=\""+request.getContextPath()+"/\">Salir </a> ");
+                    out.print("<li class=\"nav-item\">");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/cliente.jsp\">Crear Cliente </a> ");
+                    out.print("</li>");
+                    out.print("<li class=\"nav-item\">");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/ventasAsociadas.jsp\">Ver Ventas Asociadas </a> ");
+                    out.print("</li>");
                     }
                     
                     
+                    out.print("<li class=\"nav-item\">");
+                    if(p!=null){
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\""+request.getContextPath()+"/\"> Salir</a> ");
+                    }else{
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=\""+request.getContextPath()+"/\"> Salir</a> ");
+                    }
                     out.print("</li>");
                     
                 }else{

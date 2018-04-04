@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="edu.finalbases.repositoryDAO.PersonaDAO"%>
 <jsp:include page="Web/secciones/cabeza.jsp" />
 <%@page import="edu.finalbases.business.FuncionesRepVentas"%>
 <%@page import="edu.finalbases.business.FuncionesCliente"%>
@@ -33,8 +34,10 @@
           if(p!=null){
                 out.print("<h5 class=\"mt-0\">Eres Representante de Ventas </h5>"); 
           }
-          if(cliente!=null){
-                out.print("<h5 class=\"mt-0\">Eres Cliente</h5>"); 
+          if(cliente!=null){        
+                PersonaDAO pDAO = new PersonaDAO();
+                Persona pRV = (Persona)pDAO.getObjectById(cliente.getId_rep_ventas().getIdPersona());
+                out.print("<h5 class=\"mt-0\">Eres Cliente y tu representante de ventas es: "+pRV.getNombre()+" "+pRV.getApellido()+"</h5>"); 
           }
       %>
       

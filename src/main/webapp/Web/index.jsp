@@ -34,7 +34,7 @@
                 out.print("<h5 class=\"mt-0\">Eres Representante de Ventas </h5>"); 
           }
           if(cliente!=null){
-                out.print("<h5 class=\"mt-0\">Eres Cliente</h5>"); 
+                out.print("<h5 class=\"mt-0\">Eres Cliente y tu representante de ventas es: "+p.getNombre()+" "+p.getApellido()+"</h5>"); 
           }
       %>
       
