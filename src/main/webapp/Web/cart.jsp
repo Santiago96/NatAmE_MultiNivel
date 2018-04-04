@@ -248,7 +248,7 @@
     <%     if (cliente == null) {
             out.print("actual(5);");
         } else {
-            out.print("actual(4);");
+            out.print("actual(6);");
         }
     %>
 </script>

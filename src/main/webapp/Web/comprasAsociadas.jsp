@@ -1,17 +1,25 @@
 <%-- 
     Document   : comprasAsociadas
-    Created on : 3/04/2018, 09:19:54 PM
-    Author     : Santiago
+    Created on : Apr 4, 2018, 7:41:56 AM
+    Author     : jsbon
 --%>
+<%@page import="edu.finalbases.business.FuncionesRepVentas"%>
+<%@page import="edu.finalbases.business.FuncionesCliente"%>
+<%@page import="edu.finalbases.entities.Persona"%>
+<%
+    Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
+    Persona rv = FuncionesRepVentas.getFunciones().getUserSession();
+%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+
+<jsp:include page="secciones/cabeza.jsp" />
+
+<script>
+     <%     if (cliente == null) {
+            out.print("actual(5);");
+        } else {
+            out.print("actual(4 );");
+        }
+    %>
+</script>
+<jsp:include page="secciones/pies.jsp" />

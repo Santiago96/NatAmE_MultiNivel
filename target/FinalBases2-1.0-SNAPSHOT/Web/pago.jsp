@@ -1,5 +1,5 @@
 <%-- 
-    Document   : comprasAsociadas
+    Document   : pago
     Created on : Apr 4, 2018, 7:41:56 AM
     Author     : jsbon
 --%>
@@ -18,7 +18,7 @@
      <%     if (cliente == null) {
             out.print("actual(5);");
         } else {
-            out.print("actual(4 );");
+            out.print("actual(3);");
         }
     %>
 </script>

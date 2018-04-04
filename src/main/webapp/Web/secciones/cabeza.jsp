@@ -111,12 +111,16 @@
                 <%
                 if(persona!=null){
                     out.print("<li class=\"nav-item\"> ");
-                    out.print("<a class=\"nav-link\" href=\"index.jsp\">" + persona.getNombre() + "</a> ");
+                    out.print("<a class=\"nav-link\" href=\""+request.getContextPath()+"/index.jsp\">" + persona.getNombre() + "</a> ");
                     out.print("</li>  ");
                     
                     if(cliente!=null){
                     out.print("<li class=\"nav-item\">");
-                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/comprasAsociadas.jsp\">Ver Historico Compras </a> ");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/pago.jsp\">Registrar Medio Pago</a> ");
+                    out.print("</li>");
+                    
+                    out.print("<li class=\"nav-item\">");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/comprasAsociadas.jsp\">Historico Compras </a> ");
                     out.print("</li>");
                     
                     out.print("<li class=\"nav-item\">");
@@ -133,16 +137,16 @@
                     out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/cliente.jsp\">Crear Cliente </a> ");
                     out.print("</li>");
                     out.print("<li class=\"nav-item\">");
-                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/ventasAsociadas.jsp\">Ver Ventas Asociadas </a> ");
+                    out.print("    <a class=\"nav-link\" href=\""+request.getContextPath()+"/Web/ventasAsociadas.jsp\">Ventas Asociadas </a> ");
                     out.print("</li>");
                     }
                     
                     
                     out.print("<li class=\"nav-item\">");
                     if(p!=null){
-                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=\""+request.getContextPath()+"/\"> Salir</a> ");
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesion();\" href=#> Salir</a> ");
                     }else{
-                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=\""+request.getContextPath()+"/\"> Salir</a> ");
+                        out.print("    <a class=\"nav-link\" onclick=\"cerrarSesionCliente();\" href=#> Salir</a> ");
                     }
                     out.print("</li>");
                     
@@ -306,11 +310,11 @@
                         success: function (response) {
                             
                             console.log(response);
-                            window.location.replace("index.jsp");
+                            window.location.replace("<%out.print(request.getContextPath()); %>/index.jsp");
                         },
                         error: function (textStatus) {
                             console.log(textStatus); 
-                            window.location.replace("index.jsp");
+                            window.location.replace("<%out.print(request.getContextPath()); %>/index.jsp");
 
                         }
                     });
@@ -336,7 +340,7 @@
                                 ocultarModalCliente();
                                 console.log("ID rep :" + idRepresentante);
                                 //alert("Bienvenido Cliente " + response.nombre + " " + response.apellido);
-                                location.reload();
+                                window.location.replace("<%out.print(request.getContextPath()); %>/index.jsp");
                             } else {
                                 console.log("Datos incorrectos");
                                 alert("Datos incorrectos");
@@ -369,11 +373,11 @@
                         success: function (response) {
                             
                             console.log(response);
-                            window.location.replace("index.jsp");
+                            window.location.replace("<%out.print(request.getContextPath()); %>/index.jsp");
                         },
                         error: function (textStatus) {
                             console.log(textStatus); 
-                            window.location.replace("index.jsp");
+                            window.location.replace("<%out.print(request.getContextPath()); %>/index.jsp");
 
                         }
                     });
@@ -407,6 +411,7 @@
    
    actual = function(id){     
        menu = document.getElementById("menu").childNodes;
+       console.log(menu);
        for(i=0;i<menu.length;i++){
            menu[i].className = "nav-item";
        }
