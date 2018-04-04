@@ -245,12 +245,7 @@
         s.parentNode.insertBefore(ga, s);
     })();
 
-    <%     if (cliente == null) {
-            out.print("actual(5);");
-        } else {
-            out.print("actual(6);");
-        }
-    %>
+    actual(6);
 </script>
 
 <script>

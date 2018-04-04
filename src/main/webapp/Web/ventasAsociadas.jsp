@@ -11,7 +11,6 @@
     Persona rv = FuncionesRepVentas.getFunciones().getUserSession();
 %>
 
-
 <jsp:include page="secciones/cabeza.jsp" />
 
 <script>

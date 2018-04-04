@@ -16,6 +16,12 @@ public class TipoPago {
 
     public TipoPago() {
     }
+
+    public TipoPago(String nombreTipoPago) {        
+        this.nombreTipoPago = nombreTipoPago;
+    }
+    
+    
     
     
     public int getIdTipoPago() {

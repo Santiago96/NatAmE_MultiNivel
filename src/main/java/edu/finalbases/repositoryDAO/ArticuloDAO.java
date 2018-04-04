@@ -38,7 +38,7 @@ public class ArticuloDAO extends AbstractDAO{
      public Object getObjectById(int id) throws SQLException {
         Articulo articulo = null;
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.a=ARTICULO WHERE IDPRODUCTO = ?";
+            String strSQL = "SELECT * FROM MULTINIVEL.ARTICULO WHERE IDPRODUCTO = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
