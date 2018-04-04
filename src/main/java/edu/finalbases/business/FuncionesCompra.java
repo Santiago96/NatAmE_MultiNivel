@@ -15,6 +15,7 @@ import edu.finalbases.entities.Venta;
 import edu.finalbases.repositoryDAO.BancoDAO;
 import edu.finalbases.repositoryDAO.DetalleVentaDAO;
 import edu.finalbases.repositoryDAO.EstadoVentaDAO;
+import edu.finalbases.repositoryDAO.ItemDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.ProductoDAO;
 import edu.finalbases.repositoryDAO.TipoPagoDAO;
@@ -41,6 +42,7 @@ public class FuncionesCompra {
     private BancoDAO bancoDAO;
     private EstadoVentaDAO estadoVentaDAO;
     private DetalleVentaDAO detalleVDAO;
+    private ItemDAO itemDAO;
 
     private FuncionesCompra() {
         productoDAO = new ProductoDAO();
@@ -50,6 +52,7 @@ public class FuncionesCompra {
         estadoVentaDAO = new EstadoVentaDAO();
         ventaDAO = new VentaDAO();
         detalleVDAO = new DetalleVentaDAO();
+        itemDAO = new ItemDAO();
     }
     
 
@@ -72,6 +75,7 @@ public class FuncionesCompra {
                     //System.out.println("P: " + productosJSON.getJSONObject(String.valueOf(i)));
                     detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)),venta.getIdVenta());
                     detalleVDAO.crear(detalleVenta);
+                    itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), 1,detalleVenta.getCantidad());
                 }
                 return 1;
             }

@@ -45,6 +45,7 @@
     
         Empresa especializada en productos naturales y amigables con el medio ambiente, 
         con presencia en diferentes paises, y un amplio catálogo de productos.
+        <br>
         <img id="back" src="Web/img/back.jpg">
   </div>
 </div>

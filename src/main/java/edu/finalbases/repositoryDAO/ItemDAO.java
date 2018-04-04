@@ -94,4 +94,31 @@ public class ItemDAO extends AbstractDAO{
 
     }
     
+    public void restarItem(int id, int region, int cantidad) throws SQLException{
+
+        
+        try {
+            String strSQL = "UPDATE MULTINIVEL.ITEM SET CANTIDAD = CANTIDAD - ? WHERE IDPRODUCTO=? AND IDREGION=?";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setInt(1, cantidad);
+            prepStmt.setInt(2, id);
+            prepStmt.setInt(3, region);
+            
+            resultSet = prepStmt.executeQuery();            
+
+            
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error restando item: " + ex.getMessage());
+
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+        
+
+    }
+    
+    
+    
 }
