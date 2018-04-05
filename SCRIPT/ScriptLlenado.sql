@@ -13,3 +13,4 @@ start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\P
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\STOCK.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\PRODUCTO.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\ITEM.sql";
+start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TARJETA.sql";

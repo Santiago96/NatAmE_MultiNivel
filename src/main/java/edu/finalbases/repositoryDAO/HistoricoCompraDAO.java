@@ -7,7 +7,6 @@ package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.HistoricoCompra;
-import edu.finalbases.entities.TipoPago;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class HistoricoCompraDAO extends AbstractDAO{
         historicoC.setFechaVenta(resultSet.getDate("FECHAVENTA"));
         historicoC.setTotalProductos(resultSet.getInt("TOTALPRODUCTOS"));
         historicoC.setTotal(resultSet.getDouble("TOTAL"));
-        historicoC.setTipoPago(new TipoPago(resultSet.getString("NOMBRETIPOPAGO")));
+        
         
         return historicoC;
     }

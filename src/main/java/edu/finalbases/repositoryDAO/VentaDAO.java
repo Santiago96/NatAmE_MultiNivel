@@ -6,7 +6,7 @@
 package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
-import edu.finalbases.entities.TipoPago;
+
 import edu.finalbases.entities.Venta;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,17 +27,15 @@ public class VentaDAO extends AbstractDAO{
         Venta venta = (Venta) object;
         try {
 
-            String strSQL = "INSERT INTO MULTINIVEL.VENTA(IDVENTA,FECHAVENTA,TOTAL,IDREPRESENTANTE,IDCLIENTE,IDTIPOPAGO,IDBANCO,IDESTADOVENTA) VALUES (MULTINIVEL.SEQ_VENTA_IDVENTA.NEXTVAL,?,?,?,?,?,?,?)";
+            String strSQL = "INSERT INTO MULTINIVEL.VENTA(IDVENTA,FECHAVENTA,TOTAL,IDREPRESENTANTE,IDCLIENTE,IDESTADOVENTA) VALUES (MULTINIVEL.SEQ_VENTA_IDVENTA.NEXTVAL,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             //prepStmt.setInt(1, venta.getIdVenta());
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
             prepStmt.setDouble(2, venta.getTotal());
             prepStmt.setInt(3, venta.getRepresentante().getIdPersona());
-            prepStmt.setInt(4, venta.getCliente().getIdPersona());
-            prepStmt.setInt(5, venta.getTipoPago().getIdTipoPago());
-            prepStmt.setInt(6, venta.getBanco().getIdBanco());
-            prepStmt.setInt(7, venta.getEstadoVenta().getIdEstadoVenta());
+            prepStmt.setInt(4, venta.getCliente().getIdPersona());            
+            prepStmt.setInt(5, venta.getEstadoVenta().getIdEstadoVenta());
             
 
             int resultado = prepStmt.executeUpdate();

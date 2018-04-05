@@ -10,7 +10,7 @@ import edu.finalbases.entities.DetalleVenta;
 import edu.finalbases.entities.EstadoVenta;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.entities.Producto;
-import edu.finalbases.entities.TipoPago;
+
 import edu.finalbases.entities.Venta;
 import edu.finalbases.repositoryDAO.BancoDAO;
 import edu.finalbases.repositoryDAO.DetalleVentaDAO;
@@ -19,7 +19,7 @@ import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.ItemDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.ProductoDAO;
-import edu.finalbases.repositoryDAO.TipoPagoDAO;
+
 import edu.finalbases.repositoryDAO.VentaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class FuncionesCompra {
     private ProductoDAO productoDAO;
     private VentaDAO ventaDAO;
     private PersonaDAO personaDAO;
-    private TipoPagoDAO tipoPagoDAO;
+    
     private BancoDAO bancoDAO;
     private EstadoVentaDAO estadoVentaDAO;
     private DetalleVentaDAO detalleVDAO;
@@ -48,7 +48,7 @@ public class FuncionesCompra {
     private FuncionesCompra() {
         productoDAO = new ProductoDAO();
         personaDAO = new PersonaDAO();
-        tipoPagoDAO = new TipoPagoDAO();
+        
         bancoDAO = new BancoDAO();
         estadoVentaDAO = new EstadoVentaDAO();
         ventaDAO = new VentaDAO();
@@ -64,7 +64,7 @@ public class FuncionesCompra {
         return funcionesCompra;
     }
 
-    public int generarPago(JSONObject informacion) throws SQLException, FException {
+    public synchronized int generarPago(JSONObject informacion) throws SQLException, FException {
         DetalleVenta detalleVenta;
         Venta venta = obtenerVenta(informacion);
         if (venta != null) {
@@ -75,7 +75,7 @@ public class FuncionesCompra {
                     //System.out.println("P: " + productosJSON.getJSONObject(String.valueOf(i)));
                     detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)),venta.getIdVenta());
                     detalleVDAO.crear(detalleVenta);
-                    itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), 1,detalleVenta.getCantidad());
+                    itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), venta.getCliente().getRegion().getIdRegion(),detalleVenta.getCantidad());
                 }
                 return 1;
             }
@@ -98,11 +98,10 @@ public class FuncionesCompra {
         Persona rep = (Persona) personaDAO.getObjectById(informacion.getInt("idrv"));
         Persona cliente = (Persona) personaDAO.getObjectById(informacion.getInt("idcliente"));
         double totalT = informacion.getDouble("totalTodo");
-        TipoPago tipoPago = (TipoPago) tipoPagoDAO.getObjectById(informacion.getInt("idtipopago"));
-        Banco banco = (Banco) bancoDAO.getObjectById(informacion.getInt("idbanco"));
+        //TipoPago tipoPago = (TipoPago) tipoPagoDAO.getObjectById(informacion.getInt("idtipopago"));        
         EstadoVenta estadoVenta = (EstadoVenta) estadoVentaDAO.getObjectById(1);
 
-        return new Venta(totalT, rep, cliente, tipoPago, banco, estadoVenta);
+        return new Venta(totalT, rep, cliente,estadoVenta);
     }
 
     private DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException, FException {

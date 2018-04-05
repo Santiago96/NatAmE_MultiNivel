@@ -18,8 +18,6 @@ public class Venta {
     private double total;
     private Persona representante;
     private Persona cliente;
-    private TipoPago tipoPago;
-    private Banco banco;
     private EstadoVenta estadoVenta;
 
     public Venta() {
@@ -29,22 +27,18 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public Venta(int idVenta,double total, Persona representante, Persona cliente, TipoPago tipoPago, Banco banco, EstadoVenta estadoVenta) {
+    public Venta(int idVenta,double total, Persona representante, Persona cliente, EstadoVenta estadoVenta) {
         this.idVenta = idVenta;
         this.total = total;
         this.representante = representante;
         this.cliente = cliente;
-        this.tipoPago = tipoPago;
-        this.banco = banco;
         this.estadoVenta = estadoVenta;
     }
-    public Venta(double total, Persona representante, Persona cliente, TipoPago tipoPago, Banco banco, EstadoVenta estadoVenta) {
+    public Venta(double total, Persona representante, Persona cliente, EstadoVenta estadoVenta) {
         
         this.total = total;
         this.representante = representante;
         this.cliente = cliente;
-        this.tipoPago = tipoPago;
-        this.banco = banco;
         this.estadoVenta = estadoVenta;
     }
     public int getIdVenta() {
@@ -85,22 +79,6 @@ public class Venta {
 
     public void setCliente(Persona cliente) {
         this.cliente = cliente;
-    }
-
-    public TipoPago getTipoPago() {
-        return tipoPago;
-    }
-
-    public void setTipoPago(TipoPago tipoPago) {
-        this.tipoPago = tipoPago;
-    }
-
-    public Banco getBanco() {
-        return banco;
-    }
-
-    public void setBanco(Banco banco) {
-        this.banco = banco;
     }
 
     public EstadoVenta getEstadoVenta() {
