@@ -289,7 +289,7 @@
                                             url: '${pageContext.request.contextPath}/api/repVentas/iniciar/' + numDocumento + '/' + password,
                                             dataType: "json",
                                             success: function (response) {
-                                                console.log(response);
+                                                console.log("Respuesta: "+response);
                                                 if (response.idPersona != null) {
                                                     console.log("Datos Correctos");
                                                     idRepresentante = response.idPersona;
@@ -424,6 +424,7 @@
                                     }
 
                                     function modalMensaje(cabecera,mensaje) {
+                                        console.log("Mensaje: "+mensaje);
                                         ocultarModal();
                                         ocultarModalCliente();
                                         $('#cabeceraMensaje').html(cabecera);
