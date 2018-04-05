@@ -1,4 +1,4 @@
-/* Sinonimos, crear desde Multinivel*/
+-- Sinonimos, crear desde Multinivel
 
 CREATE PUBLIC SYNONYM BANK FOR MULTINIVEL.BANCO;
 CREATE PUBLIC SYNONYM QUALIFICATION FOR MULTINIVEL.CALIFICACION;

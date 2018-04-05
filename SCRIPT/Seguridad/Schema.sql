@@ -1,4 +1,4 @@
-/* Creacion schemas de Representantes de ventas */
+-- Creacion schemas de Representantes de ventas 
 
 CREATE USER s1018485092 identified by finalbases DEFAULT TABLESPACE DEFRMUNDO TEMPORARY TABLESPACE TEMRMULTINIVEL;
 
