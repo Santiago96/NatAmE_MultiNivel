@@ -12,9 +12,12 @@ package edu.finalbases.webservices;
 import edu.finalbases.business.FuncionesCompra;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Persona;
+import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -40,8 +43,12 @@ public class ServiceCompra {
     public Response generarPago(String data) throws SQLException {
         JSONObject informacion = new JSONObject(data);        
         System.out.println("Informacion: "+informacion);        
-        if(FuncionesCompra.getFuncionesCompra().generarPago(informacion) == 1){        
-            return Response.status(Response.Status.CREATED).header("Creado", "El recurso ha sido creado").build();
+        try {
+            if(FuncionesCompra.getFuncionesCompra().generarPago(informacion) == 1){
+                return Response.status(Response.Status.CREATED).header("Creado", "El recurso ha sido creado").build();
+            }
+        } catch (FException ex) {
+            return Response.ok(ex).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
 

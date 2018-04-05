@@ -35,7 +35,7 @@ public class ItemDAO extends AbstractDAO{
     }
 
         @Override
-     public Object getObjectById(int id) throws SQLException {
+     public Object getObjectById(int id) throws FException, SQLException {
         Item item = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.ITEM WHERE IDITEM = ?";
@@ -50,8 +50,7 @@ public class ItemDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo el item by id: " + ex.getMessage());
-            return null;
-
+            throw new FException( "ItemDAO", "Error obteniendo el item, " + ex.getMessage());
         } finally {  
             Conexion.getInstance().cerrarConexion();
         }
@@ -69,7 +68,7 @@ public class ItemDAO extends AbstractDAO{
         return item;
     }
     
-    public List getItems(int region) throws SQLException{
+    public List getItems(int region) throws FException, SQLException{
 
         List<Item> items = new ArrayList();
 
@@ -85,7 +84,7 @@ public class ItemDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo items: " + ex.getMessage());
-
+            throw new FException( "ItemDAO", "Error obteniendo los Items, " + ex.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

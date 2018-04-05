@@ -25,7 +25,7 @@ public class ContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws SQLException {
+    public int crear(Object object)throws FException, SQLException {
         Contacto contacto = (Contacto)object;
         try {
 
@@ -43,9 +43,10 @@ public class ContactoDAO extends AbstractDAO{
             
             return resultado;
             
-        } catch (SQLException e) {
-            System.out.println("No pudo crear el contacto; " + e.getMessage());
-            return 0;
+        } catch (SQLException ex) {
+            System.out.println("No pudo crear el contacto; " + ex.getMessage());
+            throw new FException( "ArticuloDAO", "Error creando el contacto, " + ex.getMessage());
+            //return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
             

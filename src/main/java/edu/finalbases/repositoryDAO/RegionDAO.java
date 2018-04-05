@@ -43,7 +43,7 @@ public class RegionDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List getRegiones() throws SQLException{
+    public List getRegiones() throws FException, SQLException{
 
         List<Region> regiones = new ArrayList();
 
@@ -58,9 +58,8 @@ public class RegionDAO extends AbstractDAO {
             }
             prepStmt.close();
         } catch (SQLException ex) {
-
             System.out.println("Error: obteniendo region " + ex.getMessage());
-
+            throw new FException( "RegionDAO", "Error obteniendo la region, " + ex.getMessage());
         } finally {
            Conexion.getInstance().cerrarConexion();
         }
@@ -68,20 +67,21 @@ public class RegionDAO extends AbstractDAO {
     }
 
     @Override
-    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
+    public Object getEntityByResultSet(ResultSet resultSet) throws FException, SQLException {
 
         Region region = new Region();
         region.setIdRegion(resultSet.getInt("IDREGION"));
         region.setNombreRegion(resultSet.getString("NOMBREREGION"));  
-        //entonces aqui ya armamos el objeto pais, apartir del id que nos trae la consulta y ya todo lo manejamos por objeto
-        //en vista pues hariamos algo como region.getPais().getId(); y ahi iriamos validando.
-        region.setPais((Pais) FuncionesRepVentas.getFunciones().getPaisDAO().getObjectById(resultSet.getInt("IDPAIS"))); 
-                
+        try {
+            region.setPais((Pais) FuncionesRepVentas.getFunciones().getPaisDAO().getObjectById(resultSet.getInt("IDPAIS")));
+        } catch (FException ex) {
+            throw new FException( "RegionDAO", "Error obteniendo el pais, " + ex.getMessage());
+        }                
         return region;
     }
     
      @Override
-    public Object getObjectById(int id) throws SQLException{
+    public Object getObjectById(int id) throws FException, SQLException{
         Region region = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.REGION WHERE IDREGION = ?";
@@ -96,8 +96,7 @@ public class RegionDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo region " + ex.getMessage());
-            return null;
-
+            throw new FException( "RegionDAO", "Error obteniendo las regiones, " + ex.getMessage());
         } finally {    
             Conexion.getInstance().cerrarConexion();
             

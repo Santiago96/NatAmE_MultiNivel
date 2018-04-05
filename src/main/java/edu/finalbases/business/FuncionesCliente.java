@@ -7,6 +7,7 @@ package edu.finalbases.business;
 
 import edu.finalbases.entities.Persona;
 import edu.finalbases.repositoryDAO.CategoriaDAO;
+import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import java.sql.SQLException;
 
@@ -44,7 +45,7 @@ public class FuncionesCliente {
         this.categoriaDAO = categoriaDAO;
     }
 
-    public Persona getCliente(String substring) throws SQLException {
+    public Persona getCliente(String substring) throws SQLException, FException {
         return (Persona) personaDAO.getObjectById(Integer.parseInt(substring));
     }
 

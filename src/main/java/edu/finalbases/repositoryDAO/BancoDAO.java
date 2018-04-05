@@ -36,7 +36,7 @@ public class BancoDAO extends AbstractDAO {
     }
 
     @Override
-    public Object getObjectById(int id) throws SQLException {
+    public Object getObjectById(int id) throws FException, SQLException {
         Banco banco = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.BANCO WHERE IDBANCO = ?";
@@ -51,7 +51,7 @@ public class BancoDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo banco: " + ex.getMessage());
-            return null;
+            throw new FException( "BancoDAO", "Error obteniendo banco, " + ex.getMessage());
 
         } finally {
             Conexion.getInstance().cerrarConexion();
@@ -68,7 +68,7 @@ public class BancoDAO extends AbstractDAO {
         return banco;
     }
 
-    public List getBancos() throws SQLException {
+    public List getBancos() throws FException, SQLException {
 
         List<Banco> bancos = new ArrayList();
 
@@ -84,7 +84,7 @@ public class BancoDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo banco: " + ex.getMessage());
-
+            throw new FException( "BancoDAO", "Error obteniendo los bancos, " + ex.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
