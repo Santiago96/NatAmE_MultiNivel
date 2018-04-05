@@ -13,7 +13,6 @@ import edu.finalbases.entities.Region;
 import edu.finalbases.entities.TipoContacto;
 import edu.finalbases.repositoryDAO.CiudadDAO;
 import edu.finalbases.repositoryDAO.ContactoDAO;
-import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.PaisDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.RegionDAO;
@@ -56,7 +55,7 @@ public class FuncionesRepVentas {
         return funciones;
     }
 
-    public int insertarPersona(JSONObject informacion) throws SQLException, FException {
+    public int insertarPersona(JSONObject informacion) throws SQLException {
         int r;
         Persona p = crearPersona(informacion);
         r = personaDAO.crear(p);
@@ -73,7 +72,7 @@ public class FuncionesRepVentas {
         return 0;
     }
 
-    private Persona crearPersona(JSONObject informacion) throws SQLException, FException {
+    private Persona crearPersona(JSONObject informacion) throws SQLException {
         int cedula = informacion.getInt("cedula");
         String nombre = informacion.getString("nombre");
         String apellido = informacion.getString("apellido");
@@ -87,29 +86,29 @@ public class FuncionesRepVentas {
 
     }
 
-    private Region getRegion(int idRegion) throws SQLException, FException {
+    private Region getRegion(int idRegion) throws SQLException {
         return (Region) regionDAO.getObjectById(idRegion);
     }
 
-    private Ciudad getCiudad(int idCiudad) throws SQLException, FException {
+    private Ciudad getCiudad(int idCiudad) throws SQLException {
         return (Ciudad) ciudadDAO.getObjectById(idCiudad);
     }
 
-    private Pais getPais(int idPais) throws SQLException, FException {
+    private Pais getPais(int idPais) throws SQLException {
         return (Pais) paisDAO.getObjectById(idPais);
     }
 
-    private Persona getRepVentas(long idRepVentas) throws SQLException, FException {
+    private Persona getRepVentas(long idRepVentas) throws SQLException {
         return (Persona) personaDAO.getObjectById((int) idRepVentas);
     }
 
-    private Contacto getContacto(Persona p, JSONObject informacion) throws SQLException, FException {
+    private Contacto getContacto(Persona p, JSONObject informacion) throws SQLException {
 
         TipoContacto tipoC = (TipoContacto) tipoContactoDAO.getObjectById(informacion.getInt("tipoC"));
         return new Contacto(p, String.valueOf(informacion.get("detalleC")), tipoC);
     }
 
-    public void updateConexion(String idPersona) throws SQLException, FException {
+    public void updateConexion(String idPersona) throws SQLException {
         System.out.println("Id Persona: " + idPersona);
         Persona p = (Persona) personaDAO.getObjectById(Integer.parseInt(idPersona));
         if (p != null) {
@@ -124,7 +123,7 @@ public class FuncionesRepVentas {
 
     }
 
-    public Persona getUser(String substring) throws SQLException, FException {
+    public Persona getUser(String substring) throws SQLException {
         return (Persona) personaDAO.getObjectById(Integer.parseInt(substring));
     }
 

@@ -8,11 +8,8 @@ package edu.finalbases.webservices;
 import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Persona;
-import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -37,27 +34,15 @@ public class ServiceRepVentas {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response iniciarSesion(@PathParam("usuario") String usuario, @PathParam("password") String passwordP) throws SQLException {
+
         String user = usuario;
         String password = passwordP;
         System.out.println("Usuario: " + user + " Password: " + password);
-        try {
-            Conexion.getInstance().conectar(user, password);
-        } catch (FException ex) {
-            return Response.ok(ex).build();
-        }
+        Conexion.getInstance().conectar(user, password);
         cnx = Conexion.getInstance().getConexionBD();
         if (cnx != null) {
-            try {
-                FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));
-            } catch (FException ex) {
-                return Response.ok(ex).build();
-            }
-            Persona p = null;
-            try {
-                p = FuncionesRepVentas.getFunciones().getUser(user.substring(1));
-            } catch (FException ex) {
-                return Response.ok(ex).build();
-            }
+            FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));
+            Persona p =  FuncionesRepVentas.getFunciones().getUser(user.substring(1));
             FuncionesRepVentas.getFunciones().setUserSession(p);
             return Response.ok(p).build();
         } else {
@@ -82,20 +67,20 @@ public class ServiceRepVentas {
 
     }
 
+    
     @POST
     @Path("crearCliente")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crearCliente(String data) throws SQLException {
+    public Response crearCliente(String data) throws SQLException{
         JSONObject informacion = new JSONObject(data);
-        try {
-            if (FuncionesRepVentas.getFunciones().insertarPersona(informacion) == 1) {
-                return Response.status(Response.Status.CREATED).header("Solicitud correcta", "Cliente creado").build();
-            } else {
-                return Response.status(Response.Status.CONFLICT).header("Solicitud incorrecta", "No se pudo crear el cliente").build();
-            }
-        } catch (FException ex) {
-            return Response.ok(ex).build();
+        if (FuncionesRepVentas.getFunciones().insertarPersona(informacion) == 1) {
+            return Response.status(Response.Status.CREATED).header("Solicitud correcta", "Cliente creado").build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).header("Solicitud incorrecta", "No se pudo crear el cliente").build();
         }
+
     }
+    
+    
 
 }

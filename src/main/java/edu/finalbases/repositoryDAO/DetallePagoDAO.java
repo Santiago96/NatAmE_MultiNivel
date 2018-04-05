@@ -20,7 +20,7 @@ public class DetallePagoDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object) throws FException, SQLException {
+    public int crear(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -30,12 +30,12 @@ public class DetallePagoDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException {
+    public Object getObjectById(int id) throws  SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object getEntityByResultSet(ResultSet resultSet) throws FException, SQLException {
+    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

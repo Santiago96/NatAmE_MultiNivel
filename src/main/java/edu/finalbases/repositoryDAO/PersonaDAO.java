@@ -14,8 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +27,7 @@ public class PersonaDAO extends AbstractDAO {
     }
 
     @Override
-    public int crear(Object object) throws FException, SQLException {
+    public int crear(Object object) throws SQLException {
         Persona persona = (Persona) object;
         try {
 
@@ -52,7 +50,7 @@ public class PersonaDAO extends AbstractDAO {
 
         } catch (SQLException e) {
             System.out.println("No pudo crear el cliente" + e.getMessage());
-            throw new FException( "PersonaDAO", "Error creando la persona, " + e.getMessage());
+            return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -65,7 +63,7 @@ public class PersonaDAO extends AbstractDAO {
     }
 
     @Override
-    public Object getEntityByResultSet(ResultSet resultSet) throws FException, SQLException {
+    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
         Persona p = new Persona();
 
         p.setIdPersona(resultSet.getInt("IDPERSONA"));
@@ -77,17 +75,14 @@ public class PersonaDAO extends AbstractDAO {
         p.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));
         
         if(resultSet.getInt("IDREPRESENTANTECLIENTE")!=0)
-        try {
-            p.setId_rep_ventas((Persona)getObjectById(resultSet.getInt("IDREPRESENTANTECLIENTE")));
-        } catch (FException ex) {
-            throw new FException( "PersonaDAO", "Error obteniendo el representante, " + ex.getMessage());
-        }
+        p.setId_rep_ventas((Persona)getObjectById(resultSet.getInt("IDREPRESENTANTECLIENTE")));
+        
         return p;
 
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException {
+    public Object getObjectById(int id) throws SQLException {
         Persona representante = null;
  
         try {
@@ -103,7 +98,8 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error buscando persona by id: " + ex.getMessage());
-            throw new FException( "PersonaDAO", "Error obteniendo la persona, " + ex.getMessage());
+            return null;
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -111,7 +107,7 @@ public class PersonaDAO extends AbstractDAO {
         return representante;
     }
 
-    public int updateConexion(Persona p) throws FException, SQLException {
+    public int updateConexion(Persona p) throws SQLException {
         int resultado;
 
         try {
@@ -127,7 +123,7 @@ public class PersonaDAO extends AbstractDAO {
 
         } catch (SQLException e) {
             System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
-            throw new FException( "PersonaDAO", "Error actualizando la ultima conexion, " + e.getMessage());
+            return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -136,7 +132,7 @@ public class PersonaDAO extends AbstractDAO {
 
     }
 
-    public boolean crearUser(Persona p) throws FException, SQLException {
+    public boolean crearUser(Persona p) throws SQLException {
         final String tableDefault = "DEFRMUNDO";
         final String tableTemporary = "TEMRMULTINIVEL";
 
@@ -167,7 +163,8 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());
-            throw new FException( "PersonaDAO", "Error al crear el usuario en la BD, " + ex.getMessage());
+            return false;
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

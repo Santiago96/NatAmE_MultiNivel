@@ -5,7 +5,7 @@ start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\B
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\ESTADOVENTA.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\CARGO.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TIPOCONTACTO.sql";
-start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TIPOPAGO.sql";
+start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TARJETA.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TIPOREPRESENTANTE.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\CATEGORIA.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\SUBCATEGORIA.sql";
@@ -13,4 +13,3 @@ start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\P
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\STOCK.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\PRODUCTO.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\ITEM.sql";
-start "C:\Users\Santiago\Documents\NetBeansProjects\FinalBases2\SCRIPT\Llenado\TARJETA.sql";

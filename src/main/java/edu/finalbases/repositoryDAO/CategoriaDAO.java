@@ -34,7 +34,7 @@ public class CategoriaDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException {
+    public Object getObjectById(int id) throws SQLException {
         Categoria categoria = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA WHERE IDCATEGORIA = ?";
@@ -49,7 +49,8 @@ public class CategoriaDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo categoria by id: " + ex.getMessage());
-            throw new FException( "CategoriaDAO", "Error obteniendo la categoria, " + ex.getMessage());
+            return null;
+
         } finally {  
             Conexion.getInstance().cerrarConexion();
         }
@@ -65,7 +66,7 @@ public class CategoriaDAO extends AbstractDAO{
         return categoria;
     }
     
-    public List getCategorias() throws FException, SQLException{
+    public List getCategorias() throws SQLException{
 
         List<Categoria> categorias = new ArrayList();
 
@@ -81,7 +82,7 @@ public class CategoriaDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo categorias: " + ex.getMessage());
-            throw new FException( "CategoriaDAO", "Error obteniendo las categorias, " + ex.getMessage());
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
