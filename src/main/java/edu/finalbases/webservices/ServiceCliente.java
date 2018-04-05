@@ -43,20 +43,16 @@ public class ServiceCliente {
         System.out.println("Usuario Cliente: " + user + " Password Cliente: " + password);
         try {
             Conexion.getInstance().conectar(user, password);
-        } catch (FException e) {
-            return Response.ok(e).build();
+        } catch (FException ex) {
+            return Response.ok(ex).build();
         }
         cnx = Conexion.getInstance().getConexionBD();
         
         if(cnx!=null){
             //FuncionesRepVentas.getFunciones().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
-            Persona pC;
-            try {
-                pC = FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
-            } catch (FException ex) {
-                return Response.ok(ex).build();
-            }
+            Persona pC =  FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
             FuncionesCliente.getFuncionesCliente().setCliente(pC);
+            
             return Response.ok(pC).build();
         
         } else {

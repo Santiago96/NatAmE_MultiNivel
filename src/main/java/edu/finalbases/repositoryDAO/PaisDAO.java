@@ -37,7 +37,7 @@ public class PaisDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List getPaises() throws FException, SQLException{
+    public List getPaises() throws SQLException{
 
         List<Pais> paises = new ArrayList();
 
@@ -53,7 +53,7 @@ public class PaisDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
-            throw new FException( "PaisDAO", "Error obteniendo los paises, " + ex.getMessage());
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -73,7 +73,7 @@ public class PaisDAO extends AbstractDAO {
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException{
+    public Object getObjectById(int id) throws SQLException{
         
         Pais pais = null;
         try {
@@ -89,7 +89,8 @@ public class PaisDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo pais: " + ex.getMessage());
-            throw new FException( "PaisDAO", "Error obteniendo el pais, " + ex.getMessage());
+            return null;
+
         } finally {  
             Conexion.getInstance().cerrarConexion();
         }

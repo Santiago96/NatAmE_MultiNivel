@@ -9,7 +9,6 @@ import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,9 +54,10 @@ public class Conexion {
             } else {
                 System.out.println("Conexion fallida");
             }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            throw new FException( "Conexion", "No se pudo Conectar, " + ex.getMessage());
+        } catch (Exception e) {
+            connetion = null;
+            System.out.println(e.getMessage());
+            throw new FException("Conectar", "No se pudo establecer conexion, " + e.getMessage());
         }
     }
 

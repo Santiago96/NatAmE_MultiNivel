@@ -234,13 +234,13 @@
             },
             data: JSON.stringify(datos),
             success: function (response) {
-                //console.log("success ");
+                console.log("success ");
                 console.log(response);
-                if (response.textStatus == "Accepted") {
-                    modalMensaje("Exito","Cliente Creado");
+                if (response.cedula !== null) {
+                    modalMensaje("Exito", "Cliente Creado");
                     console.log("Cliente Creado");
                 } else {
-                    modalMensaje("Error",response.message);
+                    modalMensaje("Error", response.message);
                     console.log(response.message);
                 }
 
@@ -248,7 +248,7 @@
             error: function (textStatus) {
                 console.log("error ");
                 console.log(textStatus);
-                if (textStatus.textStatus = "Accepted") {
+                if (textStatus.textStatus == "Conflict") {
                     alert("Cliente creado");
                 } else {
                     alert("Error al crear el cliente");

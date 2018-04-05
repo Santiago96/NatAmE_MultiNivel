@@ -37,6 +37,7 @@ public class ServiceRepVentas {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response iniciarSesion(@PathParam("usuario") String usuario, @PathParam("password") String passwordP) throws SQLException {
+
         String user = usuario;
         String password = passwordP;
         System.out.println("Usuario: " + user + " Password: " + password);
@@ -52,12 +53,7 @@ public class ServiceRepVentas {
             } catch (FException ex) {
                 return Response.ok(ex).build();
             }
-            Persona p = null;
-            try {
-                p = FuncionesRepVentas.getFunciones().getUser(user.substring(1));
-            } catch (FException ex) {
-                return Response.ok(ex).build();
-            }
+            Persona p =  FuncionesRepVentas.getFunciones().getUser(user.substring(1));
             FuncionesRepVentas.getFunciones().setUserSession(p);
             return Response.ok(p).build();
         } else {
@@ -82,12 +78,13 @@ public class ServiceRepVentas {
 
     }
 
+    
     @POST
     @Path("crearCliente")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crearCliente(String data) throws SQLException {
-        JSONObject informacion = new JSONObject(data);
+    public Response crearCliente(String data) throws SQLException{
         try {
+            JSONObject informacion = new JSONObject(data);
             if (FuncionesRepVentas.getFunciones().insertarPersona(informacion) == 1) {
                 return Response.status(Response.Status.CREATED).header("Solicitud correcta", "Cliente creado").build();
             } else {
@@ -96,6 +93,9 @@ public class ServiceRepVentas {
         } catch (FException ex) {
             return Response.ok(ex).build();
         }
+
     }
+    
+    
 
 }

@@ -25,6 +25,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -71,27 +73,34 @@ public class FuncionesCompra {
             //j1016065965
             if (ventaDAO.crear(venta) == 1) {//Se insertan todos los productos en detalleVenta
                 JSONObject productosJSON = informacion.getJSONObject("productos");            
+
                 for (int i = 0; i < productosJSON.length(); i++) {
                     //System.out.println("P: " + productosJSON.getJSONObject(String.valueOf(i)));
                     detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)),venta.getIdVenta());
-                    detalleVDAO.crear(detalleVenta);
+                    try {
+                        detalleVDAO.crear(detalleVenta);
+                    } catch (FException ex) {
+                        throw ex;
+                    }
                     itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), 1,detalleVenta.getCantidad());
                 }
                 return 1;
             }
             return 0;
         }
+
         return 1;
     }
 
-    private List<Producto> obtenerProductos() throws SQLException, FException {
+    private List<Producto> obtenerProductos() throws SQLException {
         List<Producto> productosComprados = new ArrayList();
         productosComprados.add((Producto) productoDAO.getObjectById(0));
+
         return productosComprados;
 
     }
 
-    private Venta obtenerVenta(JSONObject informacion) throws SQLException, FException {
+    private Venta obtenerVenta(JSONObject informacion) throws SQLException {
         
         //int idVenta = ventaDAO.getSequence();
         //System.out.println("IDventa generado: "+idVenta);
@@ -105,7 +114,7 @@ public class FuncionesCompra {
         return new Venta(totalT, rep, cliente, tipoPago, banco, estadoVenta);
     }
 
-    private DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException, FException {
+    private DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException {
         DetalleVenta detalleVenta = new DetalleVenta();
         detalleVenta.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
         detalleVenta.setProducto(new Producto(infoP.getInt("id")));

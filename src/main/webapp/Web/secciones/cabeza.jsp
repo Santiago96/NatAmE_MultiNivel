@@ -277,7 +277,7 @@
                                     var idRepresentante;
 
                                     function iniciarSesion() {
-                                        console.log("Iniciar Sesión Representante Ventas");
+                                        console.log("Iniciar Sesi?n Representante Ventas");
 
 
                                         var numDocumento = $('#numDocumento').val();
@@ -343,7 +343,7 @@
                                     }
 
                                     function iniciarSesionCliente() {
-                                        console.log("Iniciar Sesión Cliente");
+                                        console.log("Iniciar Sesi?n Cliente");
 
 
                                         var numDocumento = $('#numDocumentoCliente').val();

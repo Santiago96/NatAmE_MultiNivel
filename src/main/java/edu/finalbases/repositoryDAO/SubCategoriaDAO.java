@@ -14,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,20 +42,18 @@ public class SubCategoriaDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getEntityByResultSet(ResultSet resultSet) throws FException, SQLException {
+    public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
         SubCategoria subCategoria = new SubCategoria();
         subCategoria.setIdSubCategoria(resultSet.getInt("IDSUBCATEGORIA"));
         subCategoria.setNombreSubCategoria(resultSet.getString("NOMBRESUBCATEGORIA"));
-        try {
-            subCategoria.setCategoria((Categoria)FuncionesCliente.getFuncionesCliente().getCategoriaDAO().getObjectById(resultSet.getInt("IDCATEGORIA")));
-        } catch (FException ex) {
-            throw new FException( "SubCategoriaDAO", "Error obteniendo la categoria, " + ex.getMessage());
-        }
+        subCategoria.setCategoria((Categoria)FuncionesCliente.getFuncionesCliente().getCategoriaDAO().getObjectById(resultSet.getInt("IDCATEGORIA")));
+        
+        
         return subCategoria;
     }
     
     
-    public List getSubCategorias() throws FException, SQLException{
+    public List getSubCategorias() throws SQLException{
 
         List<SubCategoria> subCategorias = new ArrayList();
 
@@ -73,7 +69,7 @@ public class SubCategoriaDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo subCategorias: " + ex.getMessage());
-            throw new FException( "SubCategoriaDAO", "Error obteniendo las subcategorias, " + ex.getMessage());
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

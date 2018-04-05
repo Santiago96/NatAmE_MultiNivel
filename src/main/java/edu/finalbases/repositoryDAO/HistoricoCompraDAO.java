@@ -35,7 +35,7 @@ public class HistoricoCompraDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException {
+    public Object getObjectById(int id) throws SQLException {
         List <HistoricoCompra> historicoC = new ArrayList();
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.HISTORICOCOMPRA WHERE IDCLIENTE= ?";
@@ -50,7 +50,8 @@ public class HistoricoCompraDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo el historico compra by id: " + ex.getMessage());
-            throw new FException( "HistoricoCompraDAO", "Error obteniendo el historico de compra, " + ex.getMessage());
+            return null;
+
         } finally {  
             Conexion.getInstance().cerrarConexion();
         }

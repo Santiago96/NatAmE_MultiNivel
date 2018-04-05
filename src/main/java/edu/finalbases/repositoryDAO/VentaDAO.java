@@ -23,7 +23,7 @@ public class VentaDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws FException, SQLException {
+    public int crear(Object object)throws SQLException {
         Venta venta = (Venta) object;
         try {
 
@@ -47,7 +47,7 @@ public class VentaDAO extends AbstractDAO{
 
         } catch (SQLException e) {
             System.out.println("No pudo crear insertar la venta: " + e.getMessage());
-            throw new FException( "VentaDAO", "Error creando la venta, " + e.getMessage());
+            return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -68,7 +68,7 @@ public class VentaDAO extends AbstractDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public int getSequenceIdVenta() throws FException, SQLException {
+    public int getSequenceIdVenta() throws SQLException {
         try {
 
             String strSQL = "SELECT MULTINIVEL.SEQ_VENTA_IDVENTA.CURRVAL AS IDVENTA FROM DUAL";
@@ -81,10 +81,14 @@ public class VentaDAO extends AbstractDAO{
             if (resultSet.next()) {
                 return resultSet.getInt("IDVENTA");
             }
+            
             prepStmt.close();
+
+            
+
         } catch (SQLException e) {
             System.out.println("No pudo obtener la secuencia" + e.getMessage());
-            throw new FException( "VentaDAO", "Error obteniendo la secuencia, " + e.getMessage());
+            return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

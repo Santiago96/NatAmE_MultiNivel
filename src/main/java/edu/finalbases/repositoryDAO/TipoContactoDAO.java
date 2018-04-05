@@ -35,7 +35,7 @@ public class TipoContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException{
+    public Object getObjectById(int id) throws SQLException{
         TipoContacto tipoContacto = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.TIPOCONTACTO WHERE IDTIPOCONTACTO = ?";
@@ -50,7 +50,8 @@ public class TipoContactoDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
-            throw new FException( "TipoContactoDAO", "Error obteniendo el tipo de contacto, " + ex.getMessage());
+            return null;
+
         } finally {            
             Conexion.getInstance().cerrarConexion();
         }
@@ -68,7 +69,7 @@ public class TipoContactoDAO extends AbstractDAO{
     }
     
     
-    public List getTiposContacto() throws FException, SQLException{
+    public List getTiposContacto() throws SQLException{
         List<TipoContacto> tipoContactos = new ArrayList();
 
         try {
@@ -83,7 +84,7 @@ public class TipoContactoDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
-            throw new FException( "TipoContactoDAO", "Error obteniendo los tipos de contacto, " + ex.getMessage());
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

@@ -36,7 +36,7 @@ public class ProductoDAO extends AbstractDAO{
     }
 
     @Override
-     public Object getObjectById(int id) throws FException, SQLException {
+     public Object getObjectById(int id) throws SQLException {
         Producto producto = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.PRODUCTO WHERE IDPRODUCTO = ?";
@@ -51,7 +51,8 @@ public class ProductoDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo el producto by id: " + ex.getMessage());
-            throw new FException( "ProductoDAO", "Error obteniendo el producto, " + ex.getMessage());
+            return null;
+
         } finally {  
             Conexion.getInstance().cerrarConexion();
         }
@@ -73,7 +74,7 @@ public class ProductoDAO extends AbstractDAO{
         return producto;
     }
     
-    public List getProductos() throws FException, SQLException{
+    public List getProductos() throws SQLException{
 
         List<Producto> productos = new ArrayList();
 
@@ -89,7 +90,7 @@ public class ProductoDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo productos: " + ex.getMessage());
-            throw new FException( "ProductoDAO", "Error obteniendo los productos, " + ex.getMessage());
+
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

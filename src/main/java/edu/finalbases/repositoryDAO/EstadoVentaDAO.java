@@ -33,7 +33,7 @@ public class EstadoVentaDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) throws FException, SQLException {
+    public Object getObjectById(int id) throws SQLException {
         EstadoVenta estadoVenta = null;
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.ESTADOVENTA WHERE IDESTADOVENTA = ?";
@@ -48,7 +48,8 @@ public class EstadoVentaDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error obteniendo estado venta: " + ex.getMessage());
-            throw new FException( "EstadoVentaDAO", "Error obteniendo el estado de la venta, " + ex.getMessage());
+            return null;
+
         } finally {  
             Conexion.getInstance().cerrarConexion();
         }

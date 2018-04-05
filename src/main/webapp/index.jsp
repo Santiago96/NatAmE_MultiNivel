@@ -20,7 +20,7 @@
       <%
           Persona p = FuncionesRepVentas.getFunciones().getUserSession();
           Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
-          Persona persona;
+            Persona persona;
   
           if(p!=null){
                 persona=p;

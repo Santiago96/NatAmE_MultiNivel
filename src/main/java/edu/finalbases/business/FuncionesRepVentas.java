@@ -19,6 +19,8 @@ import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.RegionDAO;
 import edu.finalbases.repositoryDAO.TipoContactoDAO;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
 /**
@@ -59,21 +61,33 @@ public class FuncionesRepVentas {
     public int insertarPersona(JSONObject informacion) throws SQLException, FException {
         int r;
         Persona p = crearPersona(informacion);
-        r = personaDAO.crear(p);
+        try {
+            r = personaDAO.crear(p);
+        } catch (FException ex) {
+            throw ex;
+        }
         System.out.println("Registrando cliente: " + r);
         if (r == 1) {//creación exitosa  -> se crean contactos
             if (informacion.has("detalleC")) {
                 Contacto c = getContacto(p, informacion);
                 if (c != null) {
-                    r = contactoDAO.crear(c);
+                    try {
+                        r = contactoDAO.crear(c);
+                    } catch (FException ex) {
+                        throw ex;
+                    }
                 }
             }
-            return personaDAO.crearUser(p) ? 1 : 0;
+            try {
+                return personaDAO.crearUser(p) ? 1 : 0;
+            } catch (FException ex) {
+                throw ex;
+            }
         }
         return 0;
     }
 
-    private Persona crearPersona(JSONObject informacion) throws SQLException, FException {
+    private Persona crearPersona(JSONObject informacion) throws SQLException {
         int cedula = informacion.getInt("cedula");
         String nombre = informacion.getString("nombre");
         String apellido = informacion.getString("apellido");
@@ -87,23 +101,23 @@ public class FuncionesRepVentas {
 
     }
 
-    private Region getRegion(int idRegion) throws SQLException, FException {
+    private Region getRegion(int idRegion) throws SQLException {
         return (Region) regionDAO.getObjectById(idRegion);
     }
 
-    private Ciudad getCiudad(int idCiudad) throws SQLException, FException {
+    private Ciudad getCiudad(int idCiudad) throws SQLException {
         return (Ciudad) ciudadDAO.getObjectById(idCiudad);
     }
 
-    private Pais getPais(int idPais) throws SQLException, FException {
+    private Pais getPais(int idPais) throws SQLException {
         return (Pais) paisDAO.getObjectById(idPais);
     }
 
-    private Persona getRepVentas(long idRepVentas) throws SQLException, FException {
+    private Persona getRepVentas(long idRepVentas) throws SQLException {
         return (Persona) personaDAO.getObjectById((int) idRepVentas);
     }
 
-    private Contacto getContacto(Persona p, JSONObject informacion) throws SQLException, FException {
+    private Contacto getContacto(Persona p, JSONObject informacion) throws SQLException {
 
         TipoContacto tipoC = (TipoContacto) tipoContactoDAO.getObjectById(informacion.getInt("tipoC"));
         return new Contacto(p, String.valueOf(informacion.get("detalleC")), tipoC);
@@ -113,10 +127,14 @@ public class FuncionesRepVentas {
         System.out.println("Id Persona: " + idPersona);
         Persona p = (Persona) personaDAO.getObjectById(Integer.parseInt(idPersona));
         if (p != null) {
-            if (personaDAO.updateConexion(p) == 1) {
-                System.out.println("Se actualizo campo ultimaconexion");
-            } else {
-                System.out.println("No se actualizo campo ultimaconexion");
+            try {
+                if (personaDAO.updateConexion(p) == 1) {
+                    System.out.println("Se actualizo campo ultimaconexion");
+                } else {
+                    System.out.println("No se actualizo campo ultimaconexion");
+                }
+            } catch (FException ex) {
+                throw ex;
             }
         }else{
             System.out.println("Persona no encontrada");
@@ -124,7 +142,7 @@ public class FuncionesRepVentas {
 
     }
 
-    public Persona getUser(String substring) throws SQLException, FException {
+    public Persona getUser(String substring) throws SQLException {
         return (Persona) personaDAO.getObjectById(Integer.parseInt(substring));
     }
 
