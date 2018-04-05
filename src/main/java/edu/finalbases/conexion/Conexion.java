@@ -5,9 +5,11 @@
  */
 package edu.finalbases.conexion;
 
+import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,7 +46,7 @@ public class Conexion {
         connetion = null;
     }
 
-    public void conectar(String user, String password) {
+    public void conectar(String user, String password) throws FException {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             connetion = DriverManager.getConnection(rulbd, user, password);
@@ -53,9 +55,9 @@ public class Conexion {
             } else {
                 System.out.println("Conexion fallida");
             }
-        } catch (Exception e) {
-            connetion = null;
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            throw new FException( "Conexion", "No se pudo Conectar, " + ex.getMessage());
         }
     }
 

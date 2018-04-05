@@ -33,7 +33,7 @@
 
     TipoContactoDAO tipoContactoDAO = new TipoContactoDAO();
     List<TipoContacto> tiposContacto = tipoContactoDAO.getTiposContacto();
-    
+
     Persona p = FuncionesRepVentas.getFunciones().getUserSession();
 
 %>
@@ -182,14 +182,14 @@
                 }
             }
         }
-    }    
-    
+    }
+
     function limpiarCampos() {
         console.log("Limpiando Campos");
         $('#cedula').val("");
         $('#nombre').val("");
         $('#apellido').val("");
-        $('#genero').val("");       
+        $('#genero').val("");
         $('#detalleC').val("");
     }
 
@@ -205,7 +205,7 @@
             ciudad: $('#ciudad').val(),
             detalleC: $('#detalleC').val(),
             tipoC: $('#tipoC').val(),
-            id_rep_ventas: <% out.print(p.getIdPersona()); %>
+            id_rep_ventas: <% out.print(p.getIdPersona());%>
         };
 
         return datos;
@@ -220,7 +220,7 @@
      return false;
      }
      }*/
-    
+
     function crearCliente() {
         console.log("Creando Cliente");
         var datos = capturarCampos();
@@ -234,21 +234,23 @@
             },
             data: JSON.stringify(datos),
             success: function (response) {
-                console.log("success ");
+                //console.log("success ");
                 console.log(response);
-                if(response.textStatus = "Conflict"){
-                    alert("Cliente creado");
-                }else{
-                    alert("Error al crear el cliente");
+                if (response.textStatus == "Accepted") {
+                    modalMensaje("Exito","Cliente Creado");
+                    console.log("Cliente Creado");
+                } else {
+                    modalMensaje("Error",response.message);
+                    console.log(response.message);
                 }
 
             },
             error: function (textStatus) {
                 console.log("error ");
                 console.log(textStatus);
-                if(textStatus.textStatus = "Conflict"){
+                if (textStatus.textStatus = "Accepted") {
                     alert("Cliente creado");
-                }else{
+                } else {
                     alert("Error al crear el cliente");
                 }
 

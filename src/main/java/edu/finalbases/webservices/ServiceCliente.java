@@ -9,8 +9,11 @@ import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.business.FuncionesCliente;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Persona;
+import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -38,14 +41,22 @@ public class ServiceCliente {
         String user = usuario;
         String password = passwordP;
         System.out.println("Usuario Cliente: " + user + " Password Cliente: " + password);
-        Conexion.getInstance().conectar(user, password);
+        try {
+            Conexion.getInstance().conectar(user, password);
+        } catch (FException e) {
+            return Response.ok(e).build();
+        }
         cnx = Conexion.getInstance().getConexionBD();
         
         if(cnx!=null){
             //FuncionesRepVentas.getFunciones().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
-            Persona pC =  FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
+            Persona pC;
+            try {
+                pC = FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
+            } catch (FException ex) {
+                return Response.ok(ex).build();
+            }
             FuncionesCliente.getFuncionesCliente().setCliente(pC);
-            
             return Response.ok(pC).build();
         
         } else {
