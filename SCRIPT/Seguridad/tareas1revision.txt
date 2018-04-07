@@ -1,0 +1,28 @@
+1. Correccion Modelo(Alvaro - Santiago) - Validacion por uds. (Domingo)
+	-Persona especializar
+	-Categoria recursividad
+	-Historico.
+	-Stock Region.
+	-Quitar tabla estado venta y manejar 
+	-Calificacion Venta,Calificacion Representante(junior, senior)(Fechas)
+	-Relacion region-director
+2. Seguridad BD(Alvaro) ()
+	-Rol director para cada region
+	-Rol para generar Seguridad
+3. Modificar  Documento(Sebas,Pablo,Juan) (Miercoles)
+	-Quitar Java EE.
+	-Arquitectura diagrama.
+	-Seguridad(Alvaro)
+	-Casos de Uso
+	-Requerimientos Funcionales y no funcionales
+--Programacion
+4. Una vez terminado 1 y 2 
+	-Corregir Aplicativo con nueva BD y DAOS (Santiago)  -> (Jueves)
+		- Excepciones (Juan) -> 
+		- Revisar descontar Inventario (Sebas)
+		- Capturar Datos Pago(Pablo) ->(Domingo)
+		- Calificaciones venta y Rep(Santiago y Alvaro) -> Lunes
+
+
+
+
