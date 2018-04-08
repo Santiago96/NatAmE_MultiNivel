@@ -7,7 +7,6 @@ package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Articulo;
-import edu.finalbases.entities.SubCategoria;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,10 +66,6 @@ public class ArticuloDAO extends AbstractDAO{
         articulo.setPath(resultSet.getString("PATH"));
         articulo.setPrecioVenta(resultSet.getFloat("PRECIOVENTA"));
         articulo.setCantidad(resultSet.getInt("CANTIDAD"));
-        
-        SubCategoria subcategoria = new SubCategoria();
-        subcategoria.setIdSubCategoria(resultSet.getInt("IDSUBCATEGORIA"));
-        articulo.setSubCategoria(subcategoria);
         
         return articulo;
     }

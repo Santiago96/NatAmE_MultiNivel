@@ -15,9 +15,9 @@ public class Articulo {
     private String nombreProducto;
     private String descripcion;
     private Categoria categoria;
-    private SubCategoria subCategoria;
+    
     private String path;
-    private Stock stock;
+    
     private Pais pais;
     private Region region;
     private int cantidad;
@@ -60,13 +60,6 @@ public class Articulo {
         this.categoria = categoria;
     }
 
-    public SubCategoria getSubCategoria() {
-        return subCategoria;
-    }
-
-    public void setSubCategoria(SubCategoria subCategoria) {
-        this.subCategoria = subCategoria;
-    }
 
     public String getPath() {
         return path;
@@ -75,15 +68,7 @@ public class Articulo {
     public void setPath(String path) {
         this.path = path;
     }
-    
-     public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
-    
+   
     public Pais getPais() {
         return pais;
     }

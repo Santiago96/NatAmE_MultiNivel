@@ -5,18 +5,14 @@
  */
 package edu.finalbases.repositoryDAO;
 
-import edu.finalbases.conexion.Conexion;
-import edu.finalbases.entities.TipoRepresentanteVentas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author Santiago
  */
-public class TipoRepresentanteVentasDAO extends AbstractDAO{
+public class HistoricoTipoRepDAO extends AbstractDAO{
 
     @Override
     public Object actualizar(Object object) {
@@ -24,7 +20,7 @@ public class TipoRepresentanteVentasDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws SQLException {
+    public int crear(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -35,26 +31,7 @@ public class TipoRepresentanteVentasDAO extends AbstractDAO{
 
     @Override
     public Object getObjectById(int id) throws SQLException {
-        TipoRepresentanteVentas tipoRepVentas = null;
-
-        try {
-            String strSQL = "SELECT * FROM MULTINIVEL.BANCO";
-            connection = Conexion.getInstance().getConexionBD();
-            prepStmt = connection.prepareStatement(strSQL);
-            resultSet = prepStmt.executeQuery();
-
-            while (resultSet.next()) {
-                tipoRepVentas = (TipoRepresentanteVentas) getEntityByResultSet(resultSet);
-            }
-            prepStmt.close();
-        } catch (SQLException ex) {
-            System.out.println("Error obteniendo banco: " + ex.getMessage());
-
-        } finally {
-            Conexion.getInstance().cerrarConexion();
-        }
-
-        return tipoRepVentas;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

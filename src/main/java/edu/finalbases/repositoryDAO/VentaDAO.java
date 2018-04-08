@@ -27,16 +27,14 @@ public class VentaDAO extends AbstractDAO{
         Venta venta = (Venta) object;
         try {
 
-            String strSQL = "INSERT INTO MULTINIVEL.VENTA(IDVENTA,FECHAVENTA,TOTAL,IDREPRESENTANTE,IDCLIENTE,IDESTADOVENTA) VALUES (MULTINIVEL.SEQ_VENTA_IDVENTA.NEXTVAL,?,?,?,?,?)";
+            String strSQL = "INSERT INTO MULTINIVEL.VENTA(IDVENTA,FECHAVENTA,TOTAL,IDCLIENTE,ESTADOVENTA) VALUES (MULTINIVEL.SEQ_VENTA_IDVENTA.NEXTVAL,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             //prepStmt.setInt(1, venta.getIdVenta());
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            prepStmt.setDouble(2, venta.getTotal());
-            prepStmt.setInt(3, venta.getRepresentante().getIdPersona());
-            prepStmt.setInt(4, venta.getCliente().getIdPersona());            
-            prepStmt.setInt(5, venta.getEstadoVenta().getIdEstadoVenta());
-            
+            prepStmt.setDouble(2, venta.getTotal());            
+            prepStmt.setInt(3, venta.getCliente().getIdPersona());    
+            prepStmt.setString(4, "OK");    
 
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();

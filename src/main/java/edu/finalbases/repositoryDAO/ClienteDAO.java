@@ -5,13 +5,14 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.business.FuncionesCompra;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Ciudad;
+import edu.finalbases.entities.Cliente;
 import edu.finalbases.entities.Pais;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.entities.Region;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import edu.finalbases.entities.RepresentanteVentas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,7 +20,7 @@ import java.sql.SQLException;
  *
  * @author Santiago
  */
-public class PersonaDAO extends AbstractDAO {
+public class ClienteDAO extends AbstractDAO{
 
     @Override
     public Object actualizar(Object object) {
@@ -28,7 +29,13 @@ public class PersonaDAO extends AbstractDAO {
 
     @Override
     public int crear(Object object) throws SQLException {
-        return 0;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+    
+    
+    public int crearCliente(Object object) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -38,14 +45,39 @@ public class PersonaDAO extends AbstractDAO {
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-       
-       return null;
+        Cliente c = new Cliente();
+
+        c.setIdPersona(resultSet.getInt("IDPERSONA"));
+        c.setNombre(resultSet.getString("NOMBRE"));
+        c.setApellido(resultSet.getString("APELLIDO"));
+        c.setGenero(resultSet.getString("GENERO").toCharArray());
+        c.setPais(new Pais(resultSet.getInt("IDPAIS")));
+        c.setRegion(new Region(resultSet.getInt("IDREGION")));
+        c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
+        c.setRepresentante((Persona)FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(0));
+        
+        return c;
+
+    }
+    public Object getClienteByResultSet(ResultSet resultSet,ResultSet resultSetCliente) throws SQLException {
+        Cliente c = new Cliente();
+
+        c.setIdPersona(resultSet.getInt("IDPERSONA"));
+        c.setNombre(resultSet.getString("NOMBRE"));
+        c.setApellido(resultSet.getString("APELLIDO"));
+        c.setGenero(resultSet.getString("GENERO").toCharArray());
+        c.setPais(new Pais(resultSet.getInt("IDPAIS")));
+        c.setRegion(new Region(resultSet.getInt("IDREGION")));
+        c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
+        c.setRepresentante((Persona)FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(resultSetCliente.getInt("IDREPRESENTANTEVENTAS")));
+        
+        return c;
 
     }
 
     @Override
     public Object getObjectById(int id) throws SQLException {
-        Persona representante = null;
+        Persona cliente = null;
  
         try {
             String strSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
@@ -54,8 +86,12 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
-            if (resultSet.next()) {                
-                representante = (Persona) getEntityByResultSet(resultSet);
+            if (resultSet.next()) {  
+                String strClientSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
+                prepStmt = connection.prepareStatement(strClientSQL);
+                prepStmt.setInt(1, id);
+                ResultSet resultSetClient = prepStmt.executeQuery();                
+                cliente = (Persona) getClienteByResultSet(resultSet,resultSetClient);
             }
             prepStmt.close();
         } catch (SQLException ex) {
@@ -66,32 +102,7 @@ public class PersonaDAO extends AbstractDAO {
             Conexion.getInstance().cerrarConexion();
         }
         
-        return representante;
-    }
-
-    public int updateConexion(Persona p) throws SQLException {
-        int resultado;
-
-        try {
-
-            String strSQL = "UPDATE MULTINIVEL.PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
-            connection = Conexion.getInstance().getConexionBD();
-            prepStmt = connection.prepareStatement(strSQL);
-            prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            prepStmt.setInt(2, p.getIdPersona());
-
-            resultado = prepStmt.executeUpdate();
-            prepStmt.close();
-
-        } catch (SQLException e) {
-            System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
-            return 0;
-        } finally {
-            Conexion.getInstance().cerrarConexion();
-        }
-
-        return resultado;
-
+        return cliente;
     }
 
     public boolean crearUser(Persona p) throws SQLException {
@@ -142,5 +153,29 @@ public class PersonaDAO extends AbstractDAO {
     private String subPass(int idPersona) {
         return String.valueOf(idPersona).substring(String.valueOf(idPersona).length() - 4, String.valueOf(idPersona).length());
     }
+    
+    public int updateConexion(Persona p) throws SQLException {
+        int resultado;
 
+        try {
+
+            String strSQL = "UPDATE MULTINIVEL.PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            prepStmt.setInt(2, p.getIdPersona());
+
+            resultado = prepStmt.executeUpdate();
+            prepStmt.close();
+
+        } catch (SQLException e) {
+            System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
+            return 0;
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+
+        return resultado;
+
+    }
 }

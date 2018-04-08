@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author Santiago
  */
-public class StockDAO extends AbstractDAO{
+public class CalificacionVentaDAO extends AbstractDAO{
 
     @Override
     public Object actualizar(Object object) {
@@ -20,7 +20,7 @@ public class StockDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws SQLException {
+    public int crear(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -30,7 +30,7 @@ public class StockDAO extends AbstractDAO{
     }
 
     @Override
-    public Object getObjectById(int id) {
+    public Object getObjectById(int id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

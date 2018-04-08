@@ -13,6 +13,7 @@ public class Categoria {
     
     private int idCategoria;
     private String nombreCategoria;
+    private Categoria categoriaPadre;
     
 
     public Categoria() {
@@ -33,6 +34,16 @@ public class Categoria {
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
+
+    public Categoria getCategoriaPadre() {
+        return categoriaPadre;
+    }
+
+    public void setCategoriaPadre(Categoria categoriaPadre) {
+        this.categoriaPadre = categoriaPadre;
+    }
+    
+    
 
     
     

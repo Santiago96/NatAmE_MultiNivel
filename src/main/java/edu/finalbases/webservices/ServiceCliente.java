@@ -42,7 +42,7 @@ public class ServiceCliente {
         cnx = Conexion.getInstance().getConexionBD();
         
         if(cnx!=null){
-            //FuncionesRepVentas.getFunciones().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
+            FuncionesCliente.getFuncionesCliente().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
             Persona pC =  FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
             FuncionesCliente.getFuncionesCliente().setCliente(pC);
             

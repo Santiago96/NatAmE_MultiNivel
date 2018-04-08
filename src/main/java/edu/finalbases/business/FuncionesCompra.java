@@ -5,27 +5,20 @@
  */
 package edu.finalbases.business;
 
-import edu.finalbases.entities.Banco;
 import edu.finalbases.entities.DetalleVenta;
-import edu.finalbases.entities.EstadoVenta;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.entities.Producto;
-
 import edu.finalbases.entities.Venta;
 import edu.finalbases.repositoryDAO.BancoDAO;
+import edu.finalbases.repositoryDAO.ClienteDAO;
 import edu.finalbases.repositoryDAO.DetalleVentaDAO;
-import edu.finalbases.repositoryDAO.EstadoVentaDAO;
-
 import edu.finalbases.repositoryDAO.ItemDAO;
-import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.ProductoDAO;
-
+import edu.finalbases.repositoryDAO.RepresentanteVentasDAO;
 import edu.finalbases.repositoryDAO.VentaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -37,23 +30,21 @@ public class FuncionesCompra {
     private static FuncionesCompra funcionesCompra;
 
     private ProductoDAO productoDAO;
-    private VentaDAO ventaDAO;
-    private PersonaDAO personaDAO;
-    
+    private VentaDAO ventaDAO;    
+    private ClienteDAO clienteDAO;
+    private RepresentanteVentasDAO representanteDAO;    
     private BancoDAO bancoDAO;
-    private EstadoVentaDAO estadoVentaDAO;
     private DetalleVentaDAO detalleVDAO;
     private ItemDAO itemDAO;
 
     private FuncionesCompra() {
         productoDAO = new ProductoDAO();
-        personaDAO = new PersonaDAO();
-        
-        bancoDAO = new BancoDAO();
-        estadoVentaDAO = new EstadoVentaDAO();
+        clienteDAO = new ClienteDAO();        
+        bancoDAO = new BancoDAO();        
         ventaDAO = new VentaDAO();
         detalleVDAO = new DetalleVentaDAO();
         itemDAO = new ItemDAO();
+        representanteDAO = new RepresentanteVentasDAO();
     }
     
 
@@ -95,13 +86,13 @@ public class FuncionesCompra {
         
         //int idVenta = ventaDAO.getSequence();
         //System.out.println("IDventa generado: "+idVenta);
-        Persona rep = (Persona) personaDAO.getObjectById(informacion.getInt("idrv"));
-        Persona cliente = (Persona) personaDAO.getObjectById(informacion.getInt("idcliente"));
+        Persona rep = (Persona) representanteDAO.getObjectById(informacion.getInt("idrv"));
+        Persona cliente = (Persona) representanteDAO.getObjectById(informacion.getInt("idcliente"));
         double totalT = informacion.getDouble("totalTodo");
         //TipoPago tipoPago = (TipoPago) tipoPagoDAO.getObjectById(informacion.getInt("idtipopago"));        
-        EstadoVenta estadoVenta = (EstadoVenta) estadoVentaDAO.getObjectById(1);
+        
 
-        return new Venta(totalT, rep, cliente,estadoVenta);
+        return new Venta(totalT, rep, cliente);
     }
 
     private DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException {
@@ -113,5 +104,35 @@ public class FuncionesCompra {
 
         return detalleVenta;
     }
+
+    public ProductoDAO getProductoDAO() {
+        return productoDAO;
+    }
+
+    public VentaDAO getVentaDAO() {
+        return ventaDAO;
+    }
+
+    public ClienteDAO getClienteDAO() {
+        return clienteDAO;
+    }
+
+    public RepresentanteVentasDAO getRepresentanteDAO() {
+        return representanteDAO;
+    }
+
+    public BancoDAO getBancoDAO() {
+        return bancoDAO;
+    }
+
+    public DetalleVentaDAO getDetalleVDAO() {
+        return detalleVDAO;
+    }
+
+    public ItemDAO getItemDAO() {
+        return itemDAO;
+    }
+    
+    
 
 }

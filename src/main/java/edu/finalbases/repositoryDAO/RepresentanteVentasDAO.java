@@ -5,13 +5,15 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.business.FuncionesRepVentas;
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Ciudad;
+import edu.finalbases.entities.Cliente;
 import edu.finalbases.entities.Pais;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.entities.Region;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import edu.finalbases.entities.RepresentanteVentas;
+import edu.finalbases.entities.TipoRepresentanteVentas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,16 +21,67 @@ import java.sql.SQLException;
  *
  * @author Santiago
  */
-public class PersonaDAO extends AbstractDAO {
+public class RepresentanteVentasDAO extends AbstractDAO{
 
-    @Override
+       @Override
     public Object actualizar(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
     @Override
     public int crear(Object object) throws SQLException {
-        return 0;
+        Persona persona = (Persona) object;
+        try {
+
+            String strSQL = "INSERT INTO MULTINIVEL.PERSONA(IDPERSONA,NOMBRE,APELLIDO,GENERO,IDCIUDAD,IDPAIS,IDREGION) VALUES (?,?,?,?,?,?,?)";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setLong(1, persona.getIdPersona());
+            prepStmt.setString(2, persona.getNombre());
+            prepStmt.setString(3, persona.getApellido());
+            prepStmt.setString(4, String.valueOf(persona.getGenero()));
+            prepStmt.setInt(5, persona.getCiudad().getIdCiudad());
+            prepStmt.setInt(6, persona.getPais().getIdPais());
+            prepStmt.setInt(7, persona.getRegion().getIdRegion());
+            
+
+            int resultado = prepStmt.executeUpdate();
+            prepStmt.close();
+
+            return resultado;
+
+        } catch (SQLException e) {
+            System.out.println("No pudo crear la persona" + e.getMessage());
+            return 0;
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+
+    }
+    
+    
+    public int crearCliente(Object object) throws SQLException {
+        Cliente cliente = (Cliente) object;
+        try {
+
+            String strSQL = "INSERT INTO MULTINIVEL.CLIENTE(IDPERSONA,IDREPRESENTANTEVENTAS) VALUES (?,?)";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setLong(1, cliente.getIdPersona());
+            prepStmt.setInt(2, cliente.getRepresentante().getIdPersona());
+            int resultado = prepStmt.executeUpdate();
+            prepStmt.close();
+
+            return resultado;
+
+        } catch (SQLException e) {
+            System.out.println("No pudo crear el cliente" + e.getMessage());
+            return 0;
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+
     }
 
     @Override
@@ -38,11 +91,34 @@ public class PersonaDAO extends AbstractDAO {
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-       
-       return null;
+        RepresentanteVentas r = new RepresentanteVentas();
 
+        r.setIdPersona(resultSet.getInt("IDPERSONA"));
+        r.setNombre(resultSet.getString("NOMBRE"));
+        r.setApellido(resultSet.getString("APELLIDO"));
+        r.setGenero(resultSet.getString("GENERO").toCharArray());
+        r.setPais(new Pais(resultSet.getInt("IDPAIS")));
+        r.setRegion(new Region(resultSet.getInt("IDREGION")));
+        r.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
+        r.setDirector(0);
+        //r.setTipoRepresentante((TipoRepresentanteVentas) FuncionesRepVentas.getFunciones().getTipoRepDAO().getObjectById(resultSet.getInt("IDTIPOREPRESENTANTE")));        
+        return r;
     }
+    
+    public Object getRepresentanteByResultSet(ResultSet resultSet,ResultSet resultSetRep) throws SQLException {
+        RepresentanteVentas r = new RepresentanteVentas();
 
+        r.setIdPersona(resultSet.getInt("IDPERSONA"));
+        r.setNombre(resultSet.getString("NOMBRE"));
+        r.setApellido(resultSet.getString("APELLIDO"));
+        r.setGenero(resultSet.getString("GENERO").toCharArray());
+        r.setPais(new Pais(resultSet.getInt("IDPAIS")));
+        r.setRegion(new Region(resultSet.getInt("IDREGION")));
+        r.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
+        r.setDirector(resultSetRep.getInt("DIRECTOR"));
+        //r.setTipoRepresentante(new TipoRepresentanteVentas(resultSetRep.get));        
+        return r;
+    }
     @Override
     public Object getObjectById(int id) throws SQLException {
         Persona representante = null;
@@ -54,8 +130,12 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
-            if (resultSet.next()) {                
-                representante = (Persona) getEntityByResultSet(resultSet);
+            if (resultSet.next()) {     
+                String strRepSQL = "SELECT * FROM MULTINIVEL.REPRESENTANTEVENTAS WHERE IDPERSONA = ?";
+                prepStmt = connection.prepareStatement(strRepSQL);
+                prepStmt.setInt(1, id);
+                ResultSet resultSetClient = prepStmt.executeQuery();                
+                representante = (Persona) getRepresentanteByResultSet(resultSet,resultSetClient);
             }
             prepStmt.close();
         } catch (SQLException ex) {
@@ -68,7 +148,7 @@ public class PersonaDAO extends AbstractDAO {
         
         return representante;
     }
-
+    
     public int updateConexion(Persona p) throws SQLException {
         int resultado;
 
@@ -93,6 +173,7 @@ public class PersonaDAO extends AbstractDAO {
         return resultado;
 
     }
+
 
     public boolean crearUser(Persona p) throws SQLException {
         final String tableDefault = "DEFRMUNDO";
@@ -142,5 +223,7 @@ public class PersonaDAO extends AbstractDAO {
     private String subPass(int idPersona) {
         return String.valueOf(idPersona).substring(String.valueOf(idPersona).length() - 4, String.valueOf(idPersona).length());
     }
-
+    
+     
+    
 }

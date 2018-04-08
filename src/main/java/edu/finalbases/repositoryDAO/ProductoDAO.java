@@ -7,7 +7,6 @@ package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Categoria;
-import edu.finalbases.entities.SubCategoria;
 import edu.finalbases.entities.Producto;
 import java.sql.ResultSet;
 import java.sql.SQLException;

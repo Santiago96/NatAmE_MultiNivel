@@ -11,40 +11,23 @@ import java.util.Date;
  *
  * @author Santiago
  */
-public class Persona {
+public abstract class Persona {
     
-    private int idPersona;    
-    private String nombre;    
-    private String apellido;    
-    private char[] genero;    
-    private Ciudad ciudad;    
-    private Pais pais;    
-    private Region region;        
-    private TipoRepresentanteVentas tipoRepVentas;
-    private Persona id_rep_ventas;
-    private Cargo cargo;
-    private Date ultimaConexion;
+    protected int idPersona;    
+    protected String nombre;    
+    protected String apellido;    
+    protected char[] genero;    
+    protected Ciudad ciudad;    
+    protected Pais pais;    
+    protected Region region;       
+    protected Date ultimaConexion;
     
-    private Contacto contacto;
 
     public Persona() {
     }
-    //Constructor para RepresentanteVentas
-    public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region, TipoRepresentanteVentas tipoRepVentas, Cargo cargo, Date ultimaConexion) {
-        this.idPersona = idPersona;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.genero = genero;
-        this.ciudad = ciudad;
-        this.pais = pais;
-        this.region = region;
-        this.tipoRepVentas = tipoRepVentas;        
-        this.cargo = cargo;
-        this.ultimaConexion = ultimaConexion;
-    }
     
     //Constructor para clientes
-    public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region,Persona id_rep_ventas) {
+    public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -52,7 +35,7 @@ public class Persona {
         this.ciudad = ciudad;
         this.pais = pais;
         this.region = region;
-        this.id_rep_ventas = id_rep_ventas;
+        
     }
 
     public int getIdPersona() {
@@ -110,31 +93,6 @@ public class Persona {
     public void setRegion(Region region) {
         this.region = region;
     }
-
-    public TipoRepresentanteVentas getTipoRepVentas() {
-        return tipoRepVentas;
-    }
-
-    public void setTipoRepVentas(TipoRepresentanteVentas tipoRepVentas) {
-        this.tipoRepVentas = tipoRepVentas;
-    }
-
-    public Persona getId_rep_ventas() {
-        return id_rep_ventas;
-    }
-
-    public void setId_rep_ventas(Persona id_rep_ventas) {
-        this.id_rep_ventas = id_rep_ventas;
-    }
-
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-
     public Date getUltimaConexion() {
         return ultimaConexion;
     }
@@ -142,17 +100,6 @@ public class Persona {
     public void setUltimaConexion(Date ultimaConexion) {
         this.ultimaConexion = ultimaConexion;
     }
-
-    public Contacto getContacto() {
-        return contacto;
-    }
-
-    public void setContacto(Contacto contacto) {
-        this.contacto = contacto;
-    }
-    
-    
-    
     
     
 }

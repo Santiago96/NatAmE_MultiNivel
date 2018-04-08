@@ -12,7 +12,7 @@ package edu.finalbases.entities;
 public class Item {
     
     private int idItem;
-    private Stock stock;
+    
     private Pais pais;
     private Region region;
     private Producto producto;
@@ -27,13 +27,6 @@ public class Item {
         this.idItem = idItem;
     }
 
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
 
     public Pais getPais() {
         return pais;

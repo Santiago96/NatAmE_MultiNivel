@@ -18,7 +18,7 @@ public class Venta {
     private double total;
     private Persona representante;
     private Persona cliente;
-    private EstadoVenta estadoVenta;
+
 
     public Venta() {
     
@@ -27,19 +27,19 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public Venta(int idVenta,double total, Persona representante, Persona cliente, EstadoVenta estadoVenta) {
+    public Venta(int idVenta,double total, Persona representante, Persona cliente) {
         this.idVenta = idVenta;
         this.total = total;
         this.representante = representante;
         this.cliente = cliente;
-        this.estadoVenta = estadoVenta;
+        
     }
-    public Venta(double total, Persona representante, Persona cliente, EstadoVenta estadoVenta) {
+    public Venta(double total, Persona representante, Persona cliente) {
         
         this.total = total;
         this.representante = representante;
         this.cliente = cliente;
-        this.estadoVenta = estadoVenta;
+        
     }
     public int getIdVenta() {
         return idVenta;
@@ -80,16 +80,5 @@ public class Venta {
     public void setCliente(Persona cliente) {
         this.cliente = cliente;
     }
-
-    public EstadoVenta getEstadoVenta() {
-        return estadoVenta;
-    }
-
-    public void setEstadoVenta(EstadoVenta estadoVenta) {
-        this.estadoVenta = estadoVenta;
-    }
-    
-    
-    
     
 }

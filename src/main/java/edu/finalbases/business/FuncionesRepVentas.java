@@ -6,17 +6,22 @@
 package edu.finalbases.business;
 
 import edu.finalbases.entities.Ciudad;
+import edu.finalbases.entities.Cliente;
 import edu.finalbases.entities.Contacto;
 import edu.finalbases.entities.Pais;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.entities.Region;
+import edu.finalbases.entities.RepresentanteVentas;
 import edu.finalbases.entities.TipoContacto;
+import edu.finalbases.entities.TipoRepresentanteVentas;
 import edu.finalbases.repositoryDAO.CiudadDAO;
 import edu.finalbases.repositoryDAO.ContactoDAO;
 import edu.finalbases.repositoryDAO.PaisDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.RegionDAO;
+import edu.finalbases.repositoryDAO.RepresentanteVentasDAO;
 import edu.finalbases.repositoryDAO.TipoContactoDAO;
+import edu.finalbases.repositoryDAO.TipoRepresentanteVentasDAO;
 import java.sql.SQLException;
 import org.json.JSONObject;
 
@@ -28,23 +33,24 @@ public class FuncionesRepVentas {
 
     private static FuncionesRepVentas funciones;
 
-    private PersonaDAO personaDAO;
+    private RepresentanteVentasDAO representanteDAO;
 
     private PaisDAO paisDAO;
     private RegionDAO regionDAO;
     private CiudadDAO ciudadDAO;
     private TipoContactoDAO tipoContactoDAO;
     private ContactoDAO contactoDAO;
-
+    private TipoRepresentanteVentasDAO tipoRepDAO;
     private Persona userSession;
 
     private FuncionesRepVentas() {
-        personaDAO = new PersonaDAO();
+        representanteDAO = new RepresentanteVentasDAO();
         paisDAO = new PaisDAO();
         regionDAO = new RegionDAO();
         ciudadDAO = new CiudadDAO();
         tipoContactoDAO = new TipoContactoDAO();
         contactoDAO = new ContactoDAO();
+        tipoRepDAO = new TipoRepresentanteVentasDAO();
 
     }
 
@@ -55,24 +61,28 @@ public class FuncionesRepVentas {
         return funciones;
     }
 
-    public int insertarPersona(JSONObject informacion) throws SQLException {
+    public int insertarCliente(JSONObject informacion) throws SQLException {
         int r;
-        Persona p = crearPersona(informacion);
-        r = personaDAO.crear(p);
+        Persona p = crearCliente(informacion);
+        r = representanteDAO.crear(p);
         System.out.println("Registrando cliente: " + r);
         if (r == 1) {//creación exitosa  -> se crean contactos
-            if (informacion.has("detalleC")) {
-                Contacto c = getContacto(p, informacion);
-                if (c != null) {
-                    r = contactoDAO.crear(c);
+            r = representanteDAO.crearCliente(p);
+            if (r == 1) {
+                if (informacion.has("detalleC")) {
+                    Contacto c = getContacto(p, informacion);
+                    if (c != null) {
+                        r = contactoDAO.crear(c);
+                    }
                 }
+                return representanteDAO.crearUser(p) ? 1 : 0;
             }
-            return personaDAO.crearUser(p) ? 1 : 0;
+            return 0;
         }
         return 0;
     }
 
-    private Persona crearPersona(JSONObject informacion) throws SQLException {
+    private Persona crearCliente(JSONObject informacion) throws SQLException {
         int cedula = informacion.getInt("cedula");
         String nombre = informacion.getString("nombre");
         String apellido = informacion.getString("apellido");
@@ -82,7 +92,7 @@ public class FuncionesRepVentas {
         Ciudad ciudad = getCiudad(informacion.getInt("ciudad"));
         Persona id_rep_ventas = getRepVentas(informacion.getInt("id_rep_ventas"));
 
-        return new Persona(cedula, nombre, apellido, genero.toCharArray(), ciudad, pais, region, id_rep_ventas);
+        return new Cliente(cedula, nombre, apellido, genero.toCharArray(), ciudad, pais, region, id_rep_ventas);
 
     }
 
@@ -99,7 +109,7 @@ public class FuncionesRepVentas {
     }
 
     private Persona getRepVentas(long idRepVentas) throws SQLException {
-        return (Persona) personaDAO.getObjectById((int) idRepVentas);
+        return (Persona) representanteDAO.getObjectById((int) idRepVentas);
     }
 
     private Contacto getContacto(Persona p, JSONObject informacion) throws SQLException {
@@ -110,21 +120,21 @@ public class FuncionesRepVentas {
 
     public void updateConexion(String idPersona) throws SQLException {
         System.out.println("Id Persona: " + idPersona);
-        Persona p = (Persona) personaDAO.getObjectById(Integer.parseInt(idPersona));
+        Persona p = (Persona) representanteDAO.getObjectById(Integer.parseInt(idPersona));
         if (p != null) {
-            if (personaDAO.updateConexion(p) == 1) {
+            if (representanteDAO.updateConexion(p) == 1) {
                 System.out.println("Se actualizo campo ultimaconexion");
             } else {
                 System.out.println("No se actualizo campo ultimaconexion");
             }
-        }else{
+        } else {
             System.out.println("Persona no encontrada");
         }
 
     }
 
     public Persona getUser(String substring) throws SQLException {
-        return (Persona) personaDAO.getObjectById(Integer.parseInt(substring));
+        return (RepresentanteVentas) representanteDAO.getObjectById(Integer.parseInt(substring));
     }
 
     public void setUserSession(Persona p) {
@@ -145,6 +155,26 @@ public class FuncionesRepVentas {
 
     public CiudadDAO getCiudadDAO() {
         return ciudadDAO;
+    }
+
+    public RepresentanteVentasDAO getRepresentanteDAO() {
+        return representanteDAO;
+    }
+
+    public TipoContactoDAO getTipoContactoDAO() {
+        return tipoContactoDAO;
+    }
+
+    public ContactoDAO getContactoDAO() {
+        return contactoDAO;
+    }
+
+    public TipoRepresentanteVentasDAO getTipoRepDAO() {
+        return tipoRepDAO;
+    }
+
+    public void setTipoRepDAO(TipoRepresentanteVentasDAO tipoRepDAO) {
+        this.tipoRepDAO = tipoRepDAO;
     }
     
     
