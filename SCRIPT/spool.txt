@@ -1,907 +1,2205 @@
-SQL> 
-SQL> 
-SQL> CREATE TABLE "VENTA"
-  2  (
-  3  	"IDVENTA" NUMBER(4) NOT NULL,
-  4  	"FECHAVENTA" DATE NOT NULL,
-  5  	"TOTAL" NUMBER(17,3) NOT NULL,
-  6  	"IDCLIENTE" NUMBER(15) NOT NULL,
-  7  	"ESTADOVENTA" VARCHAR(20) NOT NULL
-  8  )
-  9  ;
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Tablespace.sql";
+
+Tablespace created.
+
+
+Tablespace created.
+
+
+Tablespace created.
+
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Multinivel.sql";
+
+User created.
+
+
+Role created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+SQL> conn multinivel/finalbases
+Connected.
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\ScriptModeloBD.sql";
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "TIPOREPRESENTANTEVENTAS"
-  2  (
-  3  	"IDTIPOREPRESENTANTE" NUMBER(1) NOT NULL,
-  4  	"NOMBRETIPOREPRESENTANTE" VARCHAR(25) NOT NULL,
-  5  	"PORCENTAJE" NUMBER(3,2) NOT NULL
-  6  )
-  7  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "TIPOCONTACTO"
-  2  (
-  3  	"IDTIPOCONTACTO" NUMBER(2) NOT NULL,
-  4  	"NOMBRETIPOCONTACTO" VARCHAR(25) NOT NULL
-  5  )
-  6  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "TARJETA"
-  2  (
-  3  	"IDTARJETA" NUMBER(2) NOT NULL,
-  4  	"NOMBRETARJETA" VARCHAR(25) NOT NULL
-  5  )
-  6  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "REPRESENTANTEVENTAS"
-  2  (
-  3  	"IDREPRESENTANTEVENTAS" NUMBER(15) NOT NULL,
-  4  	"DIRECTOR" NUMBER(1) NULL,
-  5  	"IDTIPOREPRESENTANTE" NUMBER(1) NULL
-  6  )
-  7  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "REGION"
-  2  (
-  3  	"IDREGION" NUMBER(2) NOT NULL,
-  4  	"IDPAIS" NUMBER(2) NOT NULL,
-  5  	"NOMBREREGION" VARCHAR(25) NOT NULL
-  6  )
-  7  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "PRODUCTO"
-  2  (
-  3  	"IDPRODUCTO" NUMBER(4) NOT NULL,
-  4  	"NOMBREPRODUCTO" VARCHAR(100) NOT NULL,
-  5  	"DESCRIPCION" VARCHAR(250) NOT NULL,
-  6  	"IDSUBCATEGORIA" NUMBER(3) NULL,
-  7  	"IDCATEGORIA" NUMBER(2) NOT NULL,
-  8  	"PATH" VARCHAR2(4000) NOT NULL
-  9  )
- 10  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "PERSONA"
-  2  (
-  3  	"IDPERSONA" NUMBER(15) NOT NULL,
-  4  	"NOMBRE" VARCHAR2(50) NOT NULL,
-  5  	"APELLIDO" VARCHAR2(50) NOT NULL,
-  6  	"GENERO" VARCHAR(1) NOT NULL,
-  7  	"IDCIUDAD" NUMBER(2) NOT NULL,
-  8  	"IDPAIS" NUMBER(2) NOT NULL,
-  9  	"IDREGION" NUMBER(2) NOT NULL,
- 10  	"ULTIMACONEXION" DATE NULL
- 11  )
- 12  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "PAIS"
-  2  (
-  3  	"IDPAIS" NUMBER(2) NOT NULL,
-  4  	"NOMBREPAIS" VARCHAR(25) NULL
-  5  )
-  6  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "ITEM"
-  2  (
-  3  	"IDITEM" NUMBER(4) NOT NULL,
-  4  	"IDPRODUCTO" NUMBER(4) NOT NULL,
-  5  	"CANTIDAD" NUMBER(4) NOT NULL,
-  6  	"PRECIOVENTA" NUMBER(10,3) NOT NULL,
-  7  	"IDREGION" NUMBER(2) NULL,
-  8  	"IDPAIS" NUMBER(2) NULL
-  9  )
- 10  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "HISTORICOTIPOREP"
-  2  (
-  3  	"IDHISTORICOTIPOREP" NUMBER(3) NOT NULL,
-  4  	"IDREPRESENTANTEVENTAS" NUMBER(15) NOT NULL,
-  5  	"IDTIPOREPRESENTANTE" NUMBER(1) NOT NULL,
-  6  	"FECHACAMBIO" DATE NOT NULL
-  7  )
-  8  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "DETALLEVENTA"
-  2  (
-  3  	"IDDETALLEVENTA" NUMBER(7) NOT NULL,
-  4  	"IDPRODUCTO" NUMBER(4) NOT NULL,
-  5  	"IDVENTA" NUMBER(4) NOT NULL,
-  6  	"CANTIDAD" NUMBER(3) NOT NULL,
-  7  	"PRECIOTOTAL" NUMBER(17,3) NOT NULL
-  8  )
-  9  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "DETALLEPAGO"
-  2  (
-  3  	"IDDETALLEPAGO" NUMBER(4) NOT NULL,
-  4  	"NUMEROTARJETA" NUMBER(16) NULL,
-  5  	"CVV" NUMBER(3) NULL,
-  6  	"TIPODEPAGO" VARCHAR(15) NOT NULL,
-  7  	"IDVENTA" NUMBER(4) NOT NULL,
-  8  	"IDTARJETA" NUMBER(2) NULL,
-  9  	"IDBANCO" NUMBER(2) NULL,
- 10  	"FECHADEVENCIMIENTO" DATE NULL
- 11  )
- 12  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "CONTACTO"
-  2  (
-  3  	"IDCONTACTO" NUMBER(15) NOT NULL,
-  4  	"IDTIPOCONTACTO" NUMBER(2) NOT NULL,
-  5  	"DETALLECONTACTO" VARCHAR(150) NOT NULL,
-  6  	"IDPERSONA" NUMBER(15) NOT NULL
-  7  )
-  8  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "CLIENTE"
-  2  (
-  3  	"IDCLIENTE" NUMBER(15) NOT NULL,
-  4  	"IDREPRESENTANTEVENTAS" NUMBER(15) NOT NULL
-  5  )
-  6  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "CIUDAD"
-  2  (
-  3  	"IDCIUDAD" NUMBER(2) NOT NULL,
-  4  	"IDPAIS" NUMBER(2) NOT NULL,
-  5  	"IDREGION" NUMBER(2) NOT NULL,
-  6  	"NOMBRECIUDAD" VARCHAR(25) NOT NULL
-  7  )
-  8  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "CATEGORIA"
-  2  (
-  3  	"IDCATEGORIA" NUMBER(2) NOT NULL,
-  4  	"NOMBRECATEGORIA" VARCHAR(100) NOT NULL,
-  5  	"IDCATEGORIAPADRE" NUMBER(2) NULL
-  6  )
-  7  ;
 
 Table created.
 
-SQL> 
-SQL> 
-SQL> CREATE TABLE "CALIFICACIONVENTA"
-  2  (
-  3  	"IDCALIFICACIONVENTA" NUMBER(4) NOT NULL,
-  4  	"CALIFICACION" NUMBER(1) NOT NULL,
-  5  	"DETALLECALIFICACION" VARCHAR(50) NULL,
-  6  	"IDVENTA" NUMBER(4) NOT NULL,
-  7  	"FECHA" DATE NULL
-  8  )
-  9  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "CALIFICACION"
-  2  (
-  3  	"IDCALIFICACION" NUMBER(4) NOT NULL,
-  4  	"IDCLIENTE" NUMBER(15) NOT NULL,
-  5  	"IDREPRESENTANTEVENTAS" NUMBER(15) NOT NULL,
-  6  	"PUNTAJECALIFICACION" NUMBER(1) NOT NULL,
-  7  	"COMENTARIO" VARCHAR(225) NULL
-  8  )
-  9  ;
 
 Table created.
 
-SQL> 
-SQL> CREATE TABLE "BANCO"
-  2  (
-  3  	"IDBANCO" NUMBER(2) NOT NULL,
-  4  	"NOMBREBANCO" VARCHAR(25) NOT NULL
-  5  )
-  6  ;
 
 Table created.
 
-SQL> 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_VENTA_IDVENTA"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_TIPOREPRESENTANTEVENTAS_ID"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_TIPOCONTACTO_ID"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_TARJETA_IDTARJETA"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_REGION_IDREGION"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_PRODUCTO_IDPRODUCTO"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_PAIS_IDPAIS"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_ITEM_IDITEM"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_HISTORICOTIPOREP_ID"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_DETALLEVENTA_ID"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_DETALLEPAGO_IDDETALLEPAGO"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_CONTACTO_IDCONTACTO"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_CIUDAD_IDCIUDAD"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_CATEGORIA_IDCATEGORIA"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_CALIFICACIONVENTA_ID"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_CALIFICACION_ID"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> CREATE SEQUENCE "SEQ_BANCO_IDBANCO"
-  2  	INCREMENT BY 1
-  3  	START WITH 1
-  4  	NOMAXVALUE
-  5  	MINVALUE  1
-  6  	NOCYCLE
-  7  	NOCACHE
-  8  	NOORDER
-  9  ;
 
 Sequence created.
 
-SQL> 
-SQL> 
-SQL> 
-SQL> ALTER TABLE "VENTA"
-  2   ADD CONSTRAINT "PK_VENTA"
-  3  	PRIMARY KEY ("IDVENTA") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "VENTA"
-  2   ADD CONSTRAINT "CK_TOTAL" CHECK (TOTAL>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "VENTA"
-  2   ADD CONSTRAINT "CK_ESTADOVENTA" CHECK (ESTADOVENTA IN ('PENDIENTE','OK','NO AUTORIZADO','FALLIDO'))
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "TIPOREPRESENTANTEVENTAS"
-  2   ADD CONSTRAINT "PK_TIPOREPRESEN_01"
-  3  	PRIMARY KEY ("IDTIPOREPRESENTANTE") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "TIPOREPRESENTANTEVENTAS"
-  2   ADD CONSTRAINT "CK_PORCENTAJE" CHECK (PORCENTAJE>0 AND PORCENTAJE<=1)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "TIPOCONTACTO"
-  2   ADD CONSTRAINT "PK_TIPOCONTACTO"
-  3  	PRIMARY KEY ("IDTIPOCONTACTO") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "TARJETA"
-  2   ADD CONSTRAINT "PK_TARJETA"
-  3  	PRIMARY KEY ("IDTARJETA") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "REPRESENTANTEVENTAS"
-  2   ADD CONSTRAINT "PK_REPRESENTANT_01"
-  3  	PRIMARY KEY ("IDREPRESENTANTEVENTAS") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "REPRESENTANTEVENTAS"
-  2   ADD CONSTRAINT "CK_DIRECTOR" CHECK (DIRECTOR IN (0,1))
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "REGION"
-  2   ADD CONSTRAINT "PK_REGION"
-  3  	PRIMARY KEY ("IDREGION","IDPAIS") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "PRODUCTO"
-  2   ADD CONSTRAINT "PK_PRODUCTO"
-  3  	PRIMARY KEY ("IDPRODUCTO") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "PERSONA"
-  2   ADD CONSTRAINT "PK_PERSONA"
-  3  	PRIMARY KEY ("IDPERSONA") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "PAIS"
-  2   ADD CONSTRAINT "PK_PAIS "
-  3  	PRIMARY KEY ("IDPAIS") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "ITEM"
-  2   ADD CONSTRAINT "PK_ITEM"
-  3  	PRIMARY KEY ("IDITEM") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "ITEM"
-  2   ADD CONSTRAINT "CK_CANTIDADITEM" CHECK (CANTIDAD>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "ITEM"
-  2   ADD CONSTRAINT "CK_PRECIOVENTA" CHECK (PRECIOVENTA>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "HISTORICOTIPOREP"
-  2   ADD CONSTRAINT "PK_HISTORICOTIP_01"
-  3  	PRIMARY KEY ("IDHISTORICOTIPOREP") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEVENTA"
-  2   ADD CONSTRAINT "PK_DETALLEVENTA"
-  3  	PRIMARY KEY ("IDDETALLEVENTA") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEVENTA"
-  2   ADD CONSTRAINT "CK_CANTIDADDETALLEVENTA" CHECK (CANTIDAD>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEVENTA"
-  2   ADD CONSTRAINT "CK_PRECIOTOTAL" CHECK (PRECIOTOTAL>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "PK_DETALLEPAGO"
-  3  	PRIMARY KEY ("IDDETALLEPAGO") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "CK_CVV" CHECK (CVV>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "CK_NUMEROTARJETA" CHECK (NUMEROTARJETA>0)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "CK_TIPODEPAGO" CHECK (TIPODEPAGO IN ('PSE','TARJETA DE CREDITO'))
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CONTACTO"
-  2   ADD CONSTRAINT "PK_CONTACTO "
-  3  	PRIMARY KEY ("IDCONTACTO") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CLIENTE"
-  2   ADD CONSTRAINT "PK_CLIENTE"
-  3  	PRIMARY KEY ("IDCLIENTE") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CIUDAD"
-  2   ADD CONSTRAINT "PK_CIUDAD"
-  3  	PRIMARY KEY ("IDCIUDAD","IDPAIS","IDREGION") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CATEGORIA"
-  2   ADD CONSTRAINT "PK_CATEGORIA"
-  3  	PRIMARY KEY ("IDCATEGORIA") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> 
-SQL> 
-SQL> ALTER TABLE "CALIFICACIONVENTA"
-  2   ADD CONSTRAINT "PK_CALIFICACION_01"
-  3  	PRIMARY KEY ("IDCALIFICACIONVENTA") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CALIFICACIONVENTA"
-  2   ADD CONSTRAINT "CK_CALIFICACION" CHECK (CALIFICACION>=1 AND CALIFICACION<=5)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CALIFICACION"
-  2   ADD CONSTRAINT "PK_CALIFICACION"
-  3  	PRIMARY KEY ("IDCALIFICACION") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CALIFICACION"
-  2   ADD CONSTRAINT "CK_PUNTAJECALIFICACION" CHECK (PUNTAJECALIFICACION>= 1 AND PUNTAJECALIFICACION<=5)
-  3  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "BANCO"
-  2   ADD CONSTRAINT "PK_BANCO"
-  3  	PRIMARY KEY ("IDBANCO") USING INDEX
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> 
-SQL> 
-SQL> ALTER TABLE "VENTA"
-  2   ADD CONSTRAINT "FK_VENTA_CLIENTE"
-  3  	FOREIGN KEY ("IDCLIENTE") REFERENCES "CLIENTE" ("IDCLIENTE")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "REPRESENTANTEVENTAS"
-  2   ADD CONSTRAINT "FK_REPRESENTANTEVENTAS_PERSONA"
-  3  	FOREIGN KEY ("IDREPRESENTANTEVENTAS") REFERENCES "PERSONA" ("IDPERSONA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "REGION"
-  2   ADD CONSTRAINT "FK_REGION_PAIS "
-  3  	FOREIGN KEY ("IDPAIS") REFERENCES "PAIS" ("IDPAIS")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "PRODUCTO"
-  2   ADD CONSTRAINT "FK_PRODUCTO_CATEGORIA"
-  3  	FOREIGN KEY ("IDCATEGORIA") REFERENCES "CATEGORIA" ("IDCATEGORIA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "PERSONA"
-  2   ADD CONSTRAINT "FK_PERSONA_CIUDAD"
-  3  	FOREIGN KEY ("IDCIUDAD","IDPAIS","IDREGION") REFERENCES "CIUDAD" ("IDCIUDAD","IDPAIS","IDREGION")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "ITEM"
-  2   ADD CONSTRAINT "FK_ITEM_PRODUCTO"
-  3  	FOREIGN KEY ("IDPRODUCTO") REFERENCES "PRODUCTO" ("IDPRODUCTO")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "ITEM"
-  2   ADD CONSTRAINT "FK_ITEM_REGION"
-  3  	FOREIGN KEY ("IDREGION","IDPAIS") REFERENCES "REGION" ("IDREGION","IDPAIS")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "HISTORICOTIPOREP"
-  2   ADD CONSTRAINT "FK_HISTORICOTIP_REPRESENTAN_01"
-  3  	FOREIGN KEY ("IDREPRESENTANTEVENTAS") REFERENCES "REPRESENTANTEVENTAS" ("IDREPRESENTANTEVENTAS")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "HISTORICOTIPOREP"
-  2   ADD CONSTRAINT "FK_HISTORICOTIP_TIPOREPRESE_01"
-  3  	FOREIGN KEY ("IDTIPOREPRESENTANTE") REFERENCES "TIPOREPRESENTANTEVENTAS" ("IDTIPOREPRESENTANTE")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEVENTA"
-  2   ADD CONSTRAINT "FK_DETALLEVENTA_PRODUCTO"
-  3  	FOREIGN KEY ("IDPRODUCTO") REFERENCES "PRODUCTO" ("IDPRODUCTO")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEVENTA"
-  2   ADD CONSTRAINT "FK_DETALLEVENTA_VENTA"
-  3  	FOREIGN KEY ("IDVENTA") REFERENCES "VENTA" ("IDVENTA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "FK_DETALLEPAGO_BANCO"
-  3  	FOREIGN KEY ("IDBANCO") REFERENCES "BANCO" ("IDBANCO")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "FK_DETALLEPAGO_TARJETA"
-  3  	FOREIGN KEY ("IDTARJETA") REFERENCES "TARJETA" ("IDTARJETA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "DETALLEPAGO"
-  2   ADD CONSTRAINT "FK_DETALLEPAGO_VENTA"
-  3  	FOREIGN KEY ("IDVENTA") REFERENCES "VENTA" ("IDVENTA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CONTACTO"
-  2   ADD CONSTRAINT "FK_CONTACTO _TIPOCONTACTO"
-  3  	FOREIGN KEY ("IDTIPOCONTACTO") REFERENCES "TIPOCONTACTO" ("IDTIPOCONTACTO")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CONTACTO"
-  2   ADD CONSTRAINT "FK_CONTACTO_PERSONA"
-  3  	FOREIGN KEY ("IDPERSONA") REFERENCES "PERSONA" ("IDPERSONA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CLIENTE"
-  2   ADD CONSTRAINT "FK_CLIENTE_PERSONA"
-  3  	FOREIGN KEY ("IDCLIENTE") REFERENCES "PERSONA" ("IDPERSONA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CLIENTE"
-  2   ADD CONSTRAINT "FK_CLIENTE_REPRESENTANTEVENTAS"
-  3  	FOREIGN KEY ("IDREPRESENTANTEVENTAS") REFERENCES "REPRESENTANTEVENTAS" ("IDREPRESENTANTEVENTAS")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CIUDAD"
-  2   ADD CONSTRAINT "FK_CIUDAD_REGION"
-  3  	FOREIGN KEY ("IDREGION","IDPAIS") REFERENCES "REGION" ("IDREGION","IDPAIS")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CATEGORIA"
-  2   ADD CONSTRAINT "FK_CATEGORIA_CATEGORIA"
-  3  	FOREIGN KEY ("IDCATEGORIAPADRE") REFERENCES "CATEGORIA" ("IDCATEGORIA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CALIFICACIONVENTA"
-  2   ADD CONSTRAINT "FK_CALIFICACIONVENTA_VENTA"
-  3  	FOREIGN KEY ("IDVENTA") REFERENCES "VENTA" ("IDVENTA")
-  4  ;
 
 Table altered.
 
-SQL> 
-SQL> ALTER TABLE "CALIFICACION"
-  2   ADD CONSTRAINT "FK_CALIFICACION_CLIENTE"
-  3  	FOREIGN KEY ("IDCLIENTE") REFERENCES "CLIENTE" ("IDCLIENTE")
-  4  ;
 
 Table altered.
 
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\ScriptLlenado.sql"
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Sinonimos.sql";
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Vistas.sql";
+
+View created.
+
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Schema.sql";
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+User created.
+
+SQL> conn system/HESOYAMYASNAEB
+Connected.
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Roles.sql";
+
+Role created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+GRANT SELECT ON SUBCATEGORY TO R_CLIENTE
+                *
+ERROR at line 1:
+ORA-00980: synonym translation is no longer valid 
+
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+GRANT SELECT ON STATESALE TO R_CLIENTE
+                *
+ERROR at line 1:
+ORA-00980: synonym translation is no longer valid 
+
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+GRANT SELECT ON INVENTARIO TO R_CLIENTE
+                *
+ERROR at line 1:
+ORA-00980: synonym translation is no longer valid 
+
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Role created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+GRANT SELECT ON JOB TO R_REPRESENTANTEVENTAS
+                *
+ERROR at line 1:
+ORA-00980: synonym translation is no longer valid 
+
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+GRANT SELECT ON STATESALE TO R_REPRESENTANTEVENTAS
+                *
+ERROR at line 1:
+ORA-00980: synonym translation is no longer valid 
+
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+SQL> 
+SQL> 
 SQL> spool off;
