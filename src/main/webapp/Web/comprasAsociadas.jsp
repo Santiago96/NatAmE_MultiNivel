@@ -43,8 +43,6 @@
                             out.print("<th>" + sdf.format(historico.getFechaVenta()) + "</th>");
                             out.print("<th class=\"text-center\">" + historico.getTotal() + "</th>");
                             out.print("<th class=\"text-center\">" + historico.getTotalProductos() + "</th>");
-                            out.print("<th class=\"text-center\">" + historico.getTipoPago().getNombreTipoPago() + "</th>");
-
                             out.print("</tr>");
                         }
 

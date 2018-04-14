@@ -16,8 +16,7 @@ public class HistoricoCompra {
     
     private int idVenta;
     private Date fechaVenta;
-    private double total;
-    
+    private double total;    
     private int totalProductos;
     private int idCliente;
 
