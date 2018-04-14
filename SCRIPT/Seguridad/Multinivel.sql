@@ -1,10 +1,17 @@
+-- Ejecutar desde System
 
---Creació schema Multinivel 
+-- Schema Multinivel 
+
 CREATE USER MULTINIVEL identified by finalbases DEFAULT TABLESPACE DEFMULTINIVEL TEMPORARY TABLESPACE TEMRMULTINIVEL QUOTA 10M ON DEFMULTINIVEL;
 
 -- Role para Multinivel 
--- Se debe primero crear el user multinivel, para poder asignarle el rolE
+
 CREATE ROLE R_MULTINIVEL;
 
-GRANT CONNECT, CREATE TABLE, CREATE VIEW TO R_MULTINIVEL;
+-- Asignación de permisos
+
+GRANT CONNECT, CREATE TABLE, CREATE SEQUENCE, CREATE VIEW, CREATE PUBLIC SYNONYM TO R_MULTINIVEL;
+
+-- Asignación del ROLE a MULINIVEL
+
 GRANT R_MULTINIVEL TO MULTINIVEL;
