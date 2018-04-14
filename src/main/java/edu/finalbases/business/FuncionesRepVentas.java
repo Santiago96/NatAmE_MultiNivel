@@ -16,6 +16,7 @@ import edu.finalbases.entities.TipoContacto;
 import edu.finalbases.entities.TipoRepresentanteVentas;
 import edu.finalbases.repositoryDAO.CiudadDAO;
 import edu.finalbases.repositoryDAO.ContactoDAO;
+import edu.finalbases.repositoryDAO.HistoricocrvDAO;
 import edu.finalbases.repositoryDAO.PaisDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
 import edu.finalbases.repositoryDAO.RegionDAO;
@@ -41,6 +42,7 @@ public class FuncionesRepVentas {
     private TipoContactoDAO tipoContactoDAO;
     private ContactoDAO contactoDAO;
     private TipoRepresentanteVentasDAO tipoRepDAO;
+    private HistoricocrvDAO historicocrvDAO;
     private Persona userSession;
 
     private FuncionesRepVentas() {
@@ -51,6 +53,7 @@ public class FuncionesRepVentas {
         tipoContactoDAO = new TipoContactoDAO();
         contactoDAO = new ContactoDAO();
         tipoRepDAO = new TipoRepresentanteVentasDAO();
+        historicocrvDAO = new HistoricocrvDAO();
 
     }
 
@@ -65,18 +68,25 @@ public class FuncionesRepVentas {
         int r;
         Persona p = crearCliente(informacion);
         r = representanteDAO.crear(p);
-        System.out.println("Registrando cliente: " + r);
-        if (r == 1) {//creación exitosa  -> se crean contactos
+        System.out.println("Registrando cliente como perwsona: " + r);
+        if (r == 1) {//creación exitosa  -> se crea cliente en cliente
             r = representanteDAO.crearCliente(p);
-            if (r == 1) {
-                if (informacion.has("detalleC")) {
-                    Contacto c = getContacto(p, informacion);
-                    if (c != null) {
-                        r = contactoDAO.crear(c);
+            System.out.println("Creando cliente en cliente: " + r);
+            if (r == 1) {//creación exitosa  -> se crea relacion cliente repventas
+                r = historicocrvDAO.crearRelacionClienteRep((Cliente)p, (RepresentanteVentas)getUserSession());
+                System.out.println("Creando relacion cliente repventas: " + r);
+                if (r == 1) {//creación exitosa  -> se crea contactos
+                    if (informacion.has("detalleC")) {
+                        Contacto c = getContacto(p, informacion);
+                        if (c != null) {
+                            r = contactoDAO.crear(c);
+                        }
                     }
+                    return representanteDAO.crearUser(p) ? 1 : 0;
                 }
-                return representanteDAO.crearUser(p) ? 1 : 0;
+
             }
+
             return 0;
         }
         return 0;
@@ -90,10 +100,7 @@ public class FuncionesRepVentas {
         Region region = getRegion(informacion.getInt("region"));
         Pais pais = getPais(informacion.getInt("pais"));
         Ciudad ciudad = getCiudad(informacion.getInt("ciudad"));
-        Persona id_rep_ventas = getRepVentas(informacion.getInt("id_rep_ventas"));
-
-        return new Cliente(cedula, nombre, apellido, genero.toCharArray(), ciudad, pais, region, id_rep_ventas);
-
+        return new Cliente(cedula, nombre, apellido, genero.toCharArray(), ciudad, pais, region);
     }
 
     private Region getRegion(int idRegion) throws SQLException {
@@ -176,7 +183,5 @@ public class FuncionesRepVentas {
     public void setTipoRepDAO(TipoRepresentanteVentasDAO tipoRepDAO) {
         this.tipoRepDAO = tipoRepDAO;
     }
-    
-    
 
 }

@@ -41,10 +41,15 @@ public class ServiceRepVentas {
         Conexion.getInstance().conectar(user, password);
         cnx = Conexion.getInstance().getConexionBD();
         if (cnx != null) {
-            FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));
-            Persona p =  FuncionesRepVentas.getFunciones().getUser(user.substring(1));
-            FuncionesRepVentas.getFunciones().setUserSession(p);
-            return Response.ok(p).build();
+            Persona p = FuncionesRepVentas.getFunciones().getUser(user.substring(1));            
+            if (p != null) {
+                FuncionesRepVentas.getFunciones().updateConexion(user.substring(1));
+                FuncionesRepVentas.getFunciones().setUserSession(p);
+                return Response.ok(p).build();
+            }
+            cnx = null;
+            return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
+
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
         }
@@ -67,11 +72,10 @@ public class ServiceRepVentas {
 
     }
 
-    
     @POST
     @Path("crearCliente")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response crearCliente(String data) throws SQLException{
+    public Response crearCliente(String data) throws SQLException {
         JSONObject informacion = new JSONObject(data);
         if (FuncionesRepVentas.getFunciones().insertarCliente(informacion) == 1) {
             return Response.status(Response.Status.CREATED).header("Solicitud correcta", "Cliente creado").build();
@@ -80,7 +84,5 @@ public class ServiceRepVentas {
         }
 
     }
-    
-    
 
 }

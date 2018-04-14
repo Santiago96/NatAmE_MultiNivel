@@ -8,10 +8,7 @@
 <%@page import="edu.finalbases.business.FuncionesRepVentas"%>
 <%@page import="edu.finalbases.entities.Persona"%>
 <%@page import="edu.finalbases.business.FuncionesCliente"%>
-<%@page import="edu.finalbases.entities.SubCategoria"%>
-<%@page import="edu.finalbases.repositoryDAO.SubCategoriaDAO"%>
 <%@page import="edu.finalbases.repositoryDAO.ProductoDAO"%>
-<%@page import="edu.finalbases.repositoryDAO.ItemDAO"%>
 <%@page import="edu.finalbases.repositoryDAO.ArticuloDAO"%>
 <%@page import="edu.finalbases.entities.Categoria"%>
 <%@page import="edu.finalbases.entities.Producto"%>

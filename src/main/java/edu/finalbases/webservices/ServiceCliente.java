@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("cliente")
 public class ServiceCliente {
-    
+
     private Connection cnx;
 
     @GET
@@ -40,20 +40,26 @@ public class ServiceCliente {
         System.out.println("Usuario Cliente: " + user + " Password Cliente: " + password);
         Conexion.getInstance().conectar(user, password);
         cnx = Conexion.getInstance().getConexionBD();
-        
-        if(cnx!=null){
-            FuncionesCliente.getFuncionesCliente().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
-            Persona pC =  FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
-            FuncionesCliente.getFuncionesCliente().setCliente(pC);
+
+        if (cnx != null) {
+
+            Persona pC = FuncionesCliente.getFuncionesCliente().getCliente(user.substring(1));
+            if (pC != null) {
+                FuncionesCliente.getFuncionesCliente().updateConexion(user.substring(1)); //Otorgar persmisos para update campo ultimaconexion
+                FuncionesCliente.getFuncionesCliente().setCliente(pC);
+                return Response.ok(pC).build();
+            }
+            cnx = null;
+            return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
+
             
-            return Response.ok(pC).build();
-        
+
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
         }
 
     }
-    
+
     @POST
     @Path("salirCliente")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -69,6 +75,5 @@ public class ServiceCliente {
         }
 
     }
-    
-    
+
 }

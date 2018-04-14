@@ -17,9 +17,9 @@ public class Cliente extends Persona{
     }
     
 
-    public Cliente(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region, Persona rep_ventas) {
+    public Cliente(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region) {
         super(idPersona, nombre, apellido, genero, ciudad, pais, region);
-        representante = rep_ventas;
+        
     }
 
     public Persona getRepresentante() {

@@ -48,7 +48,7 @@ public class PersonaDAO extends AbstractDAO {
         Persona representante = null;
  
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
+            String strSQL = "SELECT * FROM PERSON WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, id);
@@ -74,7 +74,7 @@ public class PersonaDAO extends AbstractDAO {
 
         try {
 
-            String strSQL = "UPDATE MULTINIVEL.PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
+            String strSQL = "UPDATE PERSON SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));

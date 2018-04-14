@@ -34,7 +34,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
         Persona persona = (Persona) object;
         try {
 
-            String strSQL = "INSERT INTO MULTINIVEL.PERSONA(IDPERSONA,NOMBRE,APELLIDO,GENERO,IDCIUDAD,IDPAIS,IDREGION) VALUES (?,?,?,?,?,?,?)";
+            String strSQL = "INSERT INTO PERSON(IDPERSONA,NOMBRE,APELLIDO,GENERO,IDCIUDAD,IDPAIS,IDREGION) VALUES (?,?,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setLong(1, persona.getIdPersona());
@@ -65,11 +65,10 @@ public class RepresentanteVentasDAO extends AbstractDAO{
         Cliente cliente = (Cliente) object;
         try {
 
-            String strSQL = "INSERT INTO MULTINIVEL.CLIENTE(IDPERSONA,IDREPRESENTANTEVENTAS) VALUES (?,?)";
+            String strSQL = "INSERT INTO CLIENT(IDCLIENTE) VALUES (?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
-            prepStmt.setLong(1, cliente.getIdPersona());
-            prepStmt.setInt(2, cliente.getRepresentante().getIdPersona());
+            prepStmt.setLong(1, cliente.getIdPersona());            
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
 
@@ -124,18 +123,20 @@ public class RepresentanteVentasDAO extends AbstractDAO{
         Persona representante = null;
  
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
+            String strSQL = "SELECT * FROM PERSON WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
             if (resultSet.next()) {     
-                String strRepSQL = "SELECT * FROM MULTINIVEL.REPRESENTANTEVENTAS WHERE IDPERSONA = ?";
+                String strRepSQL = "SELECT * FROM AGENTSALES WHERE IDREPRESENTANTEVENTAS = ?";
                 prepStmt = connection.prepareStatement(strRepSQL);
                 prepStmt.setInt(1, id);
-                ResultSet resultSetClient = prepStmt.executeQuery();                
-                representante = (Persona) getRepresentanteByResultSet(resultSet,resultSetClient);
+                ResultSet resultSetRepVen = prepStmt.executeQuery();               
+                if(resultSetRepVen.next()){
+                    representante = (Persona) getRepresentanteByResultSet(resultSet,resultSetRepVen);
+                }
             }
             prepStmt.close();
         } catch (SQLException ex) {
@@ -154,7 +155,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
 
         try {
 
-            String strSQL = "UPDATE MULTINIVEL.PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
+            String strSQL = "UPDATE PERSON SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));

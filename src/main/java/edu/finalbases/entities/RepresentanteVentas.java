@@ -15,6 +15,13 @@ public class RepresentanteVentas extends Persona{
     private int director;
     private TipoRepresentanteVentas tipoRepresentante;
 
+    public RepresentanteVentas(int idPesona) {
+        super(idPesona);
+        
+    }
+    
+    
+
     public RepresentanteVentas(int director, int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region) {
         super(idPersona, nombre, apellido, genero, ciudad, pais, region);
         this.director = director;

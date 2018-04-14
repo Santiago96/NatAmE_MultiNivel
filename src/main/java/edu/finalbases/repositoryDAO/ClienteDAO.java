@@ -69,7 +69,7 @@ public class ClienteDAO extends AbstractDAO{
         c.setPais(new Pais(resultSet.getInt("IDPAIS")));
         c.setRegion(new Region(resultSet.getInt("IDREGION")));
         c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
-        c.setRepresentante((Persona)FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(resultSetCliente.getInt("IDREPRESENTANTEVENTAS")));
+        //c.setRepresentante((Persona)FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(resultSetCliente.getInt("IDREPRESENTANTEVENTAS")));
         
         return c;
 
@@ -80,22 +80,23 @@ public class ClienteDAO extends AbstractDAO{
         Persona cliente = null;
  
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
+            String strSQL = "SELECT * FROM PERSON WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
             if (resultSet.next()) {  
-                String strClientSQL = "SELECT * FROM MULTINIVEL.PERSONA WHERE IDPERSONA = ?";
+                String strClientSQL = "SELECT * FROM CLIENT WHERE IDCLIENTE = ?";
                 prepStmt = connection.prepareStatement(strClientSQL);
                 prepStmt.setInt(1, id);
-                ResultSet resultSetClient = prepStmt.executeQuery();                
-                cliente = (Persona) getClienteByResultSet(resultSet,resultSetClient);
+                ResultSet resultSetClient = prepStmt.executeQuery();            
+                if(resultSetClient.next())
+                    cliente = (Persona) getClienteByResultSet(resultSet,resultSetClient);
             }
             prepStmt.close();
         } catch (SQLException ex) {
-            System.out.println("Error buscando persona by id: " + ex.getMessage());
+            System.out.println("Error buscando persona by id desde cliente: " + ex.getMessage());
             return null;
 
         } finally {
@@ -159,7 +160,7 @@ public class ClienteDAO extends AbstractDAO{
 
         try {
 
-            String strSQL = "UPDATE MULTINIVEL.PERSONA SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
+            String strSQL = "UPDATE PERSON SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));

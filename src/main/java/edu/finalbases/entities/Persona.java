@@ -26,6 +26,10 @@ public abstract class Persona {
     public Persona() {
     }
     
+    public Persona(int idP) {
+        this.idPersona = idP;
+    }
+    
     //Constructor para clientes
     public Persona(int idPersona, String nombre, String apellido, char[] genero, Ciudad ciudad, Pais pais, Region region) {
         this.idPersona = idPersona;

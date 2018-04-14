@@ -58,13 +58,13 @@ public class FuncionesCliente {
     }
     
     public void updateConexion(String idPersona) throws SQLException {
-        System.out.println("Id Persona: " + idPersona);
+        System.out.println("Id Cliente: " + idPersona);
         Persona p = (Persona) clienteDAO.getObjectById(Integer.parseInt(idPersona));
         if (p != null) {
             if (clienteDAO.updateConexion(p) == 1) {
-                System.out.println("Se actualizo campo ultimaconexion");
+                System.out.println("Se actualizo campo ultimaconexion para cliente");
             } else {
-                System.out.println("No se actualizo campo ultimaconexion");
+                System.out.println("No se actualizo campo ultimaconexion cliente");
             }
         } else {
             System.out.println("Persona no encontrada");

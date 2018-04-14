@@ -1,18 +1,18 @@
-1. Correccion Modelo(Alvaro - Santiago) - Validacion por uds. (Domingo)
-	-Persona especializar
-	-Categoria recursividad
-	-Historico.
-	-Stock Region.
-	-Quitar tabla estado venta y manejar 
-	-Calificacion Venta,Calificacion Representante(junior, senior)(Fechas)
-	-Relacion region-director
-2. Seguridad BD(Alvaro) ()
-	-Rol director para cada region
-	-Rol para generar Seguridad
+1. Correccion Modelo(Alvaro - Santiago) - Validacion por uds. (Domingo) (COMPLETADO)
+	-Persona especializar (COMPLETADO) 
+	-Categoria recursividad (COMPLETADO)
+	-Historico. (COMPLETADO)
+	-Stock Region. (COMPLETADO)
+	-Quitar tabla estado venta y manejar  (COMPLETADO)
+	-Calificacion Venta,Calificacion Representante(junior, senior)(Fechas) (COMPLETADO)
+	-Relacion region-director (COMPLETADO)
+2. Seguridad BD(Alvaro) () (COMPLETADO)
+	-Rol director para cada region (COMPLETADO)
+	-Rol para generar Seguridad (COMPLETADO)
 3. Modificar  Documento(Sebas,Pablo,Juan) (Miercoles)
 	-Quitar Java EE.
 	-Arquitectura diagrama.
-	-Seguridad(Alvaro)
+	-Seguridad(Alvaro) (COMPLETADO)
 	-Casos de Uso
 	-Requerimientos Funcionales y no funcionales
 --Programacion
