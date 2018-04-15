@@ -300,7 +300,7 @@ Table altered.
 
 Table altered.
 
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\ScriptLlenado.sql"
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\ScriptLlenado.sql";
 
 1 row created.
 
@@ -2007,8 +2007,15 @@ SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNi
 
 
 1 row created.
+
+SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Vistas.sql";
+
+View created.
 
 SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Sinonimos.sql";
+
+Synonym created.
+
 
 Synonym created.
 
@@ -2074,6 +2081,9 @@ Connected.
 SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Admin.sql";
 
 User created.
+
+
+Grant succeeded.
 
 
 Grant succeeded.
@@ -2302,7 +2312,25 @@ Grant succeeded.
 Grant succeeded.
 
 
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
 Role created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
 
 
 Grant succeeded.

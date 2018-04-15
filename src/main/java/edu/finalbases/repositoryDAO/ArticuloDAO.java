@@ -70,7 +70,7 @@ public class ArticuloDAO extends AbstractDAO{
         
         CategoriaDAO catDao = new CategoriaDAO();
         articulo.setCategoria((Categoria)catDao.getObjectById(resultSet.getInt("IDCATEGORIA")));
-        articulo.setSubCategoria((Categoria)catDao.getObjectById(resultSet.getInt("IDSUBCATEGORIA")));
+
         return articulo;
     }
     
