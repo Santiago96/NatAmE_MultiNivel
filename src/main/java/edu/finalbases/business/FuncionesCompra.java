@@ -58,6 +58,7 @@ public class FuncionesCompra {
     public synchronized int generarPago(JSONObject informacion) throws SQLException {
         DetalleVenta detalleVenta;
         Venta venta = obtenerVenta(informacion);
+        System.out.println("CLIENTE" + venta.getCliente().getIdPersona());
         if (venta != null) {
             //j1016065965
             if (ventaDAO.crear(venta) == 1) {//Se insertan todos los productos en detalleVenta
@@ -86,8 +87,14 @@ public class FuncionesCompra {
         
         //int idVenta = ventaDAO.getSequence();
         //System.out.println("IDventa generado: "+idVenta);
+       
+        
         Persona rep = (Persona) representanteDAO.getObjectById(informacion.getInt("idrv"));
-        Persona cliente = (Persona) representanteDAO.getObjectById(informacion.getInt("idcliente"));
+        Persona cliente = (Persona) clienteDAO.getObjectById(informacion.getInt("idcliente"));
+        
+         System.out.println("idv" + rep.getIdPersona());
+        System.out.println("idcliente" + cliente.getIdPersona());
+        
         double totalT = informacion.getDouble("totalTodo");
         //TipoPago tipoPago = (TipoPago) tipoPagoDAO.getObjectById(informacion.getInt("idtipopago"));        
         
