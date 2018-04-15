@@ -280,7 +280,7 @@
         if(Object.keys(todosP).length>0)
         hacerCompra(enviar);
         else        
-        alert("NIngun producto seleccionado")
+        alert("Ningún producto seleccionado")
     }
     
     function hacerCompra(compra) {
