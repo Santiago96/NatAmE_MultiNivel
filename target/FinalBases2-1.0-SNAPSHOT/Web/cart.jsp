@@ -13,6 +13,7 @@
 <%
     BancoDAO bancoDAO = new BancoDAO();
     List<Banco> bancos = bancoDAO.getBancos();
+    Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();       
 
 %>
 
@@ -141,10 +142,11 @@
         }
         out.print("};");
 
-        Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
         
-
     %>
+    
+    
+        
     var totalValue = 0;
     var productos;
     function initListaOrcamento() {
@@ -168,21 +170,22 @@
     totalValue += $(item).data('item-total-value');
     });
 
-    $('#total-value').html("$" + parseFloat(totalValue).toFixed(2));
+    $('#total-value').html("$" + parseFloat(totalValue).toFixed(3));
     }
 
     function mountLayout(index, data) {
-    var totalValueTemp = parseFloat(data.unity_price) * parseInt(data.quantity);
-
+    var totalValueTemp = parseFloat(data.unity_price.replace(",",".")).toFixed(3)* parseInt(data.quantity);
+    
+    
     var $layout = "<tr id='product-"+ index +"'><td class='col-sm-8 col-md-6'><div class='media'>" +
     "<img class='d-flex align-self-center mr-3' width=60px height=60px src='"+obj[index]+"' alt=''>" +
     "<div class='media-body'>" +
     "<h5 class='mt-0'>"+ data.product_name +"</h5>" +
     "</div></div></td><td class='col-sm-1 col-md-1' style='text-align: center'>" + data.quantity +
-    "<td class='col-sm-1 col-md-1 text-center'><strong>$"+ data.unity_price +"</strong></td>" +
-    "<td class='col-sm-1 col-md-1 text-center' data-item-total-value='"+totalValueTemp+"'><strong>$"+parseFloat(totalValueTemp).toFixed(2)+"</strong></td>" +
+    "<td class='col-sm-1 col-md-1 text-center'><strong>$"+ data.unity_price.replace(",",".") +"</strong></td>" +
+    "<td class='col-sm-1 col-md-1 text-center' data-item-total-value='"+totalValueTemp+"'><strong>$"+ totalValueTemp.toFixed(3) +"</strong></td>" +
     "<td class='col-sm-1 col-md-1'>" +
-    "<a href='javascript:;' class='btn btn-danger fa fa-trash' data-cesta-feira-delete-item='"+ index +"'><span class='sr-only'>Remove</span></a>" +
+    "<button type=\"button\" href=\"javascript:;\" class=\"btn btn-danger\" data-cesta-feira-delete-item=\""+index+"\" >Eliminar</button>" +
     "</td></tr>";
 
     $cartItems.append($layout);
@@ -197,19 +200,22 @@
     });
 
     updateTotalValue();
+    
 
-    $(document).on('click', 'a[data-cesta-feira-delete-item]', function(e) {
-    e.preventDefault();
+    $(document).on('click', 'button[data-cesta-feira-delete-item]', function(e) {
+        e.preventDefault();
 
-    var productId = $(this).data('cesta-feira-delete-item');
-
-    if($(document).on('cesta-feira-item-deleted')){
-    $('#product-'+productId).fadeOut(500, function() {
-    $(this).remove();
-    updateTotalValue();
+        var productId = $(this).data('cesta-feira-delete-item');
+            
+            if($(document).on('cesta-feira-item-deleted')){
+                $('#product-'+productId).fadeOut(500, function() {
+                    $(this).remove();
+                    updateTotalValue();
+            });
+        }
     });
-    }
-    });
+    
+    
 
     $(document).on('cesta-feira-clear-basket', function (e) {
     $('#cart-items tr').each(function (index, value) {
@@ -258,7 +264,7 @@
 
 
 
-        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(2), idcliente:1, idrv:2, idtipopago: tipo, idbanco: strUser};
+        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(2), idcliente:<% out.print(cliente.getIdPersona()); %>, idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, idtipopago: tipo, idbanco: strUser};
 
         if (Object.keys(todosP).length > 0)
             hacerCompra(enviar);

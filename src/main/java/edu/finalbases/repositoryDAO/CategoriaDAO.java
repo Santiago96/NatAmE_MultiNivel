@@ -37,7 +37,7 @@ public class CategoriaDAO extends AbstractDAO{
     public Object getObjectById(int id) throws SQLException {
         Categoria categoria = null;
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA WHERE IDCATEGORIA = ?";
+            String strSQL = "SELECT * FROM CATEGORY WHERE IDCATEGORIA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -72,7 +72,7 @@ public class CategoriaDAO extends AbstractDAO{
         List<Categoria> categorias = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA";
+            String strSQL = "SELECT * FROM CATEGORY";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            
@@ -98,7 +98,7 @@ public class CategoriaDAO extends AbstractDAO{
         List<Categoria> categorias = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA WHERE IDCATEGORIAPADRE IS NULL";
+            String strSQL = "SELECT * FROM CATEGORY WHERE IDCATEGORIAPADRE IS NULL";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            
@@ -123,7 +123,7 @@ public class CategoriaDAO extends AbstractDAO{
         List<Categoria> categorias = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA WHERE IDCATEGORIAPADRE = ?";
+            String strSQL = "SELECT * FROM CATEGORY WHERE IDCATEGORIAPADRE = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,catPadre);

@@ -38,7 +38,7 @@ public class ItemDAO extends AbstractDAO{
      public Object getObjectById(int id) throws SQLException {
         Item item = null;
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.ITEM WHERE IDITEM = ?";
+            String strSQL = "SELECT * FROM ARTICLE WHERE IDITEM = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -74,7 +74,7 @@ public class ItemDAO extends AbstractDAO{
         List<Item> items = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.ITEM";
+            String strSQL = "SELECT * FROM ARTICLE";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             resultSet = prepStmt.executeQuery();            
@@ -98,7 +98,7 @@ public class ItemDAO extends AbstractDAO{
 
         
         try {
-            String strSQL = "UPDATE MULTINIVEL.ITEM SET CANTIDAD = CANTIDAD - ? WHERE IDPRODUCTO=? AND IDREGION=?";
+            String strSQL = "UPDATE ARTICLE SET CANTIDAD = CANTIDAD - ? WHERE IDPRODUCTO=? AND IDREGION=?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, cantidad);
