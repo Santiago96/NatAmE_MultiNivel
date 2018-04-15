@@ -29,25 +29,37 @@
                 <thead>
                     <tr>
                         <th class="text-center">ID de la Venta</th>
-                        <th>Fecha</th>
+                        <th class="text-center">Fecha</th>
                         <th class="text-center">Total</th>
                         <th class="text-center">Cantidad Productos</th>
                         <th class="text-center">Tipo Pago</th>
+                        <th class="text-center">Detalle Compra</th>
+
 
                     </tr>
                 </thead>
                 <tbody id="cart-items">
-                    <%                        for (HistoricoCompra historico : historicos) {
+
+                    <%                        if (historicos.size() > 0) {
+                            for (HistoricoCompra historico : historicos) {
+                                out.print("<tr>");
+                                out.print("<th class=\"text-center\">" + historico.getIdVenta() + "</th>");
+                                out.print("<th>" + sdf.format(historico.getFechaVenta()) + "</th>");
+                                out.print("<th class=\"text-center\">" + historico.getTotal() + "</th>");
+                                out.print("<th class=\"text-center\">" + historico.getTotalProductos() + "</th>");
+                                out.print("<th class=\"text-center\"><button class=\"btn\" onclick=\"verDetalleFactura("+historico+")\"><i class=\"fas fa-search-plus\" ></i> Ver Detalle</button></th>");
+                                out.print("</tr>");
+                            }
+                        } else {
                             out.print("<tr>");
-                            out.print("<th class=\"text-center\">" + historico.getIdVenta() + "</th>");
-                            out.print("<th>" + sdf.format(historico.getFechaVenta()) + "</th>");
-                            out.print("<th class=\"text-center\">" + historico.getTotal() + "</th>");
-                            out.print("<th class=\"text-center\">" + historico.getTotalProductos() + "</th>");
+                            out.print("<th class=\"text-center\" style=\"color:#FF0000\";> No hay registros de compras </th>");
                             out.print("</tr>");
+
                         }
 
                     %>
                 </tbody>
+
 
             </table>
 
@@ -60,6 +72,11 @@
 </div>
 
 <script>
+
+    function verDetalleFactura(historico) {
+
+        console.log("Ver historico");
+    }
 
     actual(4);
 </script>
