@@ -32,7 +32,6 @@
      List<Articulo> articulos = articuloDAO.getProductos(cliente.getRegion().getIdRegion());
     
     
-    
 
 %>
 
@@ -125,7 +124,6 @@
                 
     for(Articulo articulo : articulos ){
         String[] imagenes = articulo.getPath().split(";");
-        //out.print(tarjeta(1,"Michael Jackson",1,"https://noticias.cubitanow.com/wp-content/uploads/2018/01/michael-jackson-6f196687-db38-4faf-a69d-2516eadbdfa7.jpg",1,1));
         out.print(tarjeta(articulo.getIdProducto(),articulo.getNombreProducto(),articulo.getPrecioVenta(),imagenes[0],articulo.getCantidad(),articulo.getCategoria().getIdCategoria()));
     }
     %>
@@ -142,7 +140,7 @@
 
 <script>
     
-    sub = 1;
+    sub = <% out.print(articulos.get(0).getCategoria().getIdCategoria()); %>;
      var slides = document.getElementsByClassName("sub");
         for(var i = 0; i < slides.length; i++){
             document.getElementsByClassName('sub')[i].style.display = 'none';
