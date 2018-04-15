@@ -22,26 +22,14 @@
          
     
     CategoriaDAO categoriaDAO = new CategoriaDAO();
-    List<Categoria> categorias = categoriaDAO.getCategorias();
-    
-    SubCategoriaDAO subCategoriaDAO = new SubCategoriaDAO();
-    List<SubCategoria> subCategorias = subCategoriaDAO.getSubCategorias();  
+    List<Categoria> categorias = categoriaDAO.getSoloCategorias();
+    List<Categoria> subCategorias;
     
     Persona cliente = FuncionesCliente.getFuncionesCliente().getSessionCliente();
-    Persona rv = FuncionesRepVentas.getFunciones().getUserSession();
-        
+    
     
      ArticuloDAO articuloDAO = new ArticuloDAO();
-     List<Articulo> articulos;
-    if(cliente==null){
-        articulos = articuloDAO.getProductos(rv.getRegion().getIdRegion());
-    }else{
-        articulos = articuloDAO.getProductos(cliente.getRegion().getIdRegion());
-    }
-    
-    
-     
-   
+     List<Articulo> articulos = articuloDAO.getProductos(cliente.getRegion().getIdRegion());
     
     
     
@@ -107,6 +95,7 @@
             <%
                 int contador=0;
                 for (Categoria categoria : categorias) {
+                    subCategorias = categoriaDAO.getSubCategorias(categoria.getIdCategoria());
                     contador++;
                     out.print("<li class=\"nav-item dropdown\">");    
                     if(contador==1)
@@ -114,9 +103,8 @@
                     else
                     out.print("<a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">" + categoria.getNombreCategoria()+ "</a>");
                     out.print("<div class=\"dropdown-menu\"> ");
-                        for (SubCategoria subcategoria : subCategorias) {
-                            if(categoria.getIdCategoria()==subcategoria.getCategoria().getIdCategoria())
-                            out.print("<a class=\"dropdown-item\" href=\"#\" onclick=\"mostrar("+String.valueOf(subcategoria.getIdSubCategoria())+",this);imagen("+ String.valueOf(categoria.getIdCategoria()) +");\">"+subcategoria.getNombreSubCategoria()+"</a> ");
+                        for (Categoria subcategoria : subCategorias) {                            
+                            out.print("<a class=\"dropdown-item\" href=\"#\" onclick=\"mostrar("+String.valueOf(subcategoria.getIdCategoria())+",this);imagen("+ String.valueOf(categoria.getIdCategoria()) +");\">"+subcategoria.getNombreCategoria()+"</a> ");
                         }
                     
                     out.print("</div>");
@@ -134,10 +122,11 @@
     <div class="row text-center">
 
         <% 
+                
     for(Articulo articulo : articulos ){
         String[] imagenes = articulo.getPath().split(";");
-        
-        out.print(tarjeta(articulo.getIdProducto(),articulo.getNombreProducto(),articulo.getPrecioVenta(),imagenes[0],articulo.getCantidad(),articulo.getSubCategoria().getIdSubCategoria()));
+        //out.print(tarjeta(1,"Michael Jackson",1,"https://noticias.cubitanow.com/wp-content/uploads/2018/01/michael-jackson-6f196687-db38-4faf-a69d-2516eadbdfa7.jpg",1,1));
+        out.print(tarjeta(articulo.getIdProducto(),articulo.getNombreProducto(),articulo.getPrecioVenta(),imagenes[0],articulo.getCantidad(),articulo.getSubCategoria().getIdCategoria()));
     }
     %>
 

@@ -7,6 +7,7 @@ package edu.finalbases.repositoryDAO;
 
 import edu.finalbases.conexion.Conexion;
 import edu.finalbases.entities.Articulo;
+import edu.finalbases.entities.Categoria;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ArticuloDAO extends AbstractDAO{
      public Object getObjectById(int id) throws SQLException {
         Articulo articulo = null;
         try {
-            String strSQL = "SELECT * FROM MULTINIVEL.ARTICULO WHERE IDPRODUCTO = ?";
+            String strSQL = "SELECT * FROM OBJECT WHERE IDPRODUCTO = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1,id);
@@ -65,8 +66,11 @@ public class ArticuloDAO extends AbstractDAO{
         articulo.setDescripcion(resultSet.getString("DESCRIPCION"));
         articulo.setPath(resultSet.getString("PATH"));
         articulo.setPrecioVenta(resultSet.getFloat("PRECIOVENTA"));
-        articulo.setCantidad(resultSet.getInt("CANTIDAD"));
+        articulo.setCantidad(resultSet.getInt("CANTIDAD")); 
         
+        CategoriaDAO catDao = new CategoriaDAO();
+        articulo.setCategoria((Categoria)catDao.getObjectById(resultSet.getInt("IDCATEGORIA")));
+        articulo.setSubCategoria((Categoria)catDao.getObjectById(resultSet.getInt("IDSUBCATEGORIA")));
         return articulo;
     }
     

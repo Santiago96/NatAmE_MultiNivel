@@ -56,6 +56,7 @@ public class CategoriaDAO extends AbstractDAO{
         }
         return categoria;
     }
+    
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
@@ -90,5 +91,61 @@ public class CategoriaDAO extends AbstractDAO{
         return categorias;
 
     }
+    
+    
+    public List getSoloCategorias() throws SQLException{
+
+        List<Categoria> categorias = new ArrayList();
+
+        try {
+            String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA WHERE IDCATEGORIAPADRE IS NULL";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            resultSet = prepStmt.executeQuery();            
+
+            while(resultSet.next()) {
+                categorias.add((Categoria) getEntityByResultSet(resultSet));
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo categorias: " + ex.getMessage());
+
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+
+        return categorias;
+
+    }
+    
+     public List getSubCategorias(int catPadre) throws SQLException{
+
+        List<Categoria> categorias = new ArrayList();
+
+        try {
+            String strSQL = "SELECT * FROM MULTINIVEL.CATEGORIA WHERE IDCATEGORIAPADRE = ?";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setInt(1,catPadre);
+            resultSet = prepStmt.executeQuery();            
+
+            while(resultSet.next()) {
+                categorias.add((Categoria) getEntityByResultSet(resultSet));
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Error obteniendo categorias: " + ex.getMessage());
+
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+
+        return categorias;
+
+    }
+    
+  
+    
+    
     
 }

@@ -15,6 +15,7 @@ public class Articulo {
     private String nombreProducto;
     private String descripcion;
     private Categoria categoria;
+    private Categoria subCategoria;
     
     private String path;
     
@@ -58,6 +59,14 @@ public class Articulo {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+    
+     public Categoria getSubCategoria() {
+        return subCategoria;
+    }
+
+    public void setSubCategoria(Categoria categoria) {
+        this.subCategoria = categoria;
     }
 
 
