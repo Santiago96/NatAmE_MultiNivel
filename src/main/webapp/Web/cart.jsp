@@ -165,16 +165,17 @@
     function updateTotalValue() {
 
 
-
+    totalValue = 0;
     $.each($('[data-item-total-value]'), function (index, item) {
-    totalValue += $(item).data('item-total-value');
+        totalValue += $(item).data('item-total-value');
+        console.log(totalValue);
     });
 
-    $('#total-value').html("$" + parseFloat(totalValue).toFixed(3));
+    $('#total-value').html("$" + parseFloat(totalValue).toFixed().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,'));
     }
 
     function mountLayout(index, data) {
-    var totalValueTemp = parseFloat(data.unity_price.replace(",",".")).toFixed(3)* parseInt(data.quantity);
+    var totalValueTemp = parseInt(data.unity_price.replace(",","")) * parseInt(data.quantity);
     
     
     var $layout = "<tr id='product-"+ index +"'><td class='col-sm-8 col-md-6'><div class='media'>" +
@@ -182,8 +183,8 @@
     "<div class='media-body'>" +
     "<h5 class='mt-0'>"+ data.product_name +"</h5>" +
     "</div></div></td><td class='col-sm-1 col-md-1' style='text-align: center'>" + data.quantity +
-    "<td class='col-sm-1 col-md-1 text-center'><strong>$"+ data.unity_price.replace(",",".") +"</strong></td>" +
-    "<td class='col-sm-1 col-md-1 text-center' data-item-total-value='"+totalValueTemp+"'><strong>$"+ totalValueTemp.toFixed(3) +"</strong></td>" +
+    "<td class='col-sm-1 col-md-1 text-center'><strong>$"+ data.unity_price +"</strong></td>" +
+    "<td class='col-sm-1 col-md-1 text-center' data-item-total-value='"+totalValueTemp+"'><strong>$"+ parseFloat(totalValueTemp).toFixed().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,') +"</strong></td>" +
     "<td class='col-sm-1 col-md-1'>" +
     "<button type=\"button\" href=\"javascript:;\" class=\"btn btn-danger\" data-cesta-feira-delete-item=\""+index+"\" >Eliminar</button>" +
     "</td></tr>";
@@ -245,7 +246,9 @@
         var contador = 0;
 
         for (pro in productos) {
-            var produc = {id: pro, cantidad: productos[pro].quantity, preciototal: productos[pro].unity_price * productos[pro].quantity};
+            //console.log(parseInt(productos[pro].unity_price.replace(",","")));
+            //console.log(typeof(productos[pro].unity_price));
+            var produc = {id: pro, cantidad: productos[pro].quantity, preciototal: parseInt(productos[pro].unity_price.replace(",","")) * productos[pro].quantity};
             todosP[contador] = produc;
             contador++;
         }
@@ -264,7 +267,7 @@
 
 
 
-        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(2), idcliente:<% out.print(cliente.getIdPersona()); %>, idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, idtipopago: tipo, idbanco: strUser};
+        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(0), idcliente:<% out.print(cliente.getIdPersona()); %>, idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, idtipopago: tipo, idbanco: strUser};
 
         if (Object.keys(todosP).length > 0)
             hacerCompra(enviar);
