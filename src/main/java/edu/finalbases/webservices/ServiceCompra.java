@@ -9,9 +9,12 @@ package edu.finalbases.webservices;
  *
  * @author Santiago
  */
+import edu.finalbases.business.FuncionesCliente;
 import edu.finalbases.business.FuncionesCompra;
 import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.Articulo;
 import edu.finalbases.entities.Persona;
+import edu.finalbases.repositoryDAO.ArticuloDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,5 +49,30 @@ public class ServiceCompra {
         return Response.status(Response.Status.BAD_REQUEST).header("Solicitud incorrecta", "El recurso no pudo ser creado").build();
 
     } 
+    
+    
+    @GET
+    @Path("articulo/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArticulo(@PathParam("id") int id) throws SQLException {
+
+        //System.out.println("Articulo:" + id);
+        
+        
+            ArticuloDAO articuloDAO = new ArticuloDAO();
+            Articulo art = (Articulo)articuloDAO.getObjectById(id);
+            
+            if (art != null) {                
+                return Response.ok(art).build();
+            }else{
+            
+            return Response.status(Response.Status.UNAUTHORIZED).header("Solicitud incorrecta", "El recurso no pudo ser obtenido").build();
+            }
+            
+
+
+    }
+
     
 }

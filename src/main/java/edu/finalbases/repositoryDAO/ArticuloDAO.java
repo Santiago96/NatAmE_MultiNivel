@@ -45,7 +45,7 @@ public class ArticuloDAO extends AbstractDAO{
             resultSet = prepStmt.executeQuery();            
 
             if(resultSet.next()) {
-                articulo = (Articulo) getEntityByResultSet(resultSet);
+                articulo = (Articulo) getEntityByResultSet(resultSet);                
             }
             prepStmt.close();
         } catch (SQLException ex) {
@@ -67,6 +67,7 @@ public class ArticuloDAO extends AbstractDAO{
         articulo.setPath(resultSet.getString("PATH"));
         articulo.setPrecioVenta(resultSet.getFloat("PRECIOVENTA"));
         articulo.setCantidad(resultSet.getInt("CANTIDAD")); 
+        articulo.setDescripcion(resultSet.getString("DESCRIPCION")); 
         
         CategoriaDAO catDao = new CategoriaDAO();
         articulo.setCategoria((Categoria)catDao.getObjectById(resultSet.getInt("IDCATEGORIA")));

@@ -23,7 +23,7 @@ public class Articulo {
     private Region region;
     private int cantidad;
     private float precioventa;
-
+    
     public Articulo() {
     }
     
@@ -49,7 +49,7 @@ public class Articulo {
         return descripcion;
     }
 
-    public void setDescripcion(String descripciion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 

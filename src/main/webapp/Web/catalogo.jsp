@@ -35,13 +35,20 @@
     
 
 %>
-
+<style>
+    .detimagen{
+            width:100px;
+            height:100px;
+            margin-left:5px;
+        }
+    
+</style>
 <%!
    public String tarjeta(int id, String nombre, float precio, String imagen, int cantidad, int idsubcategoria){
        String html = "";
        
        
-       html = html + "<div class=\"col-lg-3 col-md-6 mb-4 sub sub"+idsubcategoria+"\">";
+       html = html + "<div onclick=\"actualizarModal(" + id + ")\" data-toggle=\"modal\" data-target=\"#detalleModal\" class=\"col-lg-3 col-md-6 mb-4 sub sub"+idsubcategoria+"\">";
        html = html + "     <div class=\"card\">";
        html = html + "         <img class=\"card-img-top\" src=\"" + imagen + "\" alt=\"\">";
        html = html + "         <div class=\"card-body\">";
@@ -147,9 +154,64 @@
 </div>
 <!-- /.container -->
 
+<!-- Modal -->
+<div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detalleModalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div id="detalleModalBody" class="modal-body">
+        ...
+      </div>
+      <div id="imagenModalBody" class="modal-body">
+        ...
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script>
+actualizarModal = function(id){
+    
+                    $.ajax({
+                        type: 'GET',
+                        url: '${pageContext.request.contextPath}/api/compra/articulo/' + id,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            document.getElementById("detalleModalTitle").innerHTML = response['nombreProducto'];
+                            document.getElementById("detalleModalBody").innerHTML = response['descripcion'];
+                            var imagenes = response['path'].split(";"); 
+                            
+                            
+                            for(i=0;i<imagenes.length;i++){
+                                imagenes[i] = "<img class=\"detimagen img-thumbnail \" src=\"" + imagenes[i] + "\">";                                
+                            }
+                            
+                            var compiladas = "";
+                            for(i=0;i<imagenes.length;i++){
+                                compiladas = compiladas + imagenes[i];
+                            }
+                            console.log(compiladas);
+                            document.getElementById("imagenModalBody").innerHTML = compiladas;
+                            
+                        },
+                        error: function (textStatus) {
+                            console.log(textStatus);                            
 
-<% System.out.println("NUM" + articulos.get(0).getCategoria().getIdCategoria()); %>
+                        }
+                    });
+    
+};
+</script>
 <script>
     
     sub = <% out.print(articulos.get(0).getCategoria().getIdCategoria()); %>;
