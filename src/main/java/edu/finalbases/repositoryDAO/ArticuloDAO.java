@@ -79,7 +79,7 @@ public class ArticuloDAO extends AbstractDAO{
         List<Articulo> articulos = new ArrayList();
 
         try {
-            String strSQL = "SELECT * FROM OBJECT WHERE IDREGION = ?";
+            String strSQL = "SELECT * FROM OBJECT WHERE IDREGION = ? ORDER BY IDPRODUCTO";
             System.out.println(strSQL);
             System.out.println(region);
             connection = Conexion.getInstance().getConexionBD();

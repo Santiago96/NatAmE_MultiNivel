@@ -47,6 +47,10 @@
        html = html + "         <div class=\"card-body\">";
        html = html + "             <h4 class=\"card-title\">" + nombre + "</h4>";
        html = html + "             <p class=\"card-text\">Precio: $" + String.valueOf(Math.round(precio)) +"</p>";
+       if (cantidad!=0)
+       html = html + "             <a href=\"#\" class=\"badge badge-info\">"+cantidad+" Unidades Disponibles</a>";
+       else
+       html = html + "             <a href=\"#\" class=\"badge badge-secondary\">"+cantidad+" Unidades Disponibles</a>";
        html = html + "         </div>";
        html = html + "         <div class=\"card-footer\">";
        html = html + "             <form action=\"\" class=\"form\" data-cesta-feira-form>";
@@ -145,7 +149,7 @@
 
 
 
-
+<% System.out.println("NUM" + articulos.get(0).getCategoria().getIdCategoria()); %>
 <script>
     
     sub = <% out.print(articulos.get(0).getCategoria().getIdCategoria()); %>;
