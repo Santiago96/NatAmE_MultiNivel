@@ -37,7 +37,6 @@
 %>
 
 <%!
-   DecimalFormat df = new DecimalFormat("###,###.##");
    public String tarjeta(int id, String nombre, float precio, String imagen, int cantidad, int idsubcategoria){
        String html = "";
        
@@ -47,7 +46,7 @@
        html = html + "         <img class=\"card-img-top\" src=\"" + imagen + "\" alt=\"\">";
        html = html + "         <div class=\"card-body\">";
        html = html + "             <h4 class=\"card-title\">" + nombre + "</h4>";
-       html = html + "             <p class=\"card-text\">Precio: $" + String.valueOf(df.format(precio)) +"</p>";
+       html = html + "             <p class=\"card-text\">Precio: $" + String.valueOf(Math.round(precio)) +"</p>";
        html = html + "         </div>";
        html = html + "         <div class=\"card-footer\">";
        html = html + "             <form action=\"\" class=\"form\" data-cesta-feira-form>";
@@ -59,7 +58,7 @@
        
        html = html + "                 </div>                     ";
        html = html + "                 <input type=\"hidden\" value=\"" + nombre + "\" name=\"product_name\" data-cesta-feira-attribute=\"\">";
-       html = html + "                 <input type=\"hidden\" value=\"" + String.valueOf(df.format(precio)) +"\" name=\"unity_price\" data-cesta-feira-attribute>";
+       html = html + "                 <input type=\"hidden\" value=\"" + String.valueOf(Math.round(precio)) +"\" name=\"unity_price\" data-cesta-feira-attribute>";
        html = html + "                 <input type=\"hidden\" value=\"" + id + "\" data-cesta-feira-item-id />";
        html = html + "                 <input type=\"hidden\" value=\"shoe\" name=\"item_type\" data-cesta-feira-attribute>";
        if(cantidad==0)

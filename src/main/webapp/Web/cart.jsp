@@ -171,7 +171,7 @@
         console.log(totalValue);
     });
 
-    $('#total-value').html("$" + parseFloat(totalValue).toFixed().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,'));
+    $('#total-value').html("$" + parseInt(totalValue));
     }
 
     function mountLayout(index, data) {
@@ -184,7 +184,7 @@
     "<h5 class='mt-0'>"+ data.product_name +"</h5>" +
     "</div></div></td><td class='col-sm-1 col-md-1' style='text-align: center'>" + data.quantity +
     "<td class='col-sm-1 col-md-1 text-center'><strong>$"+ data.unity_price +"</strong></td>" +
-    "<td class='col-sm-1 col-md-1 text-center' data-item-total-value='"+totalValueTemp+"'><strong>$"+ parseFloat(totalValueTemp).toFixed().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,') +"</strong></td>" +
+    "<td class='col-sm-1 col-md-1 text-center' data-item-total-value='"+totalValueTemp+"'><strong>$"+ parseInt(totalValueTemp) +"</strong></td>" +
     "<td class='col-sm-1 col-md-1'>" +
     "<button type=\"button\" href=\"javascript:;\" class=\"btn btn-danger\" data-cesta-feira-delete-item=\""+index+"\" >Eliminar</button>" +
     "</td></tr>";
@@ -248,7 +248,7 @@
         for (pro in productos) {
             //console.log(parseInt(productos[pro].unity_price.replace(",","")));
             //console.log(typeof(productos[pro].unity_price));
-            var produc = {id: pro, cantidad: productos[pro].quantity, preciototal: parseInt(productos[pro].unity_price.replace(",","")) * productos[pro].quantity};
+            var produc = {id: pro, cantidad: productos[pro].quantity, preciototal: parseInt(productos[pro].unity_price) * productos[pro].quantity};
             todosP[contador] = produc;
             contador++;
         }
