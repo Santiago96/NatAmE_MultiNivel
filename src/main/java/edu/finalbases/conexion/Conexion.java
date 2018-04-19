@@ -5,6 +5,7 @@
  */
 package edu.finalbases.conexion;
 
+import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -44,7 +45,7 @@ public class Conexion {
         connetion = null;
     }
 
-    public void conectar(String user, String password) {
+    public void conectar(String user, String password) throws FException {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             connetion = DriverManager.getConnection(rulbd, user, password);
@@ -55,7 +56,7 @@ public class Conexion {
             }
         } catch (Exception e) {
             connetion = null;
-            System.out.println(e.getMessage());
+            throw new FException("Conexion", "Error conectandose a la BD," + e.getMessage());
         }
     }
 

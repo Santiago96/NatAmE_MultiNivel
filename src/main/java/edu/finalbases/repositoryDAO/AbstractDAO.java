@@ -29,7 +29,7 @@ public abstract class AbstractDAO {
     }
     
     abstract public Object actualizar(Object object);
-    abstract public int crear(Object object)throws SQLException;
+    abstract public int crear(Object object)throws SQLException, FException;
     abstract public boolean borrar(Object object);
     
     abstract public Object getObjectById(int id) throws SQLException;

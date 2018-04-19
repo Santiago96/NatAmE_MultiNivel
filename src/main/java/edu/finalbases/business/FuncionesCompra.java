@@ -12,6 +12,7 @@ import edu.finalbases.entities.Venta;
 import edu.finalbases.repositoryDAO.BancoDAO;
 import edu.finalbases.repositoryDAO.ClienteDAO;
 import edu.finalbases.repositoryDAO.DetalleVentaDAO;
+import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.ItemDAO;
 import edu.finalbases.repositoryDAO.ProductoDAO;
 import edu.finalbases.repositoryDAO.RepresentanteVentasDAO;
@@ -19,6 +20,8 @@ import edu.finalbases.repositoryDAO.VentaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
 /**
@@ -55,21 +58,25 @@ public class FuncionesCompra {
         return funcionesCompra;
     }
 
-    public synchronized int generarPago(JSONObject informacion) throws SQLException {
+    public synchronized int generarPago(JSONObject informacion) throws SQLException, FException {
         DetalleVenta detalleVenta;
         Venta venta = obtenerVenta(informacion);
         System.out.println("CLIENTE" + venta.getCliente().getIdPersona());
         if (venta != null) {
-            //j1016065965
-            if (ventaDAO.crear(venta) == 1) {//Se insertan todos los productos en detalleVenta
-                JSONObject productosJSON = informacion.getJSONObject("productos");            
-                for (int i = 0; i < productosJSON.length(); i++) {
-                    //System.out.println("P: " + productosJSON.getJSONObject(String.valueOf(i)));
-                    detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)),venta.getIdVenta());
-                    detalleVDAO.crear(detalleVenta);
-                    itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), venta.getCliente().getRegion().getIdRegion(),detalleVenta.getCantidad());
+            try {
+                //j1016065965
+                if (ventaDAO.crear(venta) == 1) {//Se insertan todos los productos en detalleVenta
+                    JSONObject productosJSON = informacion.getJSONObject("productos");
+                    for (int i = 0; i < productosJSON.length(); i++) {
+                        //System.out.println("P: " + productosJSON.getJSONObject(String.valueOf(i)));
+                        detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)),venta.getIdVenta());
+                        detalleVDAO.crear(detalleVenta);
+                        itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), venta.getCliente().getRegion().getIdRegion(),detalleVenta.getCantidad());
+                    }
+                    return 1;
                 }
-                return 1;
+            } catch (FException ex) {
+                throw ex;
             }
             return 0;
         }
@@ -80,7 +87,6 @@ public class FuncionesCompra {
         List<Producto> productosComprados = new ArrayList();
         productosComprados.add((Producto) productoDAO.getObjectById(0));
         return productosComprados;
-
     }
 
     private Venta obtenerVenta(JSONObject informacion) throws SQLException {

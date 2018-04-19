@@ -38,15 +38,15 @@ public class PersonaDAO extends AbstractDAO {
 
     @Override
     public Object getEntityByResultSet(ResultSet resultSet) throws SQLException {
-       
-       return null;
+
+        return null;
 
     }
 
     @Override
     public Object getObjectById(int id) throws SQLException {
         Persona representante = null;
- 
+
         try {
             String strSQL = "SELECT * FROM PERSON WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
@@ -54,7 +54,7 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
-            if (resultSet.next()) {                
+            if (resultSet.next()) {
                 representante = (Persona) getEntityByResultSet(resultSet);
             }
             prepStmt.close();
@@ -65,7 +65,7 @@ public class PersonaDAO extends AbstractDAO {
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-        
+
         return representante;
     }
 
@@ -84,7 +84,7 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.close();
 
         } catch (SQLException e) {
-            System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
+            System.out.println("No se pudo actualizar ultima conexion" + e.getMessage());
             return 0;
         } finally {
             Conexion.getInstance().cerrarConexion();
@@ -94,7 +94,7 @@ public class PersonaDAO extends AbstractDAO {
 
     }
 
-    public boolean crearUser(Persona p) throws SQLException {
+    public boolean crearUser(Persona p) throws SQLException, FException {
         final String tableDefault = "DEFRMUNDO";
         final String tableTemporary = "TEMRMULTINIVEL";
 
@@ -112,9 +112,9 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt = connection.prepareStatement(ddlQuery);
 
             resultado = prepStmt.execute();
-            
+
             if (!resultado) {
-                String ddlPrivileges = "GRANT R_CLIENTE TO "+user;
+                String ddlPrivileges = "GRANT R_CLIENTE TO " + user;
 
                 System.out.println("Query DDL Privileges: " + ddlPrivileges);
                 connection = Conexion.getInstance().getConexionBD();
@@ -125,8 +125,7 @@ public class PersonaDAO extends AbstractDAO {
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());
-            return false;
-
+            throw new FException("PersonaDAO", "Error creando a la persona," + ex.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

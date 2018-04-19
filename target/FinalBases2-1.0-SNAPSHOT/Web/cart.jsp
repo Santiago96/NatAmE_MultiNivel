@@ -13,7 +13,7 @@
 <%
     BancoDAO bancoDAO = new BancoDAO();
     List<Banco> bancos = bancoDAO.getBancos();
-    Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();       
+    Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
 
 %>
 
@@ -142,11 +142,11 @@
         }
         out.print("};");
 
-        
+
     %>
-    
-    
-        
+
+
+
     var totalValue = 0;
     var productos;
     function initListaOrcamento() {
@@ -167,8 +167,8 @@
 
     totalValue = 0;
     $.each($('[data-item-total-value]'), function (index, item) {
-        totalValue += $(item).data('item-total-value');
-        console.log(totalValue);
+    totalValue += $(item).data('item-total-value');
+    console.log(totalValue);
     });
 
     $('#total-value').html("$" + parseInt(totalValue));
@@ -176,8 +176,8 @@
 
     function mountLayout(index, data) {
     var totalValueTemp = parseInt(data.unity_price.replace(",","")) * parseInt(data.quantity);
-    
-    
+
+
     var $layout = "<tr id='product-"+ index +"'><td class='col-sm-8 col-md-6'><div class='media'>" +
     "<img class='d-flex align-self-center mr-3' width=60px height=60px src='"+obj[index]+"' alt=''>" +
     "<div class='media-body'>" +
@@ -201,22 +201,22 @@
     });
 
     updateTotalValue();
-    
+
 
     $(document).on('click', 'button[data-cesta-feira-delete-item]', function(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        var productId = $(this).data('cesta-feira-delete-item');
-            
-            if($(document).on('cesta-feira-item-deleted')){
-                $('#product-'+productId).fadeOut(500, function() {
-                    $(this).remove();
-                    updateTotalValue();
-            });
-        }
+    var productId = $(this).data('cesta-feira-delete-item');
+
+    if($(document).on('cesta-feira-item-deleted')){
+    $('#product-'+productId).fadeOut(500, function() {
+    $(this).remove();
+    updateTotalValue();
     });
-    
-    
+    }
+    });
+
+
 
     $(document).on('cesta-feira-clear-basket', function (e) {
     $('#cart-items tr').each(function (index, value) {
@@ -287,23 +287,21 @@
             data: JSON.stringify(compra),
             success: function (response) {
                 console.log(response);
-                if (response.textStatus = "Conflict") {
-                    alert("Compra realizada");
+                if (response.message = "exito") {
+                    modalMensaje("Exito", "Compra Realizada con Exito");
                 } else {
-                    alert("Error al realizar compra");
+                    modalMensaje("Error", response.message);
                 }
 
             },
-            error: function (textStatus) {
+            error: function (response) {
                 console.log("error ");
                 console.log(textStatus);
-                if (textStatus.textStatus = "Conflict") {
-                    alert("Compra realizada");
+                if (response.responseText = "exito") {
+                    modalMensaje("Exito", "Compra Realizada con Exito");
                 } else {
-                    alert("Error al realizar compra");
+                    modalMensaje("Error", textStatus);
                 }
-
-
             }
         });
     }

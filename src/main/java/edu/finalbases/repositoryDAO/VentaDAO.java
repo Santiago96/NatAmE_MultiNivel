@@ -23,7 +23,7 @@ public class VentaDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws  SQLException {
+    public int crear(Object object)throws  SQLException, FException {
         Venta venta = (Venta) object;
         try {
 
@@ -40,15 +40,12 @@ public class VentaDAO extends AbstractDAO{
             prepStmt.close();
 
             return resultado;
-
         } catch (SQLException e) {
             System.out.println("No pudo crear insertar la venta: " + e.getMessage());
-            
+            throw new FException("VentaDAO", "Error creando la venta" + e.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-        return 0;
-        
     }
 
     @Override

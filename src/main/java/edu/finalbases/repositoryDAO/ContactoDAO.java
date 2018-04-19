@@ -25,10 +25,9 @@ public class ContactoDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object)throws SQLException {
+    public int crear(Object object)throws SQLException, FException {
         Contacto contacto = (Contacto)object;
         try {
-
             String strSQL = "INSERT INTO CONTACT(IDCONTACTO,IDTIPOCONTACTO,IDPERSONA,DETALLECONTACTO) VALUES (MULTINIVEL.SEQ_CONTACTO_IDCONTACTO.NEXTVAL,?,?,?)";
             System.out.println(strSQL);
             connection = Conexion.getInstance().getConexionBD();
@@ -36,19 +35,14 @@ public class ContactoDAO extends AbstractDAO{
             prepStmt.setInt(1, contacto.getTipoContacto().getIdTipoContacto());
             prepStmt.setInt(2, contacto.getIdPersona().getIdPersona());
             prepStmt.setString(3, contacto.getDetalleContacto());
-            
-            
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
-            
             return resultado;
-            
         } catch (SQLException e) {
             System.out.println("No pudo crear el contacto; " + e.getMessage());
-            return 0;
+            throw new FException("ContactoDAO", "Error al crear el contacto," + e.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
-            
         }
     }
 

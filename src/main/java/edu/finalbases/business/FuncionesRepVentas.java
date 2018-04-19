@@ -16,6 +16,7 @@ import edu.finalbases.entities.TipoContacto;
 import edu.finalbases.entities.TipoRepresentanteVentas;
 import edu.finalbases.repositoryDAO.CiudadDAO;
 import edu.finalbases.repositoryDAO.ContactoDAO;
+import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.HistoricocrvDAO;
 import edu.finalbases.repositoryDAO.PaisDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
@@ -24,6 +25,8 @@ import edu.finalbases.repositoryDAO.RepresentanteVentasDAO;
 import edu.finalbases.repositoryDAO.TipoContactoDAO;
 import edu.finalbases.repositoryDAO.TipoRepresentanteVentasDAO;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
 /**
@@ -64,30 +67,33 @@ public class FuncionesRepVentas {
         return funciones;
     }
 
-    public int insertarCliente(JSONObject informacion) throws SQLException {
+    public int insertarCliente(JSONObject informacion) throws SQLException, FException {
         int r;
         Persona p = crearCliente(informacion);
-        r = representanteDAO.crear(p);
-        System.out.println("Registrando cliente como perwsona: " + r);
-        if (r == 1) {//creación exitosa  -> se crea cliente en cliente
-            r = representanteDAO.crearCliente(p);
-            System.out.println("Creando cliente en cliente: " + r);
-            if (r == 1) {//creación exitosa  -> se crea relacion cliente repventas
-                r = historicocrvDAO.crearRelacionClienteRep((Cliente)p, (RepresentanteVentas)getUserSession());
-                System.out.println("Creando relacion cliente repventas: " + r);
-                if (r == 1) {//creación exitosa  -> se crea contactos
-                    if (informacion.has("detalleC")) {
-                        Contacto c = getContacto(p, informacion);
-                        if (c != null) {
-                            r = contactoDAO.crear(c);
+        try {
+            r = representanteDAO.crear(p);
+            System.out.println("Registrando cliente como perwsona: " + r);
+            if (r == 1) {//creación exitosa  -> se crea cliente en cliente
+                r = representanteDAO.crearCliente(p);
+                System.out.println("Creando cliente en cliente: " + r);
+                if (r == 1) {//creación exitosa  -> se crea relacion cliente repventas
+                    r = historicocrvDAO.crearRelacionClienteRep((Cliente) p, (RepresentanteVentas) getUserSession());
+                    System.out.println("Creando relacion cliente repventas: " + r);
+                    if (r == 1) {//creación exitosa  -> se crea contactos
+                        if (informacion.has("detalleC")) {
+                            Contacto c = getContacto(p, informacion);
+                            if (c != null) {
+                                r = contactoDAO.crear(c);
+                            }
                         }
+                        return representanteDAO.crearUser(p) ? 1 : 0;
                     }
-                    return representanteDAO.crearUser(p) ? 1 : 0;
                 }
-
+                return 0;
             }
-
-            return 0;
+        } catch (FException ex) {
+            System.out.println(ex.toString());
+            throw ex;
         }
         return 0;
     }
@@ -125,14 +131,18 @@ public class FuncionesRepVentas {
         return new Contacto(p, String.valueOf(informacion.get("detalleC")), tipoC);
     }
 
-    public void updateConexion(String idPersona) throws SQLException {
+    public void updateConexion(String idPersona) throws SQLException, FException {
         System.out.println("Id Persona: " + idPersona);
         Persona p = (Persona) representanteDAO.getObjectById(Integer.parseInt(idPersona));
         if (p != null) {
-            if (representanteDAO.updateConexion(p) == 1) {
-                System.out.println("Se actualizo campo ultimaconexion");
-            } else {
-                System.out.println("No se actualizo campo ultimaconexion");
+            try {
+                if (representanteDAO.updateConexion(p) == 1) {
+                    System.out.println("Se actualizo campo ultimaconexion");
+                } else {
+                    System.out.println("No se actualizo campo ultimaconexion");
+                }
+            } catch (FException ex) {
+                throw ex;
             }
         } else {
             System.out.println("Persona no encontrada");

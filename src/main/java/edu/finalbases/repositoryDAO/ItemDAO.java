@@ -94,9 +94,7 @@ public class ItemDAO extends AbstractDAO{
 
     }
     
-    public void restarItem(int id, int region, int cantidad) throws SQLException{
-
-        
+    public void restarItem(int id, int region, int cantidad) throws SQLException, FException{
         try {
             String strSQL = "UPDATE ARTICLE SET CANTIDAD = CANTIDAD - ? WHERE IDPRODUCTO=? AND IDREGION=?";
             connection = Conexion.getInstance().getConexionBD();
@@ -111,7 +109,7 @@ public class ItemDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error restando item: " + ex.getMessage());
-
+            throw new FException("ItemDAO", "Error actualizando la cantidad de items," + ex.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

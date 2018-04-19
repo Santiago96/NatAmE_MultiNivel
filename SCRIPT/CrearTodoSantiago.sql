@@ -10,6 +10,3 @@ start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\S
 conn f1005855668/finalbases
 start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Schemas.sql";
 start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Roles.sql";
-
-
-

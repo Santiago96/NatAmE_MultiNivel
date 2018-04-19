@@ -30,7 +30,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
     
 
     @Override
-    public int crear(Object object) throws SQLException {
+    public int crear(Object object) throws SQLException, FException {
         Persona persona = (Persona) object;
         try {
 
@@ -52,8 +52,8 @@ public class RepresentanteVentasDAO extends AbstractDAO{
             return resultado;
 
         } catch (SQLException e) {
-            System.out.println("No pudo crear la persona" + e.getMessage());
-            return 0;
+            System.out.println("No se pudo crear la persona " + e.getMessage());
+            throw new FException("RepresentanteVentasDAO", "Error creando al cliente" + e.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -61,7 +61,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
     }
     
     
-    public int crearCliente(Object object) throws SQLException {
+    public int crearCliente(Object object) throws SQLException, FException {
         Cliente cliente = (Cliente) object;
         try {
 
@@ -76,7 +76,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
 
         } catch (SQLException e) {
             System.out.println("No pudo crear el cliente" + e.getMessage());
-            return 0;
+            throw new FException("RepresentanteVentasDAO", "Error creando al cliente," + e.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -150,7 +150,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
         return representante;
     }
     
-    public int updateConexion(Persona p) throws SQLException {
+    public int updateConexion(Persona p) throws SQLException, FException {
         int resultado;
 
         try {
@@ -166,7 +166,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
 
         } catch (SQLException e) {
             System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
-            return 0;
+            throw new FException("RepresentanteVentasDAO", "Error actualizando la ultima conexión" + e.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
@@ -176,7 +176,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
     }
 
 
-    public boolean crearUser(Persona p) throws SQLException {
+    public boolean crearUser(Persona p) throws SQLException, FException {
         final String tableDefault = "DEFRMUNDO";
         final String tableTemporary = "TEMRMULTINIVEL";
 
@@ -207,8 +207,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());
-            return false;
-
+            throw new FException("RepresentanteVentasDAO", "Error creando al usuario," + ex.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }

@@ -9,7 +9,10 @@ import edu.finalbases.entities.Cliente;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.repositoryDAO.CategoriaDAO;
 import edu.finalbases.repositoryDAO.ClienteDAO;
+import edu.finalbases.repositoryDAO.FException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -57,14 +60,18 @@ public class FuncionesCliente {
         return cliente;
     }
     
-    public void updateConexion(String idPersona) throws SQLException {
+    public void updateConexion(String idPersona) throws SQLException, FException {
         System.out.println("Id Cliente: " + idPersona);
         Persona p = (Persona) clienteDAO.getObjectById(Integer.parseInt(idPersona));
         if (p != null) {
-            if (clienteDAO.updateConexion(p) == 1) {
-                System.out.println("Se actualizo campo ultimaconexion para cliente");
-            } else {
-                System.out.println("No se actualizo campo ultimaconexion cliente");
+            try {
+                if (clienteDAO.updateConexion(p) == 1) {
+                    System.out.println("Se actualizo campo ultimaconexion para cliente");
+                } else {
+                    System.out.println("No se actualizo campo ultimaconexion cliente");
+                }
+            } catch (FException ex) {
+                throw ex;
             }
         } else {
             System.out.println("Persona no encontrada");

@@ -20,7 +20,7 @@ import java.sql.SQLException;
  *
  * @author Santiago
  */
-public class ClienteDAO extends AbstractDAO{
+public class ClienteDAO extends AbstractDAO {
 
     @Override
     public Object actualizar(Object object) {
@@ -32,8 +32,7 @@ public class ClienteDAO extends AbstractDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
-    
-    
+
     public int crearCliente(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -53,13 +52,14 @@ public class ClienteDAO extends AbstractDAO{
         c.setGenero(resultSet.getString("GENERO").toCharArray());
         c.setPais(new Pais(resultSet.getInt("IDPAIS")));
         c.setRegion(new Region(resultSet.getInt("IDREGION")));
-        c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
-        c.setRepresentante((Persona)FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(0));
-        
+        c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));
+        c.setRepresentante((Persona) FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(0));
+
         return c;
 
     }
-    public Object getClienteByResultSet(ResultSet resultSet,ResultSet resultSetCliente) throws SQLException {
+
+    public Object getClienteByResultSet(ResultSet resultSet, ResultSet resultSetCliente) throws SQLException {
         Cliente c = new Cliente();
 
         c.setIdPersona(resultSet.getInt("IDPERSONA"));
@@ -68,9 +68,9 @@ public class ClienteDAO extends AbstractDAO{
         c.setGenero(resultSet.getString("GENERO").toCharArray());
         c.setPais(new Pais(resultSet.getInt("IDPAIS")));
         c.setRegion(new Region(resultSet.getInt("IDREGION")));
-        c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));        
+        c.setCiudad(new Ciudad(resultSet.getInt("IDCIUDAD")));
         //c.setRepresentante((Persona)FuncionesCompra.getFuncionesCompra().getRepresentanteDAO().getObjectById(resultSetCliente.getInt("IDREPRESENTANTEVENTAS")));
-        
+
         return c;
 
     }
@@ -78,7 +78,7 @@ public class ClienteDAO extends AbstractDAO{
     @Override
     public Object getObjectById(int id) throws SQLException {
         Persona cliente = null;
- 
+
         try {
             String strSQL = "SELECT * FROM PERSON WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
@@ -86,13 +86,14 @@ public class ClienteDAO extends AbstractDAO{
             prepStmt.setInt(1, id);
             resultSet = prepStmt.executeQuery();
 
-            if (resultSet.next()) {  
+            if (resultSet.next()) {
                 String strClientSQL = "SELECT * FROM CLIENT WHERE IDCLIENTE = ?";
                 prepStmt = connection.prepareStatement(strClientSQL);
                 prepStmt.setInt(1, id);
-                ResultSet resultSetClient = prepStmt.executeQuery();            
-                if(resultSetClient.next())
-                    cliente = (Persona) getClienteByResultSet(resultSet,resultSetClient);
+                ResultSet resultSetClient = prepStmt.executeQuery();
+                if (resultSetClient.next()) {
+                    cliente = (Persona) getClienteByResultSet(resultSet, resultSetClient);
+                }
             }
             prepStmt.close();
         } catch (SQLException ex) {
@@ -102,11 +103,11 @@ public class ClienteDAO extends AbstractDAO{
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-        
+
         return cliente;
     }
 
-    public boolean crearUser(Persona p) throws SQLException {
+    public boolean crearUser(Persona p) throws SQLException, FException {
         final String tableDefault = "DEFRMUNDO";
         final String tableTemporary = "TEMRMULTINIVEL";
 
@@ -124,9 +125,9 @@ public class ClienteDAO extends AbstractDAO{
             prepStmt = connection.prepareStatement(ddlQuery);
 
             resultado = prepStmt.execute();
-            
+
             if (!resultado) {
-                String ddlPrivileges = "GRANT R_CLIENTE TO "+user;
+                String ddlPrivileges = "GRANT R_CLIENTE TO " + user;
 
                 System.out.println("Query DDL Privileges: " + ddlPrivileges);
                 connection = Conexion.getInstance().getConexionBD();
@@ -137,12 +138,10 @@ public class ClienteDAO extends AbstractDAO{
             prepStmt.close();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());
-            return false;
-
+            throw new FException("ClienteDAO", "Error al crear el cliente en la BD, " + ex.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-
         return !resultado;
     }
 
@@ -154,12 +153,10 @@ public class ClienteDAO extends AbstractDAO{
     private String subPass(int idPersona) {
         return String.valueOf(idPersona).substring(String.valueOf(idPersona).length() - 4, String.valueOf(idPersona).length());
     }
-    
-    public int updateConexion(Persona p) throws SQLException {
+
+    public int updateConexion(Persona p) throws SQLException, FException {
         int resultado;
-
         try {
-
             String strSQL = "UPDATE PERSON SET ULTIMACONEXION = ? WHERE IDPERSONA = ?";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
@@ -171,12 +168,10 @@ public class ClienteDAO extends AbstractDAO{
 
         } catch (SQLException e) {
             System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
-            return 0;
+            throw new FException("ClienteDAO", "Error al actualizar la ultima conexión," + e.getMessage());
         } finally {
             Conexion.getInstance().cerrarConexion();
         }
-
         return resultado;
-
     }
 }

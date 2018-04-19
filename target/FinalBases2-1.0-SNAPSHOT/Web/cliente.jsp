@@ -236,23 +236,19 @@
             success: function (response) {
                 console.log("success ");
                 console.log(response);
-                if(response.textStatus = "Conflict"){
-                    alert("Cliente creado");
+                if(response.message == "exito"){
+                    modalMensaje("Exito", "El cliente fue creado Exitosamente");
                 }else{
-                    alert("Error al crear el cliente");
+                    modalMensaje("Error", response.message);
                 }
-
             },
-            error: function (textStatus) {
-                console.log("error ");
-                console.log(textStatus);
-                if(textStatus.textStatus = "Conflict"){
-                    alert("Cliente creado");
+            error: function (response) {
+                console.log(response);
+                if(response.responseText == "exito"){
+                    modalMensaje("Exito", "El cliente fue creado Exitosamente");
                 }else{
-                    alert("Error al crear el cliente");
+                    modalMensaje("Error", "Error creando al cliente");
                 }
-
-
             }
         });
 
