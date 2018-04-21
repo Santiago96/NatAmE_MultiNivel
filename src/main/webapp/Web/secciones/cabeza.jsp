@@ -31,6 +31,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />    
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Web/css/jquery.rateyo.css"/>
+        
+        
+        
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 
@@ -310,7 +314,7 @@
                                             alert("Bienvenido");
                                         } else {
                                             console.log("Datos incorrectos");
-                                            modalMensaje("Error",textStatus);
+                                            modalMensaje("Error", textStatus);
                                         }
 
                                     }
@@ -447,3 +451,4 @@
 
             };
         </script>
+        <script src="${pageContext.request.contextPath}/Web/js/jquery.rateyo.js"></script>

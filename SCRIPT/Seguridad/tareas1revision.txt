@@ -6,22 +6,22 @@
 	-Quitar tabla estado venta y manejar  (COMPLETADO)
 	-Calificacion Venta,Calificacion Representante(junior, senior)(Fechas) (COMPLETADO)
 	-Relacion region-director (COMPLETADO)
-2. Seguridad BD(Alvaro) () (COMPLETADO)
+2. Seguridad BD(Alvaro) (COMPLETADO)
 	-Rol director para cada region (COMPLETADO)
 	-Rol para generar Seguridad (COMPLETADO)
 3. Modificar  Documento(Sebas,Pablo,Juan) (Miercoles)
-	-Quitar Java EE.
-	-Arquitectura diagrama.
+	-Quitar Java EE. (COMPLETADO)
+	-Arquitectura diagrama. (COMPLETADO)
 	-Seguridad(Alvaro) (COMPLETADO)
-	-Casos de Uso
-	-Requerimientos Funcionales y no funcionales
+	-Casos de Uso (COMPLETADO)
+	-Requerimientos Funcionales y no funcionales (COMPLETADO)
 --Programacion
 4. Una vez terminado 1 y 2 
-	-Corregir Aplicativo con nueva BD y DAOS (Santiago)  -> (Jueves)
-		- Excepciones (Juan) -> 
-		- Revisar descontar Inventario (Sebas)
-		- Capturar Datos Pago(Pablo) ->(Domingo)
-		- Calificaciones venta y Rep(Santiago y Alvaro) -> Lunes
+	-Corregir Aplicativo con nueva BD y DAOS (Santiago)  -> (COMPLETADO)
+		- Excepciones (Juan) -> (COMPLETADO)
+		- Revisar descontar Inventario (COMPLETADO)
+		- Capturar Datos Pago(Pablo) -> (Domingo) PENDIENTE
+		- Calificaciones venta y Rep(Santiago y Alvaro) -> PENDIENTE
 
 
 
