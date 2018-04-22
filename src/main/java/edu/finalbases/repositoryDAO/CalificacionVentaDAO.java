@@ -5,6 +5,8 @@
  */
 package edu.finalbases.repositoryDAO;
 
+import edu.finalbases.conexion.Conexion;
+import edu.finalbases.entities.CalificacionVenta;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -20,8 +22,27 @@ public class CalificacionVentaDAO extends AbstractDAO{
     }
 
     @Override
-    public int crear(Object object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int crear(Object object) throws  SQLException, FException {
+        CalificacionVenta calificacion = (CalificacionVenta) object;
+        try {
+            String strSQL = "INSERT INTO SALEQUALIFICATION(IDCALIFICACIONVENTA,CALIFICACION,DETALLECALIFICACION,IDVENTA,FECHA) VALUES (MULTINIVEL.SEQ_CALIFICACIONVENTA_ID.NEXTVAL,?,?,?,?)";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setInt(1, calificacion.getCalificacion());
+            prepStmt.setString(2, calificacion.getDetalleCalificacion());
+            prepStmt.setInt(3, calificacion.getVenta().getIdVenta());
+            prepStmt.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            
+            int resultado = prepStmt.executeUpdate();
+            prepStmt.close();
+
+            return resultado;
+        } catch (SQLException e) {
+            System.out.println("No pudo crear insertar la calificacion: " + e.getMessage());
+            throw new FException("CalificacionDAO", "Error creando la calificacion" + e.getMessage());
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
     }
 
     @Override

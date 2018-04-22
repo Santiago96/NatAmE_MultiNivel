@@ -96,8 +96,33 @@
         $("#calificacionModal").modal("hide");
         var comentario = $("#comentario").val();
         var normalFill = $("#rateYo").rateYo("option", "rating"); //returns true
-        console.log("Enviando Calificacion: "+comentario+" calificacion: "+normalFill);        
+        console.log("Enviando Calificacion: " + comentario + " calificacion: " + normalFill);
+
+        var data = {
+            comentario: comentario,
+            calificacion: normalFill
+        };
+        console.log(data);
         //Seccion ajax
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/api/compra/calificacion',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log(response);                
+            },
+            error: function (textStatus) {
+                console.log(textStatus);
+            }
+        });
+
+
+        //Limpiar valores
+        $("#comentario").val("");
     }
     $("#rateYo").rateYo({
         rating: 3,
@@ -105,7 +130,7 @@
     });
 
     // Getter
-    
+
 
 // Setter
     $("#rateYo").rateYo("option", "fullStar", true); //returns a jQuery Element

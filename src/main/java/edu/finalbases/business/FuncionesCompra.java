@@ -5,11 +5,13 @@
  */
 package edu.finalbases.business;
 
+import edu.finalbases.entities.CalificacionVenta;
 import edu.finalbases.entities.DetalleVenta;
 import edu.finalbases.entities.Persona;
 import edu.finalbases.entities.Producto;
 import edu.finalbases.entities.Venta;
 import edu.finalbases.repositoryDAO.BancoDAO;
+import edu.finalbases.repositoryDAO.CalificacionVentaDAO;
 import edu.finalbases.repositoryDAO.ClienteDAO;
 import edu.finalbases.repositoryDAO.DetalleVentaDAO;
 import edu.finalbases.repositoryDAO.FException;
@@ -39,6 +41,7 @@ public class FuncionesCompra {
     private BancoDAO bancoDAO;
     private DetalleVentaDAO detalleVDAO;
     private ItemDAO itemDAO;
+    private CalificacionVentaDAO calificacionDAO;
 
     private FuncionesCompra() {
         productoDAO = new ProductoDAO();
@@ -48,6 +51,7 @@ public class FuncionesCompra {
         detalleVDAO = new DetalleVentaDAO();
         itemDAO = new ItemDAO();
         representanteDAO = new RepresentanteVentasDAO();
+        calificacionDAO = new CalificacionVentaDAO();
     }
     
 
@@ -56,6 +60,16 @@ public class FuncionesCompra {
             funcionesCompra = new FuncionesCompra();
         }
         return funcionesCompra;
+    }
+    
+    public synchronized int generarCalificacion(JSONObject informacion) throws SQLException, FException{
+        CalificacionVenta calificacion = obtenerCalificacion(informacion);
+        if(calificacion != null){
+            return calificacionDAO.crear(calificacion);
+        }else{
+            System.out.println("Error obteniendo calificacion");
+            return 0;                    
+        }
     }
 
     public synchronized int generarPago(JSONObject informacion) throws SQLException, FException {
@@ -108,7 +122,7 @@ public class FuncionesCompra {
         return new Venta(totalT, rep, cliente);
     }
 
-    private DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException {
+    private synchronized DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException {
         DetalleVenta detalleVenta = new DetalleVenta();
         detalleVenta.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
         detalleVenta.setProducto(new Producto(infoP.getInt("id")));
@@ -145,6 +159,20 @@ public class FuncionesCompra {
     public ItemDAO getItemDAO() {
         return itemDAO;
     }
+
+    public CalificacionVentaDAO getCalificacionDAO() {
+        return calificacionDAO;
+    }
+
+    private CalificacionVenta obtenerCalificacion(JSONObject informacion) throws SQLException {
+        CalificacionVenta calificacion = new CalificacionVenta();
+        calificacion.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
+        calificacion.setCalificacion(informacion.getInt("calificacion"));
+        calificacion.setDetalleCalificacion(informacion.getString("comentario"));        
+        return calificacion;
+    }
+
+    
     
     
 

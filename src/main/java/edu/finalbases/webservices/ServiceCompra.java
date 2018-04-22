@@ -72,5 +72,23 @@ public class ServiceCompra {
         }
 
     }
+    
+    @POST
+    @Path("calificacion")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response generarCalificacion(String data) throws SQLException {
+        JSONObject informacion = new JSONObject(data);
+        System.out.println("Informacion: " + informacion);
+        try {
+            if (FuncionesCompra.getFuncionesCompra().generarCalificacion(informacion) == 1) {
+                return Response.ok("exito").build();
+            } else {
+                return Response.ok("error").build();
+            }
+        } catch (FException ex) {
+            return Response.ok(ex).build();
+        }
+    }
 
 }
