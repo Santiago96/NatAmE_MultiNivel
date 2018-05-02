@@ -14,10 +14,12 @@ public class Banco {
     private int idBanco;   
     private String nombreBanco;
 
-    public Banco() {
+    public Banco(int idBanco) {
+        this.idBanco=idBanco;
     }
     
-    
+    public Banco(){
+    }
 
     public int getIdBanco() {
         return idBanco;

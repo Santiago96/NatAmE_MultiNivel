@@ -1,3 +1,5 @@
+<%@page import="edu.finalbases.entities.Tarjeta"%>
+<%@page import="edu.finalbases.repositoryDAO.TarjetaDAO"%>
 <%@page import="edu.finalbases.entities.Cliente"%>
 <%@page import="edu.finalbases.entities.Banco"%>
 <%@page import="edu.finalbases.repositoryDAO.BancoDAO"%>
@@ -13,6 +15,8 @@
 <%
     BancoDAO bancoDAO = new BancoDAO();
     List<Banco> bancos = bancoDAO.getBancos();
+    TarjetaDAO tarjetaDAO = new TarjetaDAO();
+    List<Tarjeta> tarjetas = tarjetaDAO.getTarjetas();
     Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
 
 %>
@@ -47,87 +51,151 @@
         </div>
     </div>
     <br>
-
-    <div class="container">  
+    <div class="navhe">
         <div class="row" style="display: flex; justify-content: flex-end; margin-right:175px">
-            <div id="bancos">
-                <div class="form-group">
-                    <label for="bancoS">Seleccione un Banco:</label>
-                    <select name="bancoS" class="form-control" id="bancoSelect" required>
-                        <%                    for (Banco banco : bancos) {
-                                out.print("<option value='" + banco.getIdBanco() + "'>" + banco.getNombreBanco() + "</option>");
-                            }
-                        %>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="nameTitular" class="form-control" id="nameTitular" placeholder="Nombre Titular" oninvalid="this.setCustomValidity('Ingrese un Nombre de titular Válido')" oninput="setCustomValidity('')" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="numTarjeta" class="form-control" id="numTarjeta" placeholder="Número Tarjeta" oninvalid="this.setCustomValidity('Ingrese un Número de tarjeta Válido')" oninput="setCustomValidity('')" required>
-                </div>
+            <div role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li id="tipo1" class="nav-item "><a class="nav-link active" data-toggle="tab" href="#s1" role="button" aria-haspopup="true" aria-expanded="false">Tarjeta Credito</a></li>
+                    <li id="tipo2" class="nav-item "><a class="nav-link " data-toggle="tab" href="#s2" role="button" aria-haspopup="true" aria-expanded="false">PSE</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="s1">
+                        <br>
+                        <div id="bancos">
+                            <div class="form-group">
+                                <label for="bancoS">Seleccione un Banco:</label>
+                                <select name="bancoS" class="form-control" id="bancoSelectT" required>
+                                    <%                    for (Banco banco : bancos) {
+                                            out.print("<option value='" + banco.getIdBanco() + "'>" + banco.getNombreBanco() + "</option>");
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tarjetas">Seleccione una tarjeta:</label>
+                                <select name="tarjetas" class="form-control" id="tarjetaSelectT" required>
+                                    <%                    for (Tarjeta tarjeta: tarjetas) {
+                                            out.print("<option value='" + tarjeta.getIdTarjeta() + "'>" + tarjeta.getNombreTarjeta() + "</option>");
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nameTitular" class="form-control" id="nameTitularT" placeholder="Nombre Titular" oninvalid="this.setCustomValidity('Ingrese un Nombre de titular Válido')" oninput="setCustomValidity('')" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="numTarjeta" class="form-control" id="numTarjetaT" placeholder="Número Tarjeta" oninvalid="this.setCustomValidity('Ingrese un Número de tarjeta Válido')" oninput="setCustomValidity('')" required>
+                            </div>
 
-                <div class="form-group">
-                    <input type="text" name="cvv" class="form-control" id="cvv" placeholder="CVV" oninvalid="this.setCustomValidity('Ingrese un CVV Válido')" oninput="setCustomValidity('')" required>
-                </div>
-                <div class="row">
+                            <div class="form-group">
+                                <input type="text" name="cvv" class="form-control" id="cvv" placeholder="CVV" oninvalid="this.setCustomValidity('Ingrese un CVV Válido')" oninput="setCustomValidity('')" required>
+                            </div>
+                            <div class="row">
 
-                    <label>Fecha Expiración:</label><br>
+                                <label>Fecha Expiración:</label><br>
+                                <div class="col">
+                                    <label for="mes">Mes:</label>
+                                    <select name="mes" class="form-control" id="mesT" oninvalid="this.setCustomValidity('Seleccione un Mes')" oninput="setCustomValidity('')" required>
 
+                                        <%
+                                            for (int i = 1; i <= 12; i++) {
+                                                out.print("<option value='" + i + "'>" + i + "</option>");
+                                            }
+                                        %>
+                                    </select>
 
+                                </div>
 
+                                <div class="col">
+                                    <label for="año">Año:</label>
+                                    <select name="año" class="form-control" id="añoT" oninvalid="this.setCustomValidity('Seleccione un Año')" oninput="setCustomValidity('')" required>
 
-                    <div class="col">
-                        <label for="mes">Mes:</label>
-                        <select name="mes" class="form-control" id="mes" oninvalid="this.setCustomValidity('Seleccione un Mes')" oninput="setCustomValidity('')" required>
+                                        <%
+                                            for (int i = 18; i <= 37; i++) {
+                                                out.print("<option value='" + i + "'>" + i + "</option>");
+                                            }
+                                        %>
+                                    </select>
+                                </div>
 
-                            <%
-                                for (int i = 1; i <= 12; i++) {
-                                    out.print("<option value='" + i + "'>" + i + "</option>");
-                                }
-                            %>
-                        </select>
-
+                            </div>
+                            <br>
+                        </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane" id="s2">
+                        <br>
+                        <div id="bancos">
+                            <div class="form-group">
+                                <label for="bancoS">Seleccione un Banco:</label>
+                                <select name="bancoS" class="form-control" id="bancoSelectP" required>
+                                    <%                    for (Banco banco : bancos) {
+                                            out.print("<option value='" + banco.getIdBanco() + "'>" + banco.getNombreBanco() + "</option>");
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tarjetas">Seleccione una tarjeta:</label>
+                                <select name="tarjetas" class="form-control" id="tarjetaSelectP" required>
+                                    <%                    for (Tarjeta tarjeta: tarjetas) {
+                                            out.print("<option value='" + tarjeta.getIdTarjeta() + "'>" + tarjeta.getNombreTarjeta() + "</option>");
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nameTitularP" class="form-control" id="nameTitularP" placeholder="Nombre Titular" oninvalid="this.setCustomValidity('Ingrese un Nombre de titular Válido')" oninput="setCustomValidity('')" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="numTarjetaP" class="form-control" id="numTarjetaP" placeholder="Número Tarjeta" oninvalid="this.setCustomValidity('Ingrese un Número de tarjeta Válido')" oninput="setCustomValidity('')" required>
+                            </div>
+                            <div class="row">
 
-                    <div class="col">
-                        <label for="año">Año:</label>
-                        <select name="año" class="form-control" id="año" oninvalid="this.setCustomValidity('Seleccione un Año')" oninput="setCustomValidity('')" required>
+                                <label>Fecha Expiración:</label><br>
+                                <div class="col">
+                                    <label for="mes">Mes:</label>
+                                    <select name="mes" class="form-control" id="mesP" oninvalid="this.setCustomValidity('Seleccione un Mes')" oninput="setCustomValidity('')" required>
 
-                            <%
-                                for (int i = 18; i <= 37; i++) {
-                                    out.print("<option value='" + i + "'>" + i + "</option>");
-                                }
-                            %>
-                        </select>
+                                        <%
+                                            for (int i = 1; i <= 12; i++) {
+                                                out.print("<option value='" + i + "'>" + i + "</option>");
+                                            }
+                                        %>
+                                    </select>
+
+                                </div>
+
+                                <div class="col">
+                                    <label for="año">Año:</label>
+                                    <select name="año" class="form-control" id="añoP" oninvalid="this.setCustomValidity('Seleccione un Año')" oninput="setCustomValidity('')" required>
+
+                                        <%
+                                            for (int i = 18; i <= 37; i++) {
+                                                out.print("<option value='" + i + "'>" + i + "</option>");
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
                     </div>
-
+                                    
                 </div>
-                <br><br>
-            </div>
+            </div>  
         </div>
-    </div>                    
-
-
-
+        
+    </div>
     <div style="float:right; margin-right:180px">
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="radio" id="tipo1" name="tipoPago" checked aria-label="Radio button for following text input"><label for="tipo1">Tarjeta de Credito&nbsp;</label>
-                    <input type="radio" id="tipo2" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo2">Tarjeta de Debito</label>
-                </div>
-            </div>
-        </div>
-
-        <br>
-
-
         <button type="button" href="javascript:;" class="btn btn-success" data-cesta-feira-clear-basket onclick="pagar();">Pagar</button>
         <br><br><br>
     </div>
     <br><br><br>        
 </div>
+<div class="input-group-text" style='display:none;'>
+    <input type="radio" id="tip1" name="tipoPago" checked aria-label="Radio button for following text input" ><label for="tipo1">Tarjeta de Credito&nbsp;</label>
+    <input type="radio" id="tip2" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo2">Tarjeta de Debito</label>
 </div>
 <!-- /.container -->
 
@@ -236,9 +304,13 @@
     });
     actual(6);
 </script>
-
-
 <script>
+    $(document).ready(function(){
+        $("#tipo2").click(function(){
+            $("#tip1").attr('checked', false);
+        });
+        
+    });
     function pagar() {
 
         var todosP = {};
@@ -252,22 +324,60 @@
             todosP[contador] = produc;
             contador++;
         }
-
-        var e = document.getElementById("bancoSelect");
-        var strUser = e.options[e.selectedIndex].value;
-
-        var x = $("#tipo1").is(":checked");
+        
+        //banco
+        var strUser = "";
+        //fecha
+        var strFecha = "";
+        $("#tipo2").click(function(){
+            $("#tip1").attr('checked', false);         
+        });
+        $("#tipo1").click(function(){
+            $("#tip1").attr('checked', true);                      
+        });
+        var x = $("#tip1").is(":checked");
         console.log(x);
         var tipo = 0;
-        if (x)
+        var titular="";
+        var tarjeta=0;
+        var cvv=1;
+        var idtarjeta=0;
+        if (x){
+            //titular
+            var a = document.getElementById("numTarjetaT");
+            tarjeta = a.value;
+            var b = document.getElementById("nameTitularT");
+            titular = b.value;
+            var c = document.getElementById("cvv");
+            cvv = c.value;
+            var d = document.getElementById("tarjetaSelectT");
+            idtarjeta = d.value;
+            var e = document.getElementById("bancoSelectT");
+            strUser = e.options[e.selectedIndex].value;
+            var f = document.getElementById("mesT");
+            var g = document.getElementById("añoT");
+            strFecha = "01/"+f.options[f.selectedIndex].value+"/"+g.options[g.selectedIndex].value;
             tipo = 2;
-        else
+        }else{
+            var a = document.getElementById("numTarjetaP");
+            tarjeta = a.value;
+            var b = document.getElementById("nameTitularP");
+            titular = b.value;
+            var d = document.getElementById("tarjetaSelectT");
+            idtarjeta = d.value;
+            var e = document.getElementById("bancoSelectP");
+            strUser = e.options[e.selectedIndex].value;
+            var f = document.getElementById("mesP");
+            var g = document.getElementById("añoP");
+            strFecha = "01/"+f.options[f.selectedIndex].value+"/"+g.options[g.selectedIndex].value;
             tipo = 1;
-
-
-
-
-        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(0), idcliente:<% out.print(cliente.getIdPersona()); %>, idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, idtipopago: tipo, idbanco: strUser};
+        }
+        console.log(strUser);
+        console.log(titular);
+        console.log(tarjeta);
+        console.log(cvv);
+        console.log(strFecha);
+        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(0), idcliente:<% out.print(cliente.getIdPersona()); %>, idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, idtipopago: tipo, idbanco: strUser, titular: titular, idTarjeta: idtarjeta, numTarjeta: tarjeta, cvv: cvv, fecha: strFecha};
 
         if (Object.keys(todosP).length > 0)
             hacerCompra(enviar);
@@ -287,17 +397,17 @@
             data: JSON.stringify(compra),
             success: function (response) {
                 console.log(response);
-                if (response.message = "exito") {
+                if (response.message == "exito") {
                     modalMensaje("Exito", "Compra Realizada con Exito");
                 } else {
                     modalMensaje("Error", response.message);
                 }
 
             },
-            error: function (response) {
+            error: function (textStatus) {
                 console.log("error ");
                 console.log(textStatus);
-                if (response.responseText = "exito") {
+                if (textStatus.responseText == "exito") {
                     modalMensaje("Exito", "Compra Realizada con Exito");
                 } else {
                     modalMensaje("Error", textStatus);

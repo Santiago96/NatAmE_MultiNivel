@@ -92,5 +92,27 @@ public class BancoDAO extends AbstractDAO {
         return bancos;
 
     }
+    
+    public int getSequenceIdBanco() throws  SQLException {
+        try {
 
+            String strSQL = "SELECT MULTINIVEL.SEQ_BANCO_IDBANCO.CURRVAL AS IDBANCO FROM DUAL";
+            
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            
+            resultSet = prepStmt.executeQuery();
+            
+            if (resultSet.next()) {
+                return resultSet.getInt("IDBANCO");
+            }
+            prepStmt.close();
+        } catch (SQLException e) {
+            System.out.println("No pudo obtener la secuencia" + e.getMessage());
+            
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+        return 0;
+    }
 }

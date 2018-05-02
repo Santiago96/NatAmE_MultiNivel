@@ -18,6 +18,7 @@ import edu.finalbases.repositoryDAO.ArticuloDAO;
 import edu.finalbases.repositoryDAO.FException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class ServiceCompra {
     @Path("pagar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response generarPago(String data) throws SQLException {
+    public Response generarPago(String data) throws SQLException, ParseException {
         JSONObject informacion = new JSONObject(data);
         System.out.println("Informacion: " + informacion);
         try {

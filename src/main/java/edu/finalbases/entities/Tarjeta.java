@@ -22,6 +22,10 @@ public class Tarjeta {
         this.nombreTarjeta = nombreTarjeta;
     }
 
+    public Tarjeta(int sequenceIdTarjeta) {
+        this.idTarjeta=sequenceIdTarjeta;
+    }
+
     public int getIdTarjeta() {
         return idTarjeta;
     }
