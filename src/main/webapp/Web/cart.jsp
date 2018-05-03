@@ -62,15 +62,7 @@
                     <div role="tabpanel" class="tab-pane active" id="s1">
                         <br>
                         <div id="bancos">
-                            <div class="form-group">
-                                <label for="bancoS">Seleccione un Banco:</label>
-                                <select name="bancoS" class="form-control" id="bancoSelectT" required>
-                                    <%                    for (Banco banco : bancos) {
-                                            out.print("<option value='" + banco.getIdBanco() + "'>" + banco.getNombreBanco() + "</option>");
-                                        }
-                                    %>
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 <label for="tarjetas">Seleccione una tarjeta:</label>
                                 <select name="tarjetas" class="form-control" id="tarjetaSelectT" required>
@@ -134,50 +126,21 @@
                                     %>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="tarjetas">Seleccione una tarjeta:</label>
-                                <select name="tarjetas" class="form-control" id="tarjetaSelectP" required>
-                                    <%                    for (Tarjeta tarjeta: tarjetas) {
-                                            out.print("<option value='" + tarjeta.getIdTarjeta() + "'>" + tarjeta.getNombreTarjeta() + "</option>");
+                                <div class="form-group">
+                                <label for="tipoD">Seleccione un Tipo de Documento:</label>
+                                <select name="tipoD" class="form-control" id="bancoSelectP" required>
+                                    <%                    for (Banco banco : bancos) {
+                                            out.print("<option value='" + banco.getIdBanco() + "'>" + banco.getNombreBanco() + "</option>");
                                         }
                                     %>
                                 </select>
                             </div>
+                            
+                            
                             <div class="form-group">
-                                <input type="text" name="nameTitularP" class="form-control" id="nameTitularP" placeholder="Nombre Titular" oninvalid="this.setCustomValidity('Ingrese un Nombre de titular Válido')" oninput="setCustomValidity('')" required>
+                                <input type="number" name="numDocumento" class="form-control" id="numTarjetaP" placeholder="Número Documento" oninvalid="this.setCustomValidity('Ingrese un Número de documento válido')" oninput="setCustomValidity('')" required>
                             </div>
-                            <div class="form-group">
-                                <input type="number" name="numTarjetaP" class="form-control" id="numTarjetaP" placeholder="Número Tarjeta" oninvalid="this.setCustomValidity('Ingrese un Número de tarjeta Válido')" oninput="setCustomValidity('')" required>
-                            </div>
-                            <div class="row">
-
-                                <label>Fecha Expiración:</label><br>
-                                <div class="col">
-                                    <label for="mes">Mes:</label>
-                                    <select name="mes" class="form-control" id="mesP" oninvalid="this.setCustomValidity('Seleccione un Mes')" oninput="setCustomValidity('')" required>
-
-                                        <%
-                                            for (int i = 1; i <= 12; i++) {
-                                                out.print("<option value='" + i + "'>" + i + "</option>");
-                                            }
-                                        %>
-                                    </select>
-
-                                </div>
-
-                                <div class="col">
-                                    <label for="año">Año:</label>
-                                    <select name="año" class="form-control" id="añoP" oninvalid="this.setCustomValidity('Seleccione un Año')" oninput="setCustomValidity('')" required>
-
-                                        <%
-                                            for (int i = 18; i <= 37; i++) {
-                                                out.print("<option value='" + i + "'>" + i + "</option>");
-                                            }
-                                        %>
-                                    </select>
-                                </div>
-
-                            </div>
+                            
                             <br>
                         </div>
                     </div>
