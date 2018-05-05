@@ -48,10 +48,10 @@
        String html = "";
        
        
-       html = html + "<div onclick=\"actualizarModal(" + id + ")\" data-toggle=\"modal\" data-target=\"#detalleModal\" class=\"col-lg-3 col-md-6 mb-4 sub sub"+idsubcategoria+"\">";
+       html = html + "<div x class=\"col-lg-3 col-md-6 mb-4 sub sub"+idsubcategoria+"\">";
        html = html + "     <div class=\"card\">";
-       html = html + "         <img class=\"card-img-top\" src=\"" + imagen + "\" alt=\"\">";
-       html = html + "         <div class=\"card-body\">";
+       html = html + "         <img onclick=\"actualizarModal(" + id + ")\" data-toggle=\"modal\" data-target=\"#detalleModal\" class=\"card-img-top\" src=\"" + imagen + "\" alt=\"\">";
+       html = html + "         <div onclick=\"actualizarModal(" + id + ")\" data-toggle=\"modal\" data-target=\"#detalleModal\" class=\"card-body\">";
        html = html + "             <h4 class=\"card-title\">" + nombre + "</h4>";
        html = html + "             <p class=\"card-text\">Precio: $" + String.valueOf(Math.round(precio)) +"</p>";
        if (cantidad!=0)
