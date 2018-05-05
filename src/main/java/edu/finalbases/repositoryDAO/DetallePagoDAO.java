@@ -30,9 +30,11 @@ public class DetallePagoDAO extends AbstractDAO{
         DetallePago detallePago = (DetallePago) object;
         try {
 
-            String strSQL = "INSERT INTO MULTINIVEL.DETALLEPAGO(IDDETALLEPAGO,NUMEROTARJETA,CVV,TIPODEPAGO,IDVENTA,IDTARJETA,IDBANCO,FECHADEVENCIMIENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?,?)";
+            String strDebito = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,NUMEROTARJETA,CVV,TIPODEPAGO,IDVENTA,IDTARJETA,FECHADEVENCIMIENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";
+            
+            String strPSE = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,TIPODEPAGO,IDVENTA,IDBANCO,NOMBRETITULAR,TIPODOCUMENTO,NUMERODOCUMENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
-            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt = connection.prepareStatement(strDebito);
             prepStmt.setLong(1, detallePago.getNumTarjeta());
             if(detallePago.getCvv()==1){
                 prepStmt.setNull(2, java.sql.Types.INTEGER);

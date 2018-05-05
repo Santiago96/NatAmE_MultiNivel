@@ -128,11 +128,11 @@
                                 <div class="form-group">
                                 <label for="tipoD">Seleccione un Tipo de Documento:</label>
                                 <select name="tipoD" class="form-control" id="tipoD" required>
-                                    <option value='1'>Cedula de Ciudadania.</option>
-                                    <option value='2'>Cedula de Extranjeria.</option>
-                                    <option value='3'>Registro civil</option>
-                                    <option value='4'>Tarjeta de identidad</option>
-                                    <option value='5'>NIT </option>                                    
+                                    <option value='CC'>Cedula de Ciudadania.</option>
+                                    <option value='CE'>Cedula de Extranjeria.</option>
+                                    <option value='RC'>Registro civil</option>
+                                    <option value='TI'>Tarjeta de identidad</option>
+                                    <option value='NIT'>NIT </option>                                    
                                 </select>
                             </div>
                             
@@ -329,11 +329,26 @@
         console.log(nombre);
         console.log(apellido);
         console.log(numDocumento);
-        enviar = {productos: todosP, totalTodo: parseFloat(totalValue).toFixed(0), idcliente:<% out.print(cliente.getIdPersona()); %>, idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, idtipopago: tipo, idbanco: strUser, titular: titular, idTarjeta: idtarjeta, numTarjeta: tarjeta, cvv: cvv, fecha: strFecha};
+        enviar = {productos: todosP, 
+            totalTodo: parseFloat(totalValue).toFixed(0), 
+            idcliente:<% out.print(cliente.getIdPersona()); %>, 
+            idrv:<% out.print(cliente.getRepresentante().getIdPersona());%>, 
+            idtipopago: tipo, 
+            idbanco: strUser, 
+            titular: titular, 
+            idTarjeta: idtarjeta, 
+            numTarjeta: tarjeta, 
+            cvv: cvv, 
+            fecha: strFecha,
+            nombre: nombre,
+            apellido: apellido,
+            tipoDocumento: tipoDocumento,
+            numDocumento: numDocumento
+        };
         if (Object.keys(todosP).length > 0){
             if(habilitado){
                 console.log("Ir a pagar");
-                //hacerCompra(enviar);
+                hacerCompra(enviar);
             }else{
                 alert("Debe ingresar todos los campos para el pago");
             }

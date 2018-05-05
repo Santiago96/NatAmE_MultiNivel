@@ -43,9 +43,9 @@ public class FuncionesCompra {
     private static FuncionesCompra funcionesCompra;
 
     private ProductoDAO productoDAO;
-    private VentaDAO ventaDAO;    
+    private VentaDAO ventaDAO;
     private ClienteDAO clienteDAO;
-    private RepresentanteVentasDAO representanteDAO;    
+    private RepresentanteVentasDAO representanteDAO;
     private BancoDAO bancoDAO;
     private DetalleVentaDAO detalleVDAO;
     private ItemDAO itemDAO;
@@ -55,8 +55,8 @@ public class FuncionesCompra {
 
     private FuncionesCompra() {
         productoDAO = new ProductoDAO();
-        clienteDAO = new ClienteDAO();        
-        bancoDAO = new BancoDAO();        
+        clienteDAO = new ClienteDAO();
+        bancoDAO = new BancoDAO();
         ventaDAO = new VentaDAO();
         detalleVDAO = new DetalleVentaDAO();
         itemDAO = new ItemDAO();
@@ -65,7 +65,6 @@ public class FuncionesCompra {
         detallePDAO = new DetallePagoDAO();
         tarjetaDAO = new TarjetaDAO();
     }
-    
 
     public static FuncionesCompra getFuncionesCompra() {
         if (funcionesCompra == null) {
@@ -73,14 +72,14 @@ public class FuncionesCompra {
         }
         return funcionesCompra;
     }
-    
-    public synchronized int generarCalificacion(JSONObject informacion) throws SQLException, FException{
+
+    public synchronized int generarCalificacion(JSONObject informacion) throws SQLException, FException {
         CalificacionVenta calificacion = obtenerCalificacion(informacion);
-        if(calificacion != null){
+        if (calificacion != null) {
             return calificacionDAO.crear(calificacion);
-        }else{
+        } else {
             System.out.println("Error obteniendo calificacion");
-            return 0;                    
+            return 0;
         }
     }
 
@@ -95,15 +94,15 @@ public class FuncionesCompra {
                 if (ventaDAO.crear(venta) == 1) {//Se insertan todos los productos en detalleVenta
                     JSONObject productosJSON = informacion.getJSONObject("productos");
                     detallePago = obtenerDetallePago(informacion);
-                    if(detallePDAO.crear(detallePago)==1){
+                    if (detallePDAO.crear(detallePago) == 1) {
                         for (int i = 0; i < productosJSON.length(); i++) {
                             //System.out.println("P: " + productosJSON.getJSONObject(String.valueOf(i)));
-                            detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)),venta.getIdVenta());
+                            detalleVenta = obtenerDetalleVenta(productosJSON.getJSONObject(String.valueOf(i)), venta.getIdVenta());
                             detalleVDAO.crear(detalleVenta);
-                            itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), venta.getCliente().getRegion().getIdRegion(),detalleVenta.getCantidad());
+                            itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), venta.getCliente().getRegion().getIdRegion(), detalleVenta.getCantidad());
                         }
                     }
-                    
+
                     return 1;
                 }
             } catch (FException ex) {
@@ -121,25 +120,22 @@ public class FuncionesCompra {
     }
 
     private Venta obtenerVenta(JSONObject informacion) throws SQLException {
-        
+
         //int idVenta = ventaDAO.getSequence();
         //System.out.println("IDventa generado: "+idVenta);
-       
-        
         Persona rep = (Persona) representanteDAO.getObjectById(informacion.getInt("idrv"));
         Persona cliente = (Persona) clienteDAO.getObjectById(informacion.getInt("idcliente"));
-        
-         System.out.println("idv" + rep.getIdPersona());
+
+        System.out.println("idv" + rep.getIdPersona());
         System.out.println("idcliente" + cliente.getIdPersona());
-        
+
         double totalT = informacion.getDouble("totalTodo");
         //TipoPago tipoPago = (TipoPago) tipoPagoDAO.getObjectById(informacion.getInt("idtipopago"));        
-        
 
         return new Venta(totalT, rep, cliente);
     }
 
-    private synchronized DetalleVenta obtenerDetalleVenta(JSONObject infoP,int idVenta) throws SQLException {
+    private synchronized DetalleVenta obtenerDetalleVenta(JSONObject infoP, int idVenta) throws SQLException {
         DetalleVenta detalleVenta = new DetalleVenta();
         detalleVenta.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
         detalleVenta.setProducto(new Producto(infoP.getInt("id")));
@@ -148,33 +144,39 @@ public class FuncionesCompra {
 
         return detalleVenta;
     }
+
     private CalificacionVenta obtenerCalificacion(JSONObject informacion) throws SQLException {
         CalificacionVenta calificacion = new CalificacionVenta();
         calificacion.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
         calificacion.setCalificacion(informacion.getInt("calificacion"));
-        calificacion.setDetalleCalificacion(informacion.getString("comentario"));        
+        calificacion.setDetalleCalificacion(informacion.getString("comentario"));
         return calificacion;
     }
 
     private synchronized DetallePago obtenerDetallePago(JSONObject informacion) throws SQLException, ParseException {
         DetallePago detallePago = new DetallePago();
-        detallePago.setNumTarjeta(informacion.getInt("numTarjeta"));
-        detallePago.setCvv(informacion.getInt("cvv"));
-        if(informacion.getInt("idtipopago")==1){
+        
+        if (informacion.getInt("idtipopago") == 1) {
             detallePago.setTipoPago("PSE");
-        }else{
+            detallePago.setBanco((Banco) bancoDAO.getObjectById(informacion.getInt("idbanco")));
+            detallePago.setNombreTitular(informacion.getString("nombre")+" "+informacion.getString("apellido"));
+            detallePago.setTipoDocumento(informacion.getString("tipoDocumento"));
+            detallePago.setNumDocumento(informacion.getString("numDocumento"));
+        } else {
             detallePago.setTipoPago("TARJETA CREDITO");
+            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yy");
+            Date fecha = formatoDeFecha.parse(informacion.getString("fecha"));
+            System.out.println(fecha);
+            detallePago.setFechaVencimiento(fecha);
+            detallePago.setTarjeta((Tarjeta) tarjetaDAO.getObjectById(informacion.getInt("idTarjeta")));
+            detallePago.setNumTarjeta(informacion.getInt("numTarjeta"));
+            detallePago.setCvv(informacion.getInt("cvv"));
         }
         detallePago.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));
-        detallePago.setTarjeta((Tarjeta) tarjetaDAO.getObjectById(informacion.getInt("idTarjeta")));
-        detallePago.setBanco((Banco) bancoDAO.getObjectById(informacion.getInt("idbanco")));
-        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yy");
-        Date fecha = formatoDeFecha.parse(informacion.getString("fecha"));
-        System.out.println(fecha);
-        detallePago.setFechaVencimiento(fecha);
+
         return detallePago;
     }
-    
+
     public ProductoDAO getProductoDAO() {
         return productoDAO;
     }
@@ -206,11 +208,5 @@ public class FuncionesCompra {
     public CalificacionVentaDAO getCalificacionDAO() {
         return calificacionDAO;
     }
-
-    
-
-    
-    
-    
 
 }

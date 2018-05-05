@@ -21,6 +21,11 @@ public class DetallePago {
     private Tarjeta tarjeta;
     private Banco banco;
     private Date fechaVencimiento;
+    
+    //Campos Adicionales
+    private String nombreTitular;
+    private String tipoDocumento;
+    private String numDocumento;
 
     public int getIdDetallePago() {
         return idDetallePago;
@@ -85,6 +90,34 @@ public class DetallePago {
     public void setFechaVencimiento(Date fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
+
+    public String getNombreTitular() {
+        return nombreTitular;
+    }
+
+    public void setNombreTitular(String nombreTitular) {
+        this.nombreTitular = nombreTitular;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public String getNumDocumento() {
+        return numDocumento;
+    }
+
+    public void setNumDocumento(String numDocumento) {
+        this.numDocumento = numDocumento;
+    }
+    
+    
+    
+    
     
     
     
