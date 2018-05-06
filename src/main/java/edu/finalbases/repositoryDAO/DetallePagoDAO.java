@@ -30,27 +30,33 @@ public class DetallePagoDAO extends AbstractDAO{
         DetallePago detallePago = (DetallePago) object;
         try {
 
-            String strDebito = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,NUMEROTARJETA,CVV,TIPODEPAGO,IDVENTA,IDTARJETA,FECHADEVENCIMIENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";
-            
+            String strDebito = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,NUMEROTARJETA,CVV,TIPODEPAGO,IDVENTA,IDTARJETA,FECHADEVENCIMIENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";            
             String strPSE = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,TIPODEPAGO,IDVENTA,IDBANCO,NOMBRETITULAR,TIPODOCUMENTO,NUMERODOCUMENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strDebito);
-            prepStmt.setLong(1, detallePago.getNumTarjeta());
-            if(detallePago.getCvv()==1){
-                prepStmt.setNull(2, java.sql.Types.INTEGER);
+            if(detallePago.getTipoPago().equals("PSE")){
+                prepStmt = connection.prepareStatement(strPSE);
+                prepStmt.setString(2, detallePago.getTipoPago());
+                prepStmt.setInt(3, detallePago.getVenta().getIdVenta());
+                prepStmt.setInt(4, detallePago.getBanco().getIdBanco());
+                prepStmt.setString(5, detallePago.getNombreTitular());
+                prepStmt.setString(6, detallePago.getTipoDocumento());
+                prepStmt.setString(7, detallePago.getNumDocumento());
+                
             }else{
-                prepStmt.setInt(2, detallePago.getCvv());
-            }
-            prepStmt.setString(3, detallePago.getTipoPago());
-            prepStmt.setInt(4, detallePago.getVenta().getIdVenta());
-            prepStmt.setInt(5, detallePago.getTarjeta().getIdTarjeta());
-            prepStmt.setInt(6, detallePago.getBanco().getIdBanco());
-            ZoneId dzid = ZoneId.systemDefault();
-            Date date = detallePago.getFechaVencimiento();
-            Instant ins = date.toInstant();
-            LocalDate fecha = ins.atZone(dzid).toLocalDate();
-            prepStmt.setDate(7, java.sql.Date.valueOf(fecha));
-
+                prepStmt = connection.prepareStatement(strDebito);
+                prepStmt.setInt(2, detallePago.getNumTarjeta());
+                prepStmt.setInt(3, detallePago.getCvv());
+                prepStmt.setString(4, detallePago.getTipoPago());
+                prepStmt.setInt(5, detallePago.getVenta().getIdVenta());
+                prepStmt.setInt(6, detallePago.getTarjeta().getIdTarjeta());
+                ZoneId dzid = ZoneId.systemDefault();
+                Date date = detallePago.getFechaVencimiento();
+                Instant ins = date.toInstant();
+                LocalDate fecha = ins.atZone(dzid).toLocalDate();
+                prepStmt.setDate(7, java.sql.Date.valueOf(fecha));
+            }            
+            prepStmt.setLong(1, detallePago.getNumTarjeta());
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
 
