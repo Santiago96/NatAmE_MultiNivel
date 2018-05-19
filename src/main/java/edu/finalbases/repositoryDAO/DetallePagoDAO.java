@@ -59,7 +59,7 @@ public class DetallePagoDAO extends AbstractDAO{
             prepStmt.setLong(1, detallePago.getNumTarjeta());
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
-
+            Conexion.getInstance().commit();                
             return resultado;
 
         } catch (SQLException e) {

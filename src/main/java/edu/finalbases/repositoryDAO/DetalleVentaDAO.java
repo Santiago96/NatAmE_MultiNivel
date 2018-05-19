@@ -38,7 +38,7 @@ public class DetalleVentaDAO extends AbstractDAO{
 
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
-
+            Conexion.getInstance().commit();    
             return resultado;
 
         } catch (SQLException e) {

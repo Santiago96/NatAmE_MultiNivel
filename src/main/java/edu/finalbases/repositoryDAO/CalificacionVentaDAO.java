@@ -35,7 +35,7 @@ public class CalificacionVentaDAO extends AbstractDAO{
             
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
-
+            Conexion.getInstance().commit();
             return resultado;
         } catch (SQLException e) {
             System.out.println("No pudo crear insertar la calificacion: " + e.getMessage());

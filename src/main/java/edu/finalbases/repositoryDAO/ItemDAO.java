@@ -101,12 +101,10 @@ public class ItemDAO extends AbstractDAO{
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, cantidad);
             prepStmt.setInt(2, id);
-            prepStmt.setInt(3, region);
-            
+            prepStmt.setInt(3, region);            
             resultSet = prepStmt.executeQuery();            
-
-            
             prepStmt.close();
+            Conexion.getInstance().commit();
         } catch (SQLException ex) {
             System.out.println("Error restando item: " + ex.getMessage());
             throw new FException("ItemDAO", "Error actualizando la cantidad de items," + ex.getMessage());

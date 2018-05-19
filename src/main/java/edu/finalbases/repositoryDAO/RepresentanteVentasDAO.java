@@ -48,7 +48,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
 
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
-
+            Conexion.getInstance().commit();
             return resultado;
 
         } catch (SQLException e) {
@@ -71,7 +71,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
             prepStmt.setLong(1, cliente.getIdPersona());            
             int resultado = prepStmt.executeUpdate();
             prepStmt.close();
-
+            Conexion.getInstance().commit();
             return resultado;
 
         } catch (SQLException e) {
@@ -163,6 +163,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
 
             resultado = prepStmt.executeUpdate();
             prepStmt.close();
+            Conexion.getInstance().commit();
 
         } catch (SQLException e) {
             System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
@@ -205,6 +206,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
                 resultado = prepStmt.execute();
             }
             prepStmt.close();
+            Conexion.getInstance().commit();
         } catch (SQLException ex) {
             System.out.println("Error al crear user en DB: " + ex.getMessage());
             throw new FException("RepresentanteVentasDAO", "Error creando al usuario," + ex.getMessage());

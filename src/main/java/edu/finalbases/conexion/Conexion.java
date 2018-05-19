@@ -29,6 +29,7 @@ public class Conexion {
         if (instance == null) {
             try {
                 instance = new Conexion();
+                //instance
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,6 +50,7 @@ public class Conexion {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             connetion = DriverManager.getConnection(rulbd, user, password);
+            connetion.setAutoCommit(false);
             if (connetion != null) {
                 System.out.println("Conexion exitosa a esquema " + user);
             } else {
@@ -94,6 +96,14 @@ public class Conexion {
     public void cerrarConexion() throws SQLException{
         if(connetion!=null){
             //connetion.close();
+        }
+    }
+    
+    public void commit() {
+        try {
+            connetion.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

@@ -165,6 +165,7 @@ public class ClienteDAO extends AbstractDAO {
 
             resultado = prepStmt.executeUpdate();
             prepStmt.close();
+            Conexion.getInstance().commit();
 
         } catch (SQLException e) {
             System.out.println("No pudo actualizar ultima conexion" + e.getMessage());
