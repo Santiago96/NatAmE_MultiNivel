@@ -133,6 +133,11 @@
                                     out.print("<li class=\"nav-item\">");
                                     out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/catalogo.jsp\">Catálogo</a>");
                                     out.print("</li>");
+                                    
+                                    out.print("<li class=\"nav-item\">");
+                                    out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/calificacion.jsp\">Calificar Representante</a>");
+                                    out.print("</li>");
+                                    
                                     out.print("<li class=\"nav-item\">");
                                     out.print("<a class=\"nav-link cart-item-count\" href=\"" + request.getContextPath() + "/Web/cart.jsp\" data-cesta-feira-items-count><span class=\"fa fa-shopping-cart\"></span> Shopping Cart</a>");
                                     out.print("</li>");

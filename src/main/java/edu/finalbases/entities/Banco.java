@@ -13,6 +13,7 @@ public class Banco {
     
     private int idBanco;   
     private String nombreBanco;
+    private String path;
 
     public Banco(int idBanco) {
         this.idBanco=idBanco;
@@ -36,4 +37,14 @@ public class Banco {
     public void setNombreBanco(String nombreBanco) {
         this.nombreBanco = nombreBanco;
     }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
+    
 }

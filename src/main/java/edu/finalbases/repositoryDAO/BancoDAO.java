@@ -64,6 +64,7 @@ public class BancoDAO extends AbstractDAO {
         Banco banco = new Banco();
         banco.setIdBanco(resultSet.getInt("IDBANCO"));
         banco.setNombreBanco(resultSet.getString("NOMBREBANCO"));
+        banco.setPath(resultSet.getString("PATH"));
 
         return banco;
     }

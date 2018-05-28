@@ -52,6 +52,8 @@ public class FuncionesCompra {
     private CalificacionVentaDAO calificacionDAO;
     private DetallePagoDAO detallePDAO;
     private TarjetaDAO tarjetaDAO;
+    
+    private Banco bancoSelecccionado;
 
     private FuncionesCompra() {
         productoDAO = new ProductoDAO();
@@ -157,8 +159,11 @@ public class FuncionesCompra {
         DetallePago detallePago = new DetallePago();
         
         if (informacion.getInt("idtipopago") == 1) {
+            Banco b = (Banco) bancoDAO.getObjectById(informacion.getInt("idbanco"));
+            if(b!=null)
+                this.setBancoSelecccionado(b);
             detallePago.setTipoPago("PSE");
-            detallePago.setBanco((Banco) bancoDAO.getObjectById(informacion.getInt("idbanco")));
+            detallePago.setBanco(b);
             detallePago.setNombreTitular(informacion.getString("nombre")+" "+informacion.getString("apellido"));
             detallePago.setTipoDocumento(informacion.getString("tipoDocumento"));
             detallePago.setNumDocumento(informacion.getString("numDocumento"));
@@ -208,5 +213,15 @@ public class FuncionesCompra {
     public CalificacionVentaDAO getCalificacionDAO() {
         return calificacionDAO;
     }
+
+    public Banco getBancoSelecccionado() {
+        return bancoSelecccionado;
+    }
+
+    public void setBancoSelecccionado(Banco bancoSelecccionado) {
+        this.bancoSelecccionado = bancoSelecccionado;
+    }
+    
+    
 
 }
