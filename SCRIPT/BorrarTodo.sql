@@ -9,7 +9,7 @@ drop user p1023944061 cascade;
 drop user j1018492522 cascade;
 
 
-drop tablespace DEFMULTINIVEL;
+drop tablespace DEFMULTINIVEL INCLUDING CONTENTS CASCADE CONSTRAINTS; 
 drop tablespace DEFRMUNDO;
 drop tablespace TEMRMULTINIVEL;
 
