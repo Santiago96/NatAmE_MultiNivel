@@ -174,7 +174,7 @@ public class FuncionesCompra {
             System.out.println(fecha);
             detallePago.setFechaVencimiento(fecha);
             detallePago.setTarjeta((Tarjeta) tarjetaDAO.getObjectById(informacion.getInt("idTarjeta")));
-            detallePago.setNumTarjeta(informacion.getInt("numTarjeta"));
+            detallePago.setNumTarjeta(informacion.getString("numTarjeta"));
             detallePago.setCvv(informacion.getInt("cvv"));
         }
         detallePago.setVenta(new Venta(ventaDAO.getSequenceIdVenta()));

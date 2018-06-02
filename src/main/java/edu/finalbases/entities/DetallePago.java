@@ -14,7 +14,7 @@ import java.util.Date;
 public class DetallePago {
     
     private int idDetallePago;
-    private int numTarjeta;
+    private String numTarjeta;
     private int cvv;
     private String tipoPago;
     private Venta venta;
@@ -35,11 +35,11 @@ public class DetallePago {
         this.idDetallePago = idDetallePago;
     }
 
-    public int getNumTarjeta() {
+    public String getNumTarjeta() {
         return numTarjeta;
     }
 
-    public void setNumTarjeta(int numTarjeta) {
+    public void setNumTarjeta(String numTarjeta) {
         this.numTarjeta = numTarjeta;
     }
 

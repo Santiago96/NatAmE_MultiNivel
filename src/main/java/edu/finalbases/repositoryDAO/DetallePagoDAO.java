@@ -50,7 +50,7 @@ public class DetallePagoDAO extends AbstractDAO{
             }else{
                 System.out.println("Pago por Tarjeta Credito: "+detallePago.getTipoPago());
                 prepStmt = connection.prepareStatement(strDebito);
-                prepStmt.setInt(1, detallePago.getNumTarjeta());
+                prepStmt.setString(1, detallePago.getNumTarjeta());
                 prepStmt.setInt(2, detallePago.getCvv());
                 prepStmt.setString(3, detallePago.getTipoPago());
                 prepStmt.setInt(4, detallePago.getVenta().getIdVenta());
