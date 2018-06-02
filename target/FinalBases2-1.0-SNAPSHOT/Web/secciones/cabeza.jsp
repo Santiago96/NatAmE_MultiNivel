@@ -121,10 +121,7 @@
 
                                 out.print("</li>  ");
 
-                                if (cliente != null) {
-                                    out.print("<li class=\"nav-item\">");
-                                    out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/pago.jsp\">Registrar Medio Pago</a> ");
-                                    out.print("</li>");
+                                if (cliente != null) {                                    
 
                                     out.print("<li class=\"nav-item\">");
                                     out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/comprasAsociadas.jsp\">Historico Compras </a> ");
