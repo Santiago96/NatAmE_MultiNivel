@@ -44,7 +44,14 @@
                         <td>Total</td>
                         <td class="text-right" id="total-value"><strong>$0</strong></td>
                         <td>  </td>
-                    </tr>                    
+                    </tr>    
+                    <tr>
+                        <td> </td>
+                        <td>  </td>
+                        <td>Total IVA (+19%)</td>
+                        <td class="text-right" id="total-valueIVA"><strong>$0</strong></td>
+                        <td>  </td>
+                    </tr>  
                 </tfoot>
             </table>
         </div>
@@ -198,6 +205,7 @@
     console.log(totalValue);
     });
     $('#total-value').html("$" + parseInt(totalValue));
+    $('#total-valueIVA').html("$" + parseInt(totalValue)*1.19);
     }
     function mountLayout(index, data) {
     var totalValueTemp = parseInt(data.unity_price.replace(",","")) * parseInt(data.quantity);
@@ -278,8 +286,8 @@
         var x = $("#tip1").is(":checked");
         console.log(x);
         var titular = "";
-        var tarjeta = 0;
-        var cvv = 1;
+        var tarjeta = "";
+        var cvv = "";
         var idtarjeta = 0;
         var tipoDocumento="";
         var nombre="";
@@ -345,8 +353,10 @@
             tipoDocumento: tipoDocumento,
             numDocumento: numDocumento
         };
+        console.log(enviar);
         if (Object.keys(todosP).length > 0){
             if(habilitado){
+                
                 console.log("Ir a pagar");
                 hacerCompra(enviar);
             }else{

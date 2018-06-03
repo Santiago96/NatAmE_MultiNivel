@@ -15,7 +15,7 @@ public class DetallePago {
     
     private int idDetallePago;
     private String numTarjeta;
-    private int cvv;
+    private String cvv;
     private String tipoPago;
     private Venta venta;
     private Tarjeta tarjeta;
@@ -43,11 +43,11 @@ public class DetallePago {
         this.numTarjeta = numTarjeta;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 

@@ -51,7 +51,7 @@ public class DetallePagoDAO extends AbstractDAO{
                 System.out.println("Pago por Tarjeta Credito: "+detallePago.getTipoPago());
                 prepStmt = connection.prepareStatement(strDebito);
                 prepStmt.setString(1, detallePago.getNumTarjeta());
-                prepStmt.setInt(2, detallePago.getCvv());
+                prepStmt.setString(2, detallePago.getCvv());
                 prepStmt.setString(3, detallePago.getTipoPago());
                 prepStmt.setInt(4, detallePago.getVenta().getIdVenta());
                 prepStmt.setInt(5, detallePago.getTarjeta().getIdTarjeta());
@@ -60,6 +60,7 @@ public class DetallePagoDAO extends AbstractDAO{
                 Instant ins = date.toInstant();
                 LocalDate fecha = ins.atZone(dzid).toLocalDate();
                 prepStmt.setDate(6, java.sql.Date.valueOf(fecha));
+                
             }            
             //prepStmt.setLong(1, detallePago.getNumTarjeta());
             int resultado = prepStmt.executeUpdate();
