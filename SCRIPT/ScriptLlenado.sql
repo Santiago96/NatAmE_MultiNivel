@@ -11,3 +11,5 @@ start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Llenado\REPRESE
 start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Llenado\HISTORICOTIPOREP.sql";
 start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Llenado\PRODUCTO.sql";
 start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Llenado\ITEM.sql";
+start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Llenado\VARIABLES.sql";
+start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Llenado\HISTORICOVARIABLES.sql";
