@@ -46,8 +46,9 @@ public class ProcedimientosDAO extends AbstractDAO{
         
         String respuesta="";
         try {
+            
             connection = Conexion.getInstance().getConexionBD();
-            CallableStatement st = connection.prepareCall( "{?=call FN_GENERAR_FACTURA(?,?,?)}");
+            CallableStatement st = connection.prepareCall( "{?=call MULTINIVEL.FN_GENERAR_FACTURA(?,?,?)}");
             
             st.registerOutParameter(1,Types.VARCHAR);
             st.setInt(2, idVenta);
@@ -59,7 +60,7 @@ public class ProcedimientosDAO extends AbstractDAO{
 
         } catch (SQLException e) {
             System.out.println("No pudo hacer llamado a funcion generarFactura" + e.getMessage());
-            throw new FException("ProcedimientosDAO", "Error al crear el detalle de la venta," + e.getMessage());
+            throw new FException("ProcedimientosDAO", "Error al consumir funcion generarFactura," + e.getMessage());
         }finally {
             Conexion.getInstance().cerrarConexion();
         }

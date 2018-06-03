@@ -5,15 +5,13 @@
  */
 package edu.finalbases.conexion;
 
-import edu.finalbases.entities.Ciudad;
-import edu.finalbases.entities.Pais;
-import edu.finalbases.entities.Persona;
-import edu.finalbases.entities.Region;
+
+
 import edu.finalbases.repositoryDAO.FException;
-import edu.finalbases.repositoryDAO.PersonaDAO;
+import edu.finalbases.repositoryDAO.ProcedimientosDAO;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.ws.rs.core.Response;
+
 
 /**
  *
@@ -21,20 +19,11 @@ import java.util.logging.Logger;
  */
 public class Test {
     
-    public static void main(String[] args) throws SQLException{
-        PersonaDAO pDAO = new PersonaDAO();
-        try {
-            //Persona p = new Persona(1016065926, "Julian", "David", "M".toCharArray(), new Ciudad(), new Pais(), new Region(), null);
-            Conexion.getInstance().conectar("multinivel", "finalbases");
-            //boolean r =  pDAO.crearUser(p);
-            
-            //System.out.println("Resultado create user: "+r);
-        } catch (FException ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void main(String[] args) throws SQLException, FException{
         
+        Conexion.getInstance().conectar("j1016065965", "5965");
         
-        
-    }
-    
+        ProcedimientosDAO pDAO = new ProcedimientosDAO();
+        pDAO.generarFactura(5, 1016065965, 1018485092);
+    }    
 }
