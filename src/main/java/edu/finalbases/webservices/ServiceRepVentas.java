@@ -110,9 +110,9 @@ public class ServiceRepVentas {
             'idRepVentas':        
         */
         try {
-            if (FuncionesRepVentas.getFunciones().validarDirector(informacion.getString("idRepVentas")) == 1) {
-                String respuesta = FuncionesRepVentas.getFunciones().generarReporte(informacion);
-                return Response.ok(new JSONObject(respuesta).toString()).build();
+            if (FuncionesRepVentas.getFunciones().validarDirector(informacion.getString("idRepVentas")) == 1) {                
+                //System.out.println("Respuesta: "+respuesta);
+                return Response.ok(FuncionesRepVentas.getFunciones().generarReporte(informacion).toString()).build();
             } else {
                 return Response.ok("\"error\":\"Representante de ventas no tiene acceso\"").build();
             }

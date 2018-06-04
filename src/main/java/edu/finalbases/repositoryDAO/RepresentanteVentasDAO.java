@@ -225,6 +225,27 @@ public class RepresentanteVentasDAO extends AbstractDAO{
     private String subPass(int idPersona) {
         return String.valueOf(idPersona).substring(String.valueOf(idPersona).length() - 4, String.valueOf(idPersona).length());
     }
+
+    public int isDirector(String idRepVentas) throws SQLException, FException {
+       
+        try {
+            String strSQL = "SELECT DIRECTOR FROM REPRESENTANTEVENTAS WHERE IDREPRESENTANTEVENTAS=? ";
+            connection = Conexion.getInstance().getConexionBD();
+            prepStmt = connection.prepareStatement(strSQL);
+            prepStmt.setInt(1, Integer.parseInt(idRepVentas));
+            
+            resultSet = prepStmt.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("DIRECTOR");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error seleccionando valor DIRECTOR" + ex.getMessage());
+            throw new FException("RepresentanteVentasDAO", "Error seleccionando valor DIRECTOR," + ex.getMessage());
+        } finally {
+            Conexion.getInstance().cerrarConexion();
+        }
+        return 0;
+    }
     
      
     
