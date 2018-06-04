@@ -194,4 +194,12 @@ public class FuncionesRepVentas {
         this.tipoRepDAO = tipoRepDAO;
     }
 
+    public int validarDirector(String idRepVentas) throws SQLException, FException {
+        return representanteDAO.isDirector(idRepVentas);        
+    }
+
+    public String generarReporte(JSONObject informacion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
