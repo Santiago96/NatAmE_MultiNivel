@@ -30,7 +30,7 @@ public class DetallePagoDAO extends AbstractDAO{
         DetallePago detallePago = (DetallePago) object;
         try {
 
-            String strDebito = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,NUMEROTARJETA,CVV,TIPODEPAGO,IDVENTA,IDTARJETA,FECHADEVENCIMIENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";            
+            String strCredito = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,NUMEROTARJETA,CVV,TIPODEPAGO,IDVENTA,IDTARJETA,FECHADEVENCIMIENTO,NOMBRETITULAR) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?,?)";            
             String strPSE = "INSERT INTO DETAILPAYMENT(IDDETALLEPAGO,TIPODEPAGO,IDVENTA,IDBANCO,NOMBRETITULAR,TIPODOCUMENTO,NUMERODOCUMENTO) VALUES (MULTINIVEL.SEQ_DETALLEPAGO_IDDETALLEPAGO.NEXTVAL,?,?,?,?,?,?)";
             connection = Conexion.getInstance().getConexionBD();
             
@@ -49,7 +49,7 @@ public class DetallePagoDAO extends AbstractDAO{
                 
             }else{
                 System.out.println("Pago por Tarjeta Credito: "+detallePago.getTipoPago());
-                prepStmt = connection.prepareStatement(strDebito);
+                prepStmt = connection.prepareStatement(strCredito);
                 prepStmt.setString(1, detallePago.getNumTarjeta());
                 prepStmt.setString(2, detallePago.getCvv());
                 prepStmt.setString(3, detallePago.getTipoPago());
@@ -60,6 +60,7 @@ public class DetallePagoDAO extends AbstractDAO{
                 Instant ins = date.toInstant();
                 LocalDate fecha = ins.atZone(dzid).toLocalDate();
                 prepStmt.setDate(6, java.sql.Date.valueOf(fecha));
+                prepStmt.setString(7, detallePago.getNombreTitular());
                 
             }            
             //prepStmt.setLong(1, detallePago.getNumTarjeta());

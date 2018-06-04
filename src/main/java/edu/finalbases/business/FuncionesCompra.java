@@ -20,6 +20,7 @@ import edu.finalbases.repositoryDAO.DetallePagoDAO;
 import edu.finalbases.repositoryDAO.DetalleVentaDAO;
 import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.ItemDAO;
+import edu.finalbases.repositoryDAO.ProcedimientosDAO;
 import edu.finalbases.repositoryDAO.ProductoDAO;
 import edu.finalbases.repositoryDAO.RepresentanteVentasDAO;
 import edu.finalbases.repositoryDAO.TarjetaDAO;
@@ -52,6 +53,7 @@ public class FuncionesCompra {
     private CalificacionVentaDAO calificacionDAO;
     private DetallePagoDAO detallePDAO;
     private TarjetaDAO tarjetaDAO;
+    private ProcedimientosDAO pDAO;
     
     private Banco bancoSelecccionado;
 
@@ -66,6 +68,7 @@ public class FuncionesCompra {
         calificacionDAO = new CalificacionVentaDAO();
         detallePDAO = new DetallePagoDAO();
         tarjetaDAO = new TarjetaDAO();
+        pDAO = new ProcedimientosDAO();
     }
 
     public static FuncionesCompra getFuncionesCompra() {
@@ -103,6 +106,7 @@ public class FuncionesCompra {
                             detalleVDAO.crear(detalleVenta);
                             itemDAO.restarItem(detalleVenta.getProducto().getIdProducto(), venta.getCliente().getRegion().getIdRegion(), detalleVenta.getCantidad());
                         }
+                        System.out.println("Return Facuta: "+pDAO.generarFactura(ventaDAO.getSequenceIdVenta(),venta.getCliente().getIdPersona(),venta.getRepresentante().getIdPersona()));
                     }
 
                     return 1;
@@ -173,6 +177,7 @@ public class FuncionesCompra {
             Date fecha = formatoDeFecha.parse(informacion.getString("fecha"));
             System.out.println(fecha);
             detallePago.setFechaVencimiento(fecha);
+            detallePago.setNombreTitular(informacion.getString("titular"));
             detallePago.setTarjeta((Tarjeta) tarjetaDAO.getObjectById(informacion.getInt("idTarjeta")));            
             detallePago.setNumTarjeta(informacion.getString("numTarjeta"));
             
@@ -222,6 +227,15 @@ public class FuncionesCompra {
     public void setBancoSelecccionado(Banco bancoSelecccionado) {
         this.bancoSelecccionado = bancoSelecccionado;
     }
+
+    public ProcedimientosDAO getpDAO() {
+        return pDAO;
+    }
+
+    public void setpDAO(ProcedimientosDAO pDAO) {
+        this.pDAO = pDAO;
+    }
+    
     
     
 

@@ -46,7 +46,7 @@ public class ProcedimientosDAO extends AbstractDAO{
         
         String respuesta="";
         try {
-            
+            System.out.println("Generar factura...");
             connection = Conexion.getInstance().getConexionBD();
             CallableStatement st = connection.prepareCall( "{?=call MULTINIVEL.FN_GENERAR_FACTURA(?,?,?)}");
             

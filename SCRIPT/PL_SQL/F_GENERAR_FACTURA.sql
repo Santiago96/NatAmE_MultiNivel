@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION FN_GENERAR_FACTURA 
+create or replace FUNCTION FN_GENERAR_FACTURA 
 (
   P_IDVENTA IN NUMBER 
 , P_IDCLIENTE IN NUMBER 
@@ -10,9 +10,10 @@ CREATE OR REPLACE FUNCTION FN_GENERAR_FACTURA
   cursor comprador(pp_idcliente PERSONA.IDPERSONA%TYPE) IS SELECT * FROM PERSONA WHERE idpersona = pp_idcliente;
   cursor vendedor(pp_idrepventas PERSONA.IDPERSONA%TYPE) IS SELECT * FROM PERSONA WHERE idpersona = pp_idrepventas;
   l_total VENTA.TOTAL%TYPE;
-
+  l_fecha VENTA.FECHAVENTA%TYPE;
+  l_iva HISTORICOVARIABLES.VALOR%TYPE;
 BEGIN
-  
+  SELECT FECHAVENTA INTO l_fecha FROM VENTA WHERE IDVENTA=P_IDVENTA;
   v_archivo := utl_file.fopen ('DIR_TMP', P_IDCLIENTE||'_'||P_IDVENTA||'.txt', 'w');
   utl_file.put_line (v_archivo, '');
   utl_file.put_line (v_archivo, '');
@@ -20,9 +21,9 @@ BEGIN
   utl_file.put_line (v_archivo, '            NAT_AME MULTINIVEL');
   utl_file.put_line (v_archivo, '            DIR: KRA 7 # 40-65');
   utl_file.put_line (v_archivo, '=====================================================');
-  utl_file.put_line (v_archivo, 'Factura de Venta No.' ||P_IDVENTA);
-  utl_file.put_line (v_archivo, 'Fecha: ');
-  utl_file.put_line (v_archivo, 'Hora: ');
+  utl_file.put_line (v_archivo, 'Factura de Venta No. ' ||P_IDVENTA);
+  utl_file.put_line (v_archivo, 'Fecha: '||l_fecha);
+  
   FOR cliente in comprador(P_IDCLIENTE) LOOP
     utl_file.put_line (v_archivo, 'Cliente: '||cliente.NOMBRE||' '||cliente.APELLIDO );
     utl_file.put_line (v_archivo, 'NIT/CC: '||cliente.IDPERSONA);
@@ -45,7 +46,7 @@ BEGIN
   utl_file.put_line (v_archivo, '=====================================================');
   utl_file.put_line (v_archivo, '');
   utl_file.put_line (v_archivo, 'SUBTOTAL: '||l_total);
-  utl_file.put_line (v_archivo, 'IVA: ');
+  utl_file.put_line (v_archivo, 'IVA: '||l_iva);
     
   utl_file.put_line (v_archivo, '');
   utl_file.put_line (v_archivo, '');
