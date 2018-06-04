@@ -20,13 +20,16 @@ import edu.finalbases.repositoryDAO.FException;
 import edu.finalbases.repositoryDAO.HistoricocrvDAO;
 import edu.finalbases.repositoryDAO.PaisDAO;
 import edu.finalbases.repositoryDAO.PersonaDAO;
+import edu.finalbases.repositoryDAO.ProcedimientosDAO;
 import edu.finalbases.repositoryDAO.RegionDAO;
 import edu.finalbases.repositoryDAO.RepresentanteVentasDAO;
 import edu.finalbases.repositoryDAO.TipoContactoDAO;
 import edu.finalbases.repositoryDAO.TipoRepresentanteVentasDAO;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -47,6 +50,7 @@ public class FuncionesRepVentas {
     private TipoRepresentanteVentasDAO tipoRepDAO;
     private HistoricocrvDAO historicocrvDAO;
     private Persona userSession;
+    private ProcedimientosDAO procedimientosDAO;
 
     private FuncionesRepVentas() {
         representanteDAO = new RepresentanteVentasDAO();
@@ -57,6 +61,7 @@ public class FuncionesRepVentas {
         contactoDAO = new ContactoDAO();
         tipoRepDAO = new TipoRepresentanteVentasDAO();
         historicocrvDAO = new HistoricocrvDAO();
+        procedimientosDAO = new ProcedimientosDAO();
 
     }
 
@@ -193,5 +198,35 @@ public class FuncionesRepVentas {
     public void setTipoRepDAO(TipoRepresentanteVentasDAO tipoRepDAO) {
         this.tipoRepDAO = tipoRepDAO;
     }
+
+    public int validarDirector(String idRepVentas) throws SQLException, FException {
+        return representanteDAO.isDirector(idRepVentas);        
+    }
+
+    public JSONArray generarReporte(JSONObject informacion) throws FException, SQLException {
+        String fechaInicial = informacion.getString("fechaInicial");
+        String fechaFinal = informacion.getString("fechaFinal");        
+        String respuesta = procedimientosDAO.generarReporte(fechaInicial,fechaFinal);
+        return formatInformacion(respuesta.split(";"));
+    }
+    
+    private JSONArray formatInformacion(String[] data){
+    JSONArray arreglo = new JSONArray();
+
+        for (String linea : data) {
+            String[] campos = linea.split(",");
+            JSONObject info = new JSONObject();
+
+            info.put("idrep", campos[0]);
+            info.put("totalplata", campos[1]);
+            info.put("totalventas", campos[2]);
+            arreglo.put(info);
+
+        }
+        System.out.println("Arreglo: \n"+arreglo.toString());
+        return arreglo;
+    }
+    
+    
 
 }
