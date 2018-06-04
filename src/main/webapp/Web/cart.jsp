@@ -1,3 +1,4 @@
+<%@page import="edu.finalbases.repositoryDAO.RepresentanteVentasDAO"%>
 <%@page import="edu.finalbases.entities.Tarjeta"%>
 <%@page import="edu.finalbases.repositoryDAO.TarjetaDAO"%>
 <%@page import="edu.finalbases.entities.Cliente"%>
@@ -18,10 +19,7 @@
     TarjetaDAO tarjetaDAO = new TarjetaDAO();
     List<Tarjeta> tarjetas = tarjetaDAO.getTarjetas();
     Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
-%>
-
-<%
-    Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
+    
     Persona pRV=null;
 
     if (cliente != null) {       
@@ -29,6 +27,8 @@
         pRV = (Persona) rDAO.getObjectById(cliente.getRepresentante().getIdPersona());        
     }
 %>
+
+
 
 <!-- Page Content -->
 <div class="container">
@@ -394,6 +394,7 @@
                 
                 console.log("Ir a pagar");
                 hacerCompra(enviar);
+                
             }else{
                 alert("Debe ingresar todos los campos para el pago");
             }
@@ -415,6 +416,7 @@
                 console.log(response);
                 if (response.message == "exito") {
                     modalMensaje("Exito", "Compra Realizada con Exito");
+                    lanzarCalificacionModal();
                 } else {
                     modalMensaje("Error", response.message);
                 }
@@ -424,6 +426,7 @@
                 console.log(textStatus);
                 if (textStatus.responseText == "exito") {
                     modalMensaje("Exito", "Compra Realizada con Exito");
+                    lanzarCalificacionModal();
                 } else {
                     modalMensaje("Error", textStatus);
                 }
