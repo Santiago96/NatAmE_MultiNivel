@@ -1,0 +1,121 @@
+CREATE OR REPLACE
+PACKAGE BODY PK_PROCEDIMIENTOS AS
+
+  FUNCTION FN_GENERAR_FACTURA 
+(
+  P_IDVENTA IN VENTA.IDVENTA%TYPE 
+, P_IDCLIENTE IN PERSONA.IDPERSONA%TYPE 
+, P_IDREPVENTAS IN PERSONA.IDPERSONA%TYPE
+) RETURN VARCHAR2 AS
+  
+  v_archivo utl_file.file_type;  
+  cursor factura(pp_idventa VENTA.IDVENTA%TYPE) IS SELECT * FROM FACTURA WHERE idventa=pp_idventa;
+  cursor comprador(pp_idcliente PERSONA.IDPERSONA%TYPE) IS SELECT * FROM PERSONA WHERE idpersona = pp_idcliente;
+  cursor vendedor(pp_idrepventas PERSONA.IDPERSONA%TYPE) IS SELECT * FROM PERSONA WHERE idpersona = pp_idrepventas;
+  l_total VENTA.TOTAL%TYPE;
+  l_fecha VENTA.FECHAVENTA%TYPE;
+  l_iva HISTORICOVARIABLES.VALOR%TYPE;
+  
+  t_total number;
+BEGIN
+  SELECT FECHAVENTA INTO l_fecha FROM VENTA WHERE IDVENTA=P_IDVENTA;  
+  SELECT var.valor INTO l_iva FROM (SELECT h.valor ,MAX(h.FECHA) FROM HISTORICOVARIABLES h, VENTA v, VARIABLES var WHERE v.IDVENTA = P_IDVENTA AND h.FECHA<v.FECHAVENTA AND var.NOMBREVARIABLE = 'IVA' AND var.IDVARIABLE = h.IDVARIABLE GROUP BY h.IDHISTVAR,h.valor ) var;
+
+  v_archivo := utl_file.fopen ('DIR_TMP', P_IDCLIENTE||'_'||P_IDVENTA||'.txt', 'w');
+  utl_file.put_line (v_archivo, '');
+  utl_file.put_line (v_archivo, '');
+  utl_file.put_line (v_archivo, '=====================================================');
+  utl_file.put_line (v_archivo, '            NAT_AME MULTINIVEL');
+  utl_file.put_line (v_archivo, '            DIR: KRA 7 # 40-65');
+  utl_file.put_line (v_archivo, '=====================================================');
+  utl_file.put_line (v_archivo, 'Factura de Venta No. ' ||P_IDVENTA);
+  utl_file.put_line (v_archivo, 'Fecha: '||l_fecha);
+  
+  FOR cliente in comprador(P_IDCLIENTE) LOOP
+    utl_file.put_line (v_archivo, 'Cliente: '||cliente.NOMBRE||' '||cliente.APELLIDO );
+    utl_file.put_line (v_archivo, 'NIT/CC: '||cliente.IDPERSONA);
+  END LOOP;
+  
+  FOR v in vendedor(P_IDREPVENTAS) LOOP
+    utl_file.put_line (v_archivo, 'Vendedor: '||v.NOMBRE||' '||v.APELLIDO);
+    utl_file.put_line (v_archivo, '');
+  END LOOP;
+  
+  utl_file.put_line (v_archivo, 'PRODUCTO                              CANT      V.UNIDAD               TOTAL ');
+  
+  FOR l_factura in factura(P_IDVENTA) LOOP
+    l_total := l_factura.TOTAL;    
+    utl_file.put_line (v_archivo, l_factura.NOMBREPRODUCTO||'                              '||l_factura.CANTIDAD||'      '||l_factura.PRECIOVENTA||'               '||l_factura.PRECIOTOTAL);
+  END LOOP;
+  
+  
+  utl_file.put_line (v_archivo, '');
+  utl_file.put_line (v_archivo, '=====================================================');
+  utl_file.put_line (v_archivo, '');
+  utl_file.put_line (v_archivo, 'SUBTOTAL: '||l_total);
+  utl_file.put_line (v_archivo, 'IVA: '||l_iva*100|| '%');
+    
+  utl_file.put_line (v_archivo, '');
+  utl_file.put_line (v_archivo, '');
+  t_total := (l_total*l_iva)+l_total;
+  utl_file.put_line (v_archivo, 'TOTAL A PAGAR: '||t_total);
+  
+
+  utl_file.fclose(v_archivo); 
+  
+  return 'Factura generada';
+
+END FN_GENERAR_FACTURA;
+
+
+PROCEDURE FN_GENERAR_REPORTES 
+(
+  P_FECHAINICIAL IN DATE
+, P_FECHAFINAL IN DATE
+, R_RETORNO OUT VARCHAR
+) IS
+   BEGIN
+    --SELECT IDREPRESENTANTEVENTAS IDREP,COUNT(IDVENTA) VENTAS,TOTAL FROM REPORTEVENTA WHERE REPORTEVENTA.FECHA >= P_FECHAINICIAL AND REPORTEVENTA.FECHA <= P_FECHAFINAL GROUP BY IDREPRESENTANTEVENTAS;
+    --SELECT * FROM REPORTEVENTA WHERE REPORTEVENTA.FECHA >= P_FECHAINICIAL AND REPORTEVENTA.FECHA <= P_FECHAFINAL GROUP BY IDREPRESENTANTEVENTAS;
+     
+    FOR l_reporte IN (SELECT IDREPRESENTANTEVENTAS,SUM(TOTAL) TOTAL,IDCLIENTE FROM REPORTEVENTA WHERE REPORTEVENTA.FECHA >= P_FECHAINICIAL AND REPORTEVENTA.FECHA <= P_FECHAFINAL GROUP BY IDREPRESENTANTEVENTAS,IDCLIENTE) LOOP
+        R_RETORNO := R_RETORNO ||chr(10)||l_reporte.IDREPRESENTANTEVENTAS||','||l_reporte.TOTAL||','||l_reporte.IDCLIENTE||';';
+    END LOOP;
+    
+END FN_GENERAR_REPORTES;
+
+FUNCTION FU_CALIFICAR_RV (P_IDREPVENTAS IN NUMBER) 
+RETURN NUMBER 
+AS 
+P_CONTADOR NUMBER := 0;
+P_CALIFICACION NUMBER := 0;
+CURSOR C_CALIFICACIONES IS SELECT CALIFICACION 
+                                FROM HISTORICOCRV HCRV, 
+                                REPRESENTANTEVENTAS RV, 
+                                CLIENTE C,
+                                VENTA V,
+                                CALIFICACIONVENTA CV
+                           WHERE RV.IDREPRESENTANTEVENTAS=P_IDREPVENTAS AND
+                                 HCRV.IDREPRESENTANTEVENTAS=RV.IDREPRESENTANTEVENTAS AND
+                                 HCRV.IDCLIENTE=C.IDCLIENTE AND
+                                 C.IDCLIENTE=V.IDCLIENTE AND
+                                 V.IDVENTA=CV.IDVENTA AND
+                                 (V.FECHAVENTA BETWEEN HCRV.FECHAINICIO AND NVL(HCRV.FECHAFIN,SYSDATE)) AND
+                                 (EXTRACT(MONTH FROM SYSDATE)-1)=EXTRACT(MONTH FROM V.FECHAVENTA);
+BEGIN
+    FOR RC_CALIFICACIONES IN C_CALIFICACIONES LOOP
+        /*DBMS_OUTPUT.PUT_LINE(RC_CALIFICACIONES.CALIFICACION);*/
+        P_CALIFICACION := P_CALIFICACION + RC_CALIFICACIONES.CALIFICACION;
+        P_CONTADOR := P_CONTADOR + 1;
+    END LOOP;
+    IF P_CONTADOR=0 THEN
+        RETURN 0;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(P_CALIFICACION||' '||P_CONTADOR||' '||P_CALIFICACION/P_CONTADOR);
+        RETURN P_CALIFICACION/P_CONTADOR;
+    END IF;
+END FU_CALIFICAR_RV;
+
+END PK_PROCEDIMIENTOS;
+
+

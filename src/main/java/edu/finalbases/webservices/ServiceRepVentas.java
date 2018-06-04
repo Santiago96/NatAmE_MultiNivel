@@ -98,5 +98,29 @@ public class ServiceRepVentas {
             return Response.ok(ex).build();
         }
     }
+    
+    @POST
+    @Path("reporte")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response reporte(String data) throws SQLException {
+        JSONObject informacion = new JSONObject(data);
+        
+        /*
+            'fechaInicial': 'dd/mm/yy',
+            'fechaFinal': 'dd/mm/yy',
+            'idRepVentas':
+            
+        
+        */
+        try {
+            if (FuncionesRepVentas.getFunciones().insertarCliente(informacion) == 1) {
+                return Response.ok("exito").build();
+            } else {
+                return Response.ok("error").build();
+            }
+        } catch (FException ex) {
+            return Response.ok(ex).build();
+        }
+    }
 
 }
