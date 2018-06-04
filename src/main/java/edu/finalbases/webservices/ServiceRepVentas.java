@@ -104,19 +104,17 @@ public class ServiceRepVentas {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response reporte(String data) throws SQLException {
         JSONObject informacion = new JSONObject(data);
-        
         /*
             'fechaInicial': 'dd/mm/yy',
             'fechaFinal': 'dd/mm/yy',
-            'idRepVentas':
-            
-        
+            'idRepVentas':        
         */
         try {
-            if (FuncionesRepVentas.getFunciones().insertarCliente(informacion) == 1) {
-                return Response.ok("exito").build();
+            if (FuncionesRepVentas.getFunciones().validarDirector(informacion.getString("idRepVentas")) == 1) {
+                String respuesta = FuncionesRepVentas.getFunciones().generarReporte(informacion);
+                return Response.ok(new JSONObject(respuesta).toString()).build();
             } else {
-                return Response.ok("error").build();
+                return Response.ok("\"error\":\"Representante de ventas no tiene acceso\"").build();
             }
         } catch (FException ex) {
             return Response.ok(ex).build();
