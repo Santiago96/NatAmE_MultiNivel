@@ -20,6 +20,16 @@
     Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
 %>
 
+<%
+    Cliente cliente = (Cliente) FuncionesCliente.getFuncionesCliente().getSessionCliente();
+    Persona pRV=null;
+
+    if (cliente != null) {       
+        RepresentanteVentasDAO rDAO = new RepresentanteVentasDAO();
+        pRV = (Persona) rDAO.getObjectById(cliente.getRepresentante().getIdPersona());        
+    }
+%>
+
 <!-- Page Content -->
 <div class="container">
 
@@ -176,6 +186,31 @@
     <input type="radio" id="tip2" name="tipoPago" aria-label="Radio button for following text input"><label for="tipo2">Tarjeta de Debito</label>
 </div>
 <!-- /.container -->
+
+<div class="modal fade" id="calificacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="calificacionTitle">Calificación Venta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="calificacionBody" class="modal-body">
+                <label for="rateYo">Selecciona la calificación</label>
+                <div id="rateYo"></div>  
+
+                <div class="form-group">
+                    <label for="comentario">Comentario: </label>
+                    <textarea class="form-control" style="resize:none" rows="5" id="comentario" maxlength="250"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="enviarCalificacion();" data-dismiss="modal">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="application/javascript">
     <%      ArticuloDAO articuloDAO = new ArticuloDAO();
@@ -395,6 +430,54 @@
             }
         });
     }
+    
+    
+    function lanzarCalificacionModal() {
+        $("#calificacionModal").modal("show");
+    }
+
+    function enviarCalificacion() {
+        $("#calificacionModal").modal("hide");
+        var comentario = $("#comentario").val();
+        var normalFill = $("#rateYo").rateYo("option", "rating"); //returns true
+        console.log("Enviando Calificacion: " + comentario + " calificacion: " + normalFill);
+
+        var data = {
+            comentario: comentario,
+            calificacion: normalFill
+        };
+        console.log(data);
+        //Seccion ajax
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/api/compra/calificacion',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (textStatus) {
+                console.log(textStatus);
+            }
+        });
+
+
+        //Limpiar valores
+        $("#comentario").val("");
+    }
+    $("#rateYo").rateYo({
+        rating: 3,
+        fullStar: true
+    });
+
+    // Getter
+
+
+// Setter
+    $("#rateYo").rateYo("option", "fullStar", true); //returns a jQuery Element
 </script>
 
 
