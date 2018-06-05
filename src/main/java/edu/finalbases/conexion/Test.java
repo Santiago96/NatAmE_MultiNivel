@@ -23,7 +23,7 @@ public class Test {
         Conexion.getInstance().conectar("s1018485092", "finalbases");
 
         ProcedimientosDAO pDAO = new ProcedimientosDAO();
-        String[] respuesta = pDAO.generarReporte("31/05/18", "4/06/18").split(";");
+        String[] respuesta = pDAO.generarReporte("31/05/2018", "04/06/2018").split(";");
 
         JSONArray arreglo = new JSONArray();
 

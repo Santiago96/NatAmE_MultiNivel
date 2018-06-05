@@ -50,7 +50,7 @@
     <div class="col-sm">
         <br>
         
-      <input class="btn btn-success" style="margin-top:8px;" type="submit" onclick="mostrarReporte();"  value = "Consultar" />
+      <input class="btn btn-success" style="margin-top:8px;" type="submit" onclick="consultarReporte('31/05/18', '4/06/18','1018485092');"  value = "Consultar" />
     </div>
   </div>
 </div>
