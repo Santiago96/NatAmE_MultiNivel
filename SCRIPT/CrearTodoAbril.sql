@@ -13,3 +13,11 @@ conn multinivel/finalbases;
 
 start "C:\Users\cathe\Desktop\Abril\BD II\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.hed.hed";
 start "C:\Users\cathe\Desktop\Abril\BD II\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.bod";
+
+create or replace directory dir_temp as 'C:\temp';
+	
+conn system/rexilo;
+start "C:\Users\cathe\Desktop\Abril\BD II\NatAmE_MultiNivel\SCRIPT\Seguridad\Admin.sql";
+conn f1005855668/finalbases;
+start "C:\Users\cathe\Desktop\Abril\BD II\NatAmE_MultiNivel\SCRIPT\Seguridad\Schemas.sql";
+start "C:\Users\cathe\Desktop\Abril\BD II\NatAmE_MultiNivel\SCRIPT\Seguridad\Roles.sql";
