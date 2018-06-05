@@ -78,7 +78,7 @@
         console.log("Ver historico");
     }
 
-    actual(4);
+    actual(3);
 </script>
 
 <jsp:include page="secciones/pies.jsp" />

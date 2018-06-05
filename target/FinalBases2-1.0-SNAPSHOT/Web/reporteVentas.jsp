@@ -80,7 +80,7 @@
 <br><br>
 
 <script>
-    actual(4);
+    actual(5);
     
     //mostrarReporte = function(){
         var objeto = new Object();

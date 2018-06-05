@@ -58,7 +58,7 @@
             }
 
             .card {
-                height: 100%;
+                height: 85%;
             }
 
             .cart-item-count {
@@ -145,8 +145,13 @@
                                     out.print("<li class=\"nav-item\">");
                                     out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/cliente.jsp\">Crear Cliente </a> ");
                                     out.print("</li>");
+                                    
                                     out.print("<li class=\"nav-item\">");
                                     out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/ventasAsociadas.jsp\">Ventas Asociadas </a> ");
+                                    out.print("</li>");
+                                    
+                                    out.print("<li class=\"nav-item\">");
+                                    out.print("    <a class=\"nav-link\" href=\"" + request.getContextPath() + "/Web/reporteVentas.jsp\">Reporte Ventas </a> ");
                                     out.print("</li>");
                                 }
 

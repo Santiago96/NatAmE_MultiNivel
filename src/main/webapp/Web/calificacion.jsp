@@ -109,7 +109,7 @@
 
 // Setter
     $("#rateYo").rateYo("option", "fullStar", true); //returns a jQuery Element
-    actual(1);
+    actual(5);
 </script>
 
 
