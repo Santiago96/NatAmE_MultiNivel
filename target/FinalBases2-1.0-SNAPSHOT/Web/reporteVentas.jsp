@@ -50,7 +50,7 @@
     <div class="col-sm">
         <br>
         
-      <input class="btn btn-success" style="margin-top:8px;" type="submit" onclick="consultarReporte('31/05/18', '4/06/18','1018485092');"  value = "Consultar" />
+      <input class="btn btn-success" style="margin-top:8px;" type="submit" onclick="consultarReporte();"  value = "Consultar" />
     </div>
   </div>
 </div>
@@ -82,17 +82,8 @@
 <script>
     actual(5);
     
-    //mostrarReporte = function(){
-        var objeto = new Object();
-        objeto.idrep = "1018485092";
-        objeto.totalventas = "4";
-        objeto.totalplata = "397900";
-        
-        var json = new Object();
-        json[1] = objeto;
-        json[2] = objeto;
-        json[3] = objeto;
-        
+    mostrarReporte = function(json){
+        console.log(json);
         var html;
         Object.keys(json).map(function(objectKey, index) {
             var value = json[objectKey];
@@ -109,14 +100,20 @@
             html = "";
         });
         
-    //};
+    };
     
-    consultarReporte = function(inicial,final,idrep){
+    consultarReporte = function(){
+        var inicio = $('#finicio').val().split("/");
+        var fin = $('#ffin').val().split("/");
+        var iniciof = inicio[1] + "/" + inicio[0] + "/" + inicio[2];
+        var finf = fin[1] + "/" + fin[0] + "/" + fin[2];
+        
         var datos = {
-            fechaInicial:inicial,
-            fechaFinal:final,
-            idRepVentas:idrep
+            fechaInicial:iniciof,
+            fechaFinal:finf,
+            idRepVentas:'1018485092'
         };
+        
         
         $.ajax({
             type: 'POST',
@@ -128,19 +125,17 @@
             data: JSON.stringify(datos),
             success: function (response) {
                 console.log("success ");
-                console.log(response);
-                if(response.message == "exito"){
-                    modalMensaje("Exito", responde.message);
-                }else{
+                if(response.message){
                     modalMensaje("Error", response.message);
                 }
+                mostrarReporte(response);
             },
             error: function (response) {
                 console.log(response);
                 if(response.responseText == "exito"){
-                    modalMensaje("Exito", "El cliente fue creado Exitosamente");
+                    modalMensaje("Exito", "Consulta exitosamente");
                 }else{
-                    modalMensaje("Error", "Error creando al cliente");
+                    modalMensaje("Error", "Error consultando reporte");
                 }
             }
         });
