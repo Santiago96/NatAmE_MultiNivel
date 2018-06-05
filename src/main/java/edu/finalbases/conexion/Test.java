@@ -20,7 +20,7 @@ public class Test {
 
     public static void main(String[] args) throws SQLException, FException, ParseException {
 
-        Conexion.getInstance().conectar("j1016065965", "5965");
+        Conexion.getInstance().conectar("s1018485092", "finalbases");
 
         ProcedimientosDAO pDAO = new ProcedimientosDAO();
         String[] respuesta = pDAO.generarReporte("31/05/18", "4/06/18").split(";");

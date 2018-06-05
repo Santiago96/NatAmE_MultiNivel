@@ -79,11 +79,12 @@ public class ProcedimientosDAO extends AbstractDAO{
             CallableStatement st = connection.prepareCall( "{call MULTINIVEL.PK_PROCEDIMIENTOS.FN_GENERAR_REPORTES(?,?,?)}");
             
             st.setString(1, fechaInicial);
-            st.setString(2, fechaInicial);
+            st.setString(2, fechaFinal);
             st.registerOutParameter(3, Types.VARCHAR);            
             st.execute();
             respuesta = st.getString(3);
-
+            
+            
         } catch (SQLException e) {
             System.out.println("No pudo hacer llamado a funcion generarReporte" + e.getMessage());
             throw new FException("ProcedimientosDAO", "Error al consumir funcion generarReporte," + e.getMessage());

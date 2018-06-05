@@ -13,7 +13,8 @@ conn multinivel/finalbases;
 
 start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.hed.hed";
 start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.bod";
-
+create or replace directory DIR_TMP as 'C:\temp';
+	
 conn system/123456
 start "C:\Users\jsbon\Dropbox\Proyectos\NatAmE_MultiNivel\SCRIPT\Seguridad\Admin.sql";
 conn f1005855668/finalbases

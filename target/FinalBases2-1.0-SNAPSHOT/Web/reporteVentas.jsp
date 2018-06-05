@@ -50,7 +50,7 @@
     <div class="col-sm">
         <br>
         
-      <input class="btn btn-success" type="submit" onclick="" value = "Consultar" />
+      <input class="btn btn-success" style="margin-top:8px;" type="submit" onclick="mostrarReporte();"  value = "Consultar" />
     </div>
   </div>
 </div>
@@ -70,25 +70,8 @@
       <th scope="col">Valor Vendido Total</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+  <tbody id="tablaCuerpo">
+    
   </tbody>
 </table>
 
@@ -98,40 +81,70 @@
 
 <script>
     actual(4);
-    mostrarReporte = function(json){
-        
-        
-    };
-    consultarReporte = function(inicial,final,idrep){
     
-                    $.ajax({
-                        type: 'GET',
-                        url: '${pageContext.request.contextPath}/api/compra/articulo/' + id,
-                        dataType: "json",
-                        success: function (response) {
-                            console.log(response);
-                            document.getElementById("detalleModalTitle").innerHTML = response['nombreProducto'];
-                            document.getElementById("detalleModalBody").innerHTML = response['descripcion'];
-                            var imagenes = response['path'].split(";"); 
-                            
-                            
-                            for(i=0;i<imagenes.length;i++){
-                                imagenes[i] = "<img class=\"detimagen img-thumbnail \" src=\"" + imagenes[i] + "\">";                                
-                            }
-                            
-                            var compiladas = "";
-                            for(i=0;i<imagenes.length;i++){
-                                compiladas = compiladas + imagenes[i];
-                            }
-                            console.log(compiladas);
-                            document.getElementById("imagenModalBody").innerHTML = compiladas;
-                            
-                        },
-                        error: function (textStatus) {
-                            console.log(textStatus);                            
+    //mostrarReporte = function(){
+        var objeto = new Object();
+        objeto.idrep = "1018485092";
+        objeto.totalventas = "4";
+        objeto.totalplata = "397900";
+        
+        var json = new Object();
+        json[1] = objeto;
+        json[2] = objeto;
+        json[3] = objeto;
+        
+        var html;
+        Object.keys(json).map(function(objectKey, index) {
+            var value = json[objectKey];
+            html = "<tr>";
+            html = html + "<th scope=\"row\">";
+            html = html + (index+1);
+            html = html + "</th>"
+            html = html + "<td>" + value.idrep + "</td>";
+            html = html + "<td>" + value.totalventas + "</td>";
+            html = html + "<td>" + value.totalplata + "</td>";
+            html = html + "</tr>";
+            document.getElementById("tablaCuerpo").innerHTML = document.getElementById("tablaCuerpo").innerHTML + html;
+            
+            html = "";
+        });
+        
+    //};
+    
+    consultarReporte = function(inicial,final,idrep){
+        var datos = {
+            fechaInicial:inicial,
+            fechaFinal:final,
+            idRepVentas:idrep
+        };
+        
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/api/repVentas/reporte',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(datos),
+            success: function (response) {
+                console.log("success ");
+                console.log(response);
+                if(response.message == "exito"){
+                    modalMensaje("Exito", responde.message);
+                }else{
+                    modalMensaje("Error", response.message);
+                }
+            },
+            error: function (response) {
+                console.log(response);
+                if(response.responseText == "exito"){
+                    modalMensaje("Exito", "El cliente fue creado Exitosamente");
+                }else{
+                    modalMensaje("Error", "Error creando al cliente");
+                }
+            }
+        });
 
-                        }
-                    });
     
 };
     

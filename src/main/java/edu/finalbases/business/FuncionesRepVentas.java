@@ -205,7 +205,11 @@ public class FuncionesRepVentas {
 
     public JSONArray generarReporte(JSONObject informacion) throws FException, SQLException {
         String fechaInicial = informacion.getString("fechaInicial");
-        String fechaFinal = informacion.getString("fechaFinal");        
+        String fechaFinal = informacion.getString("fechaFinal"); 
+        
+        System.out.println(fechaInicial);
+        System.out.println(fechaFinal);
+        
         String respuesta = procedimientosDAO.generarReporte(fechaInicial,fechaFinal);
         return formatInformacion(respuesta.split(";"));
     }

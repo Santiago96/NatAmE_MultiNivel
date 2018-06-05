@@ -13,7 +13,7 @@ conn multinivel/finalbases;
 
 start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.hed.hed";
 start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.bod";
-create or replace directory dir_temp as 'C:\temp';
+create or replace directory DIR_TMP as 'C:\temp';
 	
 conn system/HESOYAMYASNAEB
 start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Admin.sql";

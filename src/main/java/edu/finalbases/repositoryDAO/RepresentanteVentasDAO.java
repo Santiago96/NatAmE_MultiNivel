@@ -229,7 +229,7 @@ public class RepresentanteVentasDAO extends AbstractDAO{
     public int isDirector(String idRepVentas) throws SQLException, FException {
        
         try {
-            String strSQL = "SELECT DIRECTOR FROM REPRESENTANTEVENTAS WHERE IDREPRESENTANTEVENTAS=? ";
+            String strSQL = "SELECT DIRECTOR FROM AGENTSALES WHERE IDREPRESENTANTEVENTAS=? ";
             connection = Conexion.getInstance().getConexionBD();
             prepStmt = connection.prepareStatement(strSQL);
             prepStmt.setInt(1, Integer.parseInt(idRepVentas));

@@ -103,7 +103,9 @@ public class ServiceRepVentas {
     @Path("reporte")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response reporte(String data) throws SQLException {
+        System.out.println(data);
         JSONObject informacion = new JSONObject(data);
+        System.out.println(informacion);
         /*
             'fechaInicial': 'dd/mm/yy',
             'fechaFinal': 'dd/mm/yy',
