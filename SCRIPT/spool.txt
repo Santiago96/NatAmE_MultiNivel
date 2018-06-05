@@ -1,4 +1,4 @@
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Tablespace.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Tablespace.sql";
 
 Tablespace created.
 
@@ -8,7 +8,7 @@ Tablespace created.
 
 Tablespace created.
 
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Multinivel.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Multinivel.sql";
 
 User created.
 
@@ -23,7 +23,19 @@ Grant succeeded.
 
 SQL> conn multinivel/finalbases
 Connected.
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\ScriptModeloBD.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\ScriptModeloBD.sql";
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
 
 Table created.
 
@@ -136,7 +148,13 @@ Sequence created.
 Sequence created.
 
 
-Table altered.
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
 
 
 Table altered.
@@ -300,8 +318,98 @@ Table altered.
 
 Table altered.
 
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\ScriptLlenado.sql";
 
+Table altered.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table altered.
+
+
+Table altered.
+
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\ScriptLlenadoSantiago.sql";
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
 1 row created.
 
 
@@ -2008,11 +2116,17 @@ SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNi
 
 1 row created.
 
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Vistas.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Vistas.sql";
 
 View created.
 
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Sinonimos.sql";
+
+View created.
+
+
+View created.
+
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Sinonimos.sql";
 
 Synonym created.
 
@@ -2076,11 +2190,87 @@ Synonym created.
 
 Synonym created.
 
+
+Synonym created.
+
+
+Synonym created.
+
+
+Synonym created.
+
+SQL> create or replace directory DIR_TMP as 'C:\temp';
+
+Directory created.
+
+SQL> 
+SQL> 
+SQL> conn / as sysdba;
+Connected.
+SQL> GRANT EXECUTE ON SYS.utl_file TO multinivel;
+
+Grant succeeded.
+
+SQL> GRANT EXECUTE ON SYS.utl_file TO r_cliente;
+GRANT EXECUTE ON SYS.utl_file TO r_cliente
+                                 *
+ERROR at line 1:
+ORA-01917: user or role 'R_CLIENTE' does not exist 
+
+
+SQL> GRANT EXECUTE ON SYS.utl_file TO r_representanteventas;
+GRANT EXECUTE ON SYS.utl_file TO r_representanteventas
+                                 *
+ERROR at line 1:
+ORA-01917: user or role 'R_REPRESENTANTEVENTAS' does not exist 
+
+
+SQL> 
+SQL> GRANT read, write on directory DIR_TMP to r_cliente;
+GRANT read, write on directory DIR_TMP to r_cliente
+                                          *
+ERROR at line 1:
+ORA-01917: user or role 'R_CLIENTE' does not exist 
+
+
+SQL> GRANT read, write on directory DIR_TMP to r_representanteventas;
+GRANT read, write on directory DIR_TMP to r_representanteventas
+                                          *
+ERROR at line 1:
+ORA-01917: user or role 'R_REPRESENTANTEVENTAS' does not exist 
+
+
+SQL> 
+SQL> conn multinivel/finalbases;
+Connected.
+SQL> 
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.hed.hed";
+
+Package created.
+
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\PL_SQL\Package\pk_procedimientos.bod";
+
+Package body created.
+
+SQL> 
+SQL> 
 SQL> conn system/HESOYAMYASNAEB
 Connected.
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Admin.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Admin.sql";
 
 User created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
 
 
 Grant succeeded.
@@ -2210,7 +2400,7 @@ Grant succeeded.
 
 SQL> conn f1005855668/finalbases
 Connected.
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Schemas.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Schemas.sql";
 
 User created.
 
@@ -2226,7 +2416,7 @@ User created.
 
 User created.
 
-SQL> start "C:\Users\Santiago\Documents\NetBeansProjects\AuxBases\NatAmE_MultiNivel\SCRIPT\Seguridad\Roles.sql";
+SQL> start "C:\Users\Santiago\Documents\GitHub\NatAmE_MultiNivel\SCRIPT\Seguridad\Roles.sql";
 
 Role created.
 
@@ -2324,6 +2514,15 @@ Grant succeeded.
 Grant succeeded.
 
 
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
 Role created.
 
 
@@ -2407,7 +2606,7 @@ Grant succeeded.
 
 Grant succeeded.
 
-SQL> 
-SQL> 
-SQL> 
+
+Grant succeeded.
+
 SQL> spool off;
